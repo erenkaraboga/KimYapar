@@ -18,61 +18,75 @@ class _ChefsContainerState extends State<ChefsContainer> {
         body: Center(
       child: Stack(
         alignment: Alignment.topCenter,
-        children: <Widget>[
+        children: const <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 60),
-            child: SizedBox(
-              height: 250,
-              width: 250,
-              child: Card(
-                elevation: 20,
-                shape: const CircleBorder(),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 35,
-                      top: 75,
-                      child: SizedBox(
-                        width: 180,
-                        child: CreateText(
-                            text: "Eren KARABOĞA", style: TextStyles.nameStyle),
-                      ),
-                    ),
-                    Positioned(
-                      left: 57,
-                      top: 110,
-                      child: SizedBox(
-                        width: 180,
-                        child: CreateTextWithIcon(
-                            icon: const Icon(Icons.directions_run),
-                            style: TextStyles.distanceStyle,
-                            text: "10m İlerinizde"),
-                      ),
-                    ),
-                    Positioned(
-                        left: 95,
-                        bottom: 55,
-                        child: CreateText(
-                          style: TextStyles.rateStyle,
-                          text: 4.9.toString(),
-                        )),
-                    Positioned(
-                      left: 75,
-                      bottom: 30,
-                      child: StarWidget(
-                        total: 5,
-                        activated: 4,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+            padding: EdgeInsets.only(top: 60),
+            child: DescriptionWidget(),
           ),
-          const AvatarWidget(),
+          AvatarWidget(),
         ],
       ),
     ));
+  }
+}
+
+class DescriptionWidget extends StatelessWidget {
+  const DescriptionWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 250,
+      width: 250,
+      child: Card(
+        elevation: 20,
+        shape: const CircleBorder(),
+        child: Stack(
+          children: [
+            Positioned(
+              left: 35,
+              top: 75,
+              child: SizedBox(
+                width: 180,
+                child: CreateText(
+                    text: "Eren KARABOĞA", style: TextStyles.nameStyle),
+              ),
+            ),
+            Positioned(
+              left: 57,
+              top: 110,
+              child: SizedBox(
+                width: 180,
+                child: CreateTextWithIcon(
+                    icon: const Icon(Icons.directions_run),
+                    style: TextStyles.distanceStyle,
+                    text: "10m İlerinizde"),
+              ),
+            ),
+            Positioned(
+                left: 95,
+                bottom: 55,
+                child: CreateText(
+                  style: TextStyles.rateStyle,
+                  text: 4.9.toString(),
+                )),
+            const Positioned(
+              left: 75,
+              bottom: 30,
+              width: 180,
+              child: SizedBox(
+                child: StarWidget(
+                  total: 4,
+                  activated: 3,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -80,7 +94,7 @@ class StarWidget extends StatelessWidget {
   final int total;
   final int activated;
 
-  const StarWidget({Key? key, this.total = 5, required this.activated})
+  const StarWidget({Key? key, this.total = 4, required this.activated})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -130,17 +144,23 @@ class CreateText extends StatelessWidget {
   }
 }
 
-class AvatarWidget extends StatelessWidget {
+class AvatarWidget extends StatefulWidget {
   const AvatarWidget({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<AvatarWidget> createState() => _AvatarWidgetState();
+}
+
+class _AvatarWidgetState extends State<AvatarWidget> {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
       height: 130,
       width: 130,
       child: Card(
+        child: CircleAvatar(backgroundImage: Asset.Image),
         elevation: 5,
         shape: CircleBorder(),
         color: Colors.red,
