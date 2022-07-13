@@ -15,15 +15,20 @@ class _ChefsListState extends State<ChefsList> {
     return Scaffold(
       body: Center(
         child: ListView(
-          scrollDirection: Axis.horizontal,
+          scrollDirection: Axis.vertical,
           shrinkWrap: true,
           children: [
             ChefContainer(
                 chefModel: ChefModel(
                     "assets/images/dilara.jpg", "Dilara Özdemir", 100, 5.0)),
+            ChefContainer(
+                chefModel: ChefModel(
+                    "assets/images/eren.jpg", "Eren Karaboğa", 200, 3.0)),
           ],
         ),
       ),
     );
   }
+
+  void fillModel() {}
 }

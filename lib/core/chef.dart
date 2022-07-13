@@ -19,7 +19,7 @@ class _ChefContainerState extends State<ChefContainer> {
       alignment: Alignment.topCenter,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(top: 60),
+          padding: const EdgeInsets.only(top: 60),
           child: DescriptionWidget(
               name: widget.chefModel.name,
               distance: widget.chefModel.distance,
@@ -83,15 +83,12 @@ class DescriptionWidget extends StatelessWidget {
                   style: TextStyles.rateStyle,
                   text: rate.toString(),
                 )),
-            const Positioned(
-              left: 75,
+            Positioned(
+              left: 65,
               bottom: 30,
               width: 180,
               child: SizedBox(
-                child: StarWidget(
-                  total: 4,
-                  activated: 3,
-                ),
+                child: calculateStar(rate),
               ),
             )
           ],
@@ -101,11 +98,25 @@ class DescriptionWidget extends StatelessWidget {
   }
 }
 
+StarWidget calculateStar(double rate) {
+  if (rate > 0.0 && rate < 1.2) {
+    return StarWidget(activated: 1);
+  } else if (rate > 1.0 && rate < 2.1) {
+    return StarWidget(activated: 2);
+  } else if (rate > 2.0 && rate < 3.1) {
+    return StarWidget(activated: 3);
+  } else if (rate > 3.0 && rate < 4.1) {
+    return StarWidget(activated: 4);
+  } else {
+    return StarWidget(activated: 5);
+  }
+}
+
 class StarWidget extends StatelessWidget {
   final int total;
   final int activated;
 
-  const StarWidget({Key? key, this.total = 4, required this.activated})
+  const StarWidget({Key? key, this.total = 5, required this.activated})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
