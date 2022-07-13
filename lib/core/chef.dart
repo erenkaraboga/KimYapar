@@ -3,10 +3,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:kimyapar/constants/styles.dart';
 import 'package:kimyapar/home.dart';
+import 'package:kimyapar/models/chefmodel.dart';
 
 class ChefContainer extends StatefulWidget {
-  const ChefContainer({Key? key}) : super(key: key);
-
+  const ChefContainer({Key? key, required this.chefModel}) : super(key: key);
+  final ChefModel chefModel;
   @override
   State<ChefContainer> createState() => _ChefContainerState();
 }
@@ -16,22 +17,30 @@ class _ChefContainerState extends State<ChefContainer> {
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.topCenter,
-      children: const <Widget>[
+      children: <Widget>[
         Padding(
           padding: EdgeInsets.only(top: 60),
-          child: DescriptionWidget(),
+          child: DescriptionWidget(
+              name: widget.chefModel.name,
+              distance: widget.chefModel.distance,
+              rate: widget.chefModel.rate),
         ),
-        AvatarWidget(path: "assets/images/dilara.jpg"),
+        AvatarWidget(path: widget.chefModel.imagePath),
       ],
     );
   }
 }
 
 class DescriptionWidget extends StatelessWidget {
-  const DescriptionWidget({
-    Key? key,
-  }) : super(key: key);
-
+  const DescriptionWidget(
+      {Key? key,
+      required this.name,
+      required this.distance,
+      required this.rate})
+      : super(key: key);
+  final String name;
+  final int distance;
+  final double rate;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -39,7 +48,13 @@ class DescriptionWidget extends StatelessWidget {
       width: 250,
       child: Card(
         elevation: 20,
-        shape: const CircleBorder(),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(400), // if you need this
+          side: BorderSide(
+            color: Colors.grey.withOpacity(0.2),
+            width: 1,
+          ),
+        ),
         child: Stack(
           children: [
             Positioned(
@@ -47,8 +62,7 @@ class DescriptionWidget extends StatelessWidget {
               top: 75,
               child: SizedBox(
                 width: 180,
-                child: CreateText(
-                    text: "Eren KARABOĞA", style: TextStyles.nameStyle),
+                child: CreateText(text: name, style: TextStyles.nameStyle),
               ),
             ),
             Positioned(
@@ -59,15 +73,15 @@ class DescriptionWidget extends StatelessWidget {
                 child: CreateTextWithIcon(
                     icon: const Icon(Icons.directions_run),
                     style: TextStyles.distanceStyle,
-                    text: "10m İlerinizde"),
+                    text: distance.toString() + "m" + " İlerinizde!"),
               ),
             ),
             Positioned(
-                left: 95,
+                left: 90,
                 bottom: 55,
                 child: CreateText(
                   style: TextStyles.rateStyle,
-                  text: 4.9.toString(),
+                  text: rate.toString(),
                 )),
             const Positioned(
               left: 75,
@@ -158,7 +172,6 @@ class _AvatarWidgetState extends State<AvatarWidget> {
         child: ClipOval(child: Image.asset(widget.path)),
         elevation: 5,
         shape: CircleBorder(),
-        color: Colors.red,
         margin: EdgeInsets.all(
           19,
         ),
