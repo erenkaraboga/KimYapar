@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kimyapar/constants/colors.dart';
-
+import 'package:kimyapar/core/chef.dart';
 import 'package:kimyapar/core/chefs.dart';
+
 import 'package:kimyapar/home.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: AppColors.AppBarColor),
       ),
-      home: const ChefsContainer(),
+      home: ChefsList(),
     );
   }
 }
