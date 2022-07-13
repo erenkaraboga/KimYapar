@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kimyapar/constants/colors.dart';
-import 'package:kimyapar/core/chef.dart';
+
 import 'package:kimyapar/core/chefs.dart';
 import 'package:kimyapar/home.dart';
 

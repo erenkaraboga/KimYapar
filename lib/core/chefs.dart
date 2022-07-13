@@ -23,7 +23,7 @@ class _ChefsContainerState extends State<ChefsContainer> {
             padding: EdgeInsets.only(top: 60),
             child: DescriptionWidget(),
           ),
-          AvatarWidget(),
+          AvatarWidget(path: "assets/images/dilara.jpg"),
         ],
       ),
     ));
@@ -145,10 +145,8 @@ class CreateText extends StatelessWidget {
 }
 
 class AvatarWidget extends StatefulWidget {
-  const AvatarWidget({
-    Key? key,
-  }) : super(key: key);
-
+  const AvatarWidget({Key? key, required this.path}) : super(key: key);
+  final String path;
   @override
   State<AvatarWidget> createState() => _AvatarWidgetState();
 }
@@ -156,11 +154,11 @@ class AvatarWidget extends StatefulWidget {
 class _AvatarWidgetState extends State<AvatarWidget> {
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       height: 130,
       width: 130,
       child: Card(
-        child: CircleAvatar(backgroundImage: Asset.Image),
+        child: ClipOval(child: Image.asset(widget.path)),
         elevation: 5,
         shape: CircleBorder(),
         color: Colors.red,
