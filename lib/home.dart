@@ -14,6 +14,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(Tr.appbarTitle, style: Styles.appbarTextStyle),
         centerTitle: true,
@@ -27,6 +28,6 @@ class Styles {
   static TextStyle appbarTextStyle = const TextStyle(
       wordSpacing: 1,
       letterSpacing: 2,
-      fontSize: 10,
-      fontWeight: FontWeight.w600);
+      fontSize: 20,
+      fontWeight: FontWeight.w400);
 }

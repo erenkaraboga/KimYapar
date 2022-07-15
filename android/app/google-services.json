@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "142681053870",
+    "project_id": "kimyapar-9a3c1",
+    "storage_bucket": "kimyapar-9a3c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142681053870:android:d1322c25a3394c18d1ab3f",
+        "android_client_info": {
+          "package_name": "com.example.kimyapar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142681053870-icp1c85cl5jaofhog9eakeao1mqsqeeq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgKtK_Ihj-ZXcbPkJ7SgAMPKgOeSGq8c4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142681053870-icp1c85cl5jaofhog9eakeao1mqsqeeq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
