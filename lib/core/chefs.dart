@@ -15,7 +15,7 @@ class ChefsList extends StatefulWidget {
 class _ChefsListState extends State<ChefsList> {
  @override
   void initState() {
-    getData().printData();
+    getData().filterGeo();
     super.initState();
   }
  @override
