@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kimyapar/core/chef.dart';
 import 'package:kimyapar/home.dart';
+import 'package:kimyapar/models/UserModel.dart';
 import 'package:kimyapar/models/chefmodel.dart';
 import 'package:kimyapar/services/getUser.dart';
 
@@ -15,10 +16,11 @@ class ChefsList extends StatefulWidget {
 class _ChefsListState extends State<ChefsList> {
  @override
   void initState() {
-
+    list = UserHelper.filterGeo();
     super.initState();
   }
  @override
+  static List<UserModel> list = [];
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -27,21 +29,11 @@ class _ChefsListState extends State<ChefsList> {
         centerTitle: true,
       ),
       body: Center(
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          children: [
-            ChefContainer(
-                chefModel: ChefModel(
-                    "assets/images/dilara.jpg", "Dilara Özdemir", 100, 5.0)),
-            ChefContainer(
-                chefModel: ChefModel(
-                    "assets/images/eren.jpg", "Eren Karaboğa", 200, 3.0)),
-            ChefContainer(
-                chefModel: ChefModel(
-                    "assets/images/eren.jpg", "Eren Karaboğa", 200, 3.0)),
-          ],
-        ),
+        child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context,index){
+           return ListTile(title: Text(list[index].name),subtitle: Text(list[index]),);
+        })
       ),
     );
   }

@@ -4,8 +4,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:kimyapar/models/UserModel.dart';
 
 class UserHelper {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  List<UserModel> list = [];
+  static FirebaseFirestore _db = FirebaseFirestore.instance;
+  static List<UserModel> list = [];
 
   Future<UserHelper> init() async {
     await retrieveUsers().then((value) {
@@ -15,7 +15,7 @@ class UserHelper {
     return this;
   }
 
-  Future<List<UserModel>> retrieveUsers() async {
+  static Future<List<UserModel>> retrieveUsers() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await _db.collection("users").get();
     return snapshot.docs
@@ -23,11 +23,11 @@ class UserHelper {
         .toList();
   }
 
-  double drawDistance(double lat, long, endLat, endLong) {
+ static double drawDistance(double lat, long, endLat, endLong) {
     return Geolocator.distanceBetween(lat, long, endLat, endLong);
   }
 
-  List<UserModel> filterGeo() {
+  static List<UserModel> filterGeo() {
     List<UserModel> nearList = [];
     nearList.addAll(list);
     nearList.retainWhere((element) =>
@@ -36,7 +36,7 @@ class UserHelper {
     return nearList;
   }
 
-  void printDistances(List<UserModel> list) {
+ static void printDistances(List<UserModel> list) {
     list.forEach((element) {
       print("${element.name} " +
           "${drawDistance(element.lat, element.long, 40.599391, 33.610534)} M");
