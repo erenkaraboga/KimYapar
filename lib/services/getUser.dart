@@ -3,23 +3,38 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kimyapar/models/UserModel.dart';
 
-class getData {
+class UserHelper {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   List<UserModel> list = [];
+
+  Future<UserHelper> init() async {
+    await retrieveUsers().then((value) {
+      list = value;
+      // print(list.length);
+    });
+    filterGeo();
+    return this;
+  }
 
   Future<List<UserModel>> retrieveUsers() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await _db.collection("users").get();
-
     return snapshot.docs
         .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
         .toList();
   }
 
-  void filterGeo() {
-    print(Geolocator.distanceBetween(40.536907, 33.588389, 38.423733, 27.142826).);
-    retrieveUsers().then((value) => print(value.where((element) =>
-        Geolocator.distanceBetween(
-            element.lat, element.long, 38.423733, 27.142826)<5646546546532156)));
+  double drawDistance  (double lat, long, endLat,endLong){
+     return Geolocator.distanceBetween(lat, long, endLat, endLong);
+  }
+  
+  List<UserModel>filterGeo() {
+    List<UserModel> nearList = [];
+    nearList.addAll(list);
+
+    nearList.retainWhere((element) => drawDistance(element.lat, element.long, 40.599391, 33.610534)<1200);
+    print(nearList.length);
+    nearList.forEach((element) {print(element.name);});
+    return nearList;
   }
 }

@@ -11,6 +11,7 @@ import 'services/getUser.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await UserHelper().init();
   runApp(const MyApp());
 }
 
