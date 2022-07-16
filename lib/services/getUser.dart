@@ -10,9 +10,8 @@ class UserHelper {
   Future<UserHelper> init() async {
     await retrieveUsers().then((value) {
       list = value;
-      // print(list.length);
     });
-    filterGeo();
+    printDistances(filterGeo());
     return this;
   }
 
@@ -24,17 +23,23 @@ class UserHelper {
         .toList();
   }
 
-  double drawDistance  (double lat, long, endLat,endLong){
-     return Geolocator.distanceBetween(lat, long, endLat, endLong);
+  double drawDistance(double lat, long, endLat, endLong) {
+    return Geolocator.distanceBetween(lat, long, endLat, endLong);
   }
-  
-  List<UserModel>filterGeo() {
+
+  List<UserModel> filterGeo() {
     List<UserModel> nearList = [];
     nearList.addAll(list);
-
-    nearList.retainWhere((element) => drawDistance(element.lat, element.long, 40.599391, 33.610534)<1200);
-    print(nearList.length);
-    nearList.forEach((element) {print(element.name);});
+    nearList.retainWhere((element) =>
+        drawDistance(element.lat, element.long, 40.599391, 33.610534) < 1200);
+    print("Yakındaki Aşçılar = " + "${nearList.length}");
     return nearList;
+  }
+
+  void printDistances(List<UserModel> list) {
+    list.forEach((element) {
+      print("${element.name} " +
+          "${drawDistance(element.lat, element.long, 40.599391, 33.610534)} M");
+    });
   }
 }
