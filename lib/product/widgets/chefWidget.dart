@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kimyapar/constants/styles.dart';
-import 'package:kimyapar/home.dart';
 import 'package:kimyapar/models/chefmodel.dart';
 
 class ChefContainer extends StatefulWidget {
