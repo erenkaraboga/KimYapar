@@ -27,6 +27,10 @@ class _ChefsListState extends State<ChefsList> {
         title: Text(Tr.appbarTitle, style: TextStyles.appbarTextStyle),
         centerTitle: true,
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () => setState(() {
+                UserHelper().filterGeo();
+              })),
       body: FutureBuilder<List<UserModel>>(
         future: UserHelper().filterGeo(),
         builder: (context, snap) {
@@ -46,7 +50,7 @@ class _ChefsListState extends State<ChefsList> {
                     );
                   }));
             } else {
-              return const Text("Hata");
+              return const Text(Tr.error);
             }
           } else {
             return const Center(
