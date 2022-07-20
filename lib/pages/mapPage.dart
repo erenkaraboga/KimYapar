@@ -33,14 +33,7 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       
-      floatingActionButton: FloatingActionButton(
-
-          child: Icon(Icons.refresh),
-          onPressed: () => setState(() {
-                UserHelper().filterGeo();
-                markers.clear();
-              
-              })),
+      floatingActionButton: floatButton(),
       body: FutureBuilder<List<UserModel>>(
         future: UserHelper().filterGeo(),
         builder: (context, snap) {
@@ -58,6 +51,17 @@ class _MapPageState extends State<MapPage> {
         },
       ),
     );
+  }
+
+  FloatingActionButton floatButton() {
+    return FloatingActionButton(
+
+        child: Icon(Icons.refresh),
+        onPressed: () => setState(() {
+              UserHelper().filterGeo();
+              markers.clear();
+            
+            }));
   }
 
   GoogleMap Map(AsyncSnapshot<List<UserModel>> snap) {

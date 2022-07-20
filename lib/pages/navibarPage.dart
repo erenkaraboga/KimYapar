@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kimyapar/languages/tr.dart';
 import 'package:kimyapar/pages/mapPage.dart';
 
 class NaviBarPage extends StatefulWidget {
@@ -11,8 +12,8 @@ class NaviBarPage extends StatefulWidget {
 final screens = [MapPage(),];
 final List<BottomNavigationBarItem> items = [
   BottomNavigationBarItem(
-      icon: Icon(Icons.location_on_outlined), label: "Harita"),
-  BottomNavigationBarItem(icon: Icon(Icons.person), label: "Şefler")
+      icon: Icon(Icons.location_on_outlined), label: Tr.map),
+  BottomNavigationBarItem(icon: Icon(Icons.person), label:Tr.chefs)
 ];
 
 class _NaviBarPageState extends State<NaviBarPage> {

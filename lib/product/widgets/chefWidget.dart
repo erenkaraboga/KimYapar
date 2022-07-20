@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:kimyapar/constants/styles.dart';
+import 'package:kimyapar/core/base/avatar.dart';
+import 'package:kimyapar/core/base/star.dart';
+import 'package:kimyapar/core/base/text.dart';
 import 'package:kimyapar/models/chefmodel.dart';
 
 class ChefContainer extends StatefulWidget {
@@ -97,95 +100,6 @@ class DescriptionWidget extends StatelessWidget {
   }
 }
 
-StarWidget calculateStar(double rate) {
-  if (rate > 0.0 && rate < 1.2) {
-    return StarWidget(activated: 1);
-  } else if (rate > 1.0 && rate < 2.1) {
-    return StarWidget(activated: 2);
-  } else if (rate > 2.0 && rate < 3.1) {
-    return StarWidget(activated: 3);
-  } else if (rate > 3.0 && rate < 4.1) {
-    return StarWidget(activated: 4);
-  } else {
-    return StarWidget(activated: 5);
-  }
-}
 
-class StarWidget extends StatelessWidget {
-  final int total;
-  final int activated;
 
-  const StarWidget({Key? key, this.total = 5, required this.activated})
-      : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: List.generate(total, (index) {
-        var filled = index < activated;
-        return Icon(filled ? Icons.star : Icons.star_border);
-      }).toList(),
-    );
-  }
-}
 
-class CreateTextWithIcon extends StatelessWidget {
-  const CreateTextWithIcon(
-      {Key? key, required this.text, required this.icon, required this.style})
-      : super(key: key);
-  final Icon icon;
-  final String text;
-  final TextStyle style;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        icon,
-        Text(
-          text,
-          style: style,
-          textAlign: TextAlign.center,
-        )
-      ],
-    );
-  }
-}
-
-class CreateText extends StatelessWidget {
-  const CreateText({Key? key, required this.text, required this.style})
-      : super(key: key);
-  final String text;
-  final TextStyle style;
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: style,
-      textAlign: TextAlign.center,
-    );
-  }
-}
-
-class AvatarWidget extends StatefulWidget {
-  const AvatarWidget({Key? key, required this.path}) : super(key: key);
-  final String path;
-  @override
-  State<AvatarWidget> createState() => _AvatarWidgetState();
-}
-
-class _AvatarWidgetState extends State<AvatarWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 130,
-      width: 130,
-      child: Card(
-        child: ClipOval(child: Image.asset(widget.path)),
-        elevation: 5,
-        shape: CircleBorder(),
-        margin: EdgeInsets.all(
-          19,
-        ),
-      ),
-    );
-  }
-}
