@@ -37,4 +37,8 @@ class UserHelper {
           "${drawDistance(element.lat!, element.long, 40.599391, 33.610534)} M");
     });
   }
+  Future<Position> getLocation() async {
+   Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+   return position;
+}
 }
