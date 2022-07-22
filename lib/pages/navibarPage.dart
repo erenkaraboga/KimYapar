@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kimyapar/languages/tr.dart';
+import 'package:kimyapar/pages/chefs.dart';
 import 'package:kimyapar/pages/mapPage.dart';
 
 class NaviBarPage extends StatefulWidget {
@@ -9,7 +10,7 @@ class NaviBarPage extends StatefulWidget {
   State<NaviBarPage> createState() => _NaviBarPageState();
 }
 
-final screens = [MapPage(),];
+final screens = [MapPage(),ChefsList()];
 final List<BottomNavigationBarItem> items = [
   BottomNavigationBarItem(
       icon: Icon(Icons.location_on_outlined), label: Tr.map),
