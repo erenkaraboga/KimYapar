@@ -4,15 +4,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/map/service/IMapService.dart';
 
+class MapService extends IMapService {
+  MapService(super._db);
 
-
-class UserHelper extends IMapService {
-  UserHelper(super.db);
-
-  FirebaseFirestore get _db => FirebaseFirestore.instance;
   @override
   Future<List<UserModel>> retrieveUsers() async {
     FirebaseFirestore _db = FirebaseFirestore.instance;
+    
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await _db.collection("users").get();
     return snapshot.docs
