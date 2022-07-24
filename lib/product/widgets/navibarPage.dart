@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kimyapar/languages/tr.dart';
-import 'package:kimyapar/pages/chefs.dart';
-import 'package:kimyapar/pages/mapPage.dart';
+import 'package:kimyapar/core/languages/tr.dart';
+
+import 'package:kimyapar/product/widgets/mapInfoWindow.dart';
+import 'package:kimyapar/view/map/view/mapPage.dart';
 
 class NaviBarPage extends StatefulWidget {
   const NaviBarPage({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class NaviBarPage extends StatefulWidget {
   State<NaviBarPage> createState() => _NaviBarPageState();
 }
 
-final screens = [MapPage(),ChefsList()];
+final screens = [MapPage(),MyWidget()];
 final List<BottomNavigationBarItem> items = [
   BottomNavigationBarItem(
       icon: Icon(Icons.location_on_outlined), label: Tr.map),

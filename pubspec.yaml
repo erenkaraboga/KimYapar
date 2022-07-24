@@ -42,6 +42,7 @@ dependencies:
   custom_marker: ^1.0.0
   http: ^0.13.4
   custom_info_window: ^1.0.1
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

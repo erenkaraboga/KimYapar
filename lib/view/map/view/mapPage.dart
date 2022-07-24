@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:kimyapar/constants/styles.dart';
-import 'package:kimyapar/product/widgets/chefMapWidget.dart';
+import 'package:kimyapar/core/languages/tr.dart';
+
+import 'package:kimyapar/product/widgets/mapInfoWindow.dart';
 import 'package:kimyapar/product/widgets/chefWidget.dart';
-import 'package:kimyapar/models/UserModel.dart';
-import 'package:kimyapar/models/chefmodel.dart';
-import 'package:kimyapar/services/getUser.dart';
+
 import 'package:custom_info_window/custom_info_window.dart';
-import '../languages/tr.dart';
+import 'package:kimyapar/view/map/model/UserModel.dart';
+import 'package:kimyapar/view/map/service/getUser.dart';
+import 'package:shimmer/shimmer.dart';
+
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -30,6 +32,7 @@ class _MapPageState extends State<MapPage> {
       CameraPosition(target: LatLng(40.599371, 33.610447), zoom: 15.5);
 
   final Set<Marker> markers = new Set();
+  
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
 
@@ -50,9 +53,7 @@ class _MapPageState extends State<MapPage> {
               return const Text(Tr.error);
             }
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
@@ -62,9 +63,9 @@ class _MapPageState extends State<MapPage> {
   CustomInfoWindow CustomInfo() {
     return CustomInfoWindow(
       controller: _customInfoWindowController,
-      height: 75,
-      width: 150,
-      offset: 50,
+      height: 200,
+      width: 250,
+      offset: 0,
     );
   }
 
@@ -78,11 +79,10 @@ class _MapPageState extends State<MapPage> {
 
   GoogleMap Map(AsyncSnapshot<List<UserModel>> snap) {
     return GoogleMap(
-      mapType:MapType.normal,
+      mapType: MapType.normal,
       initialCameraPosition: initialPosition,
       onMapCreated: (GoogleMapController controller) async {
         _customInfoWindowController.googleMapController = controller;
-        
       },
       onCameraMove: (position) {
         _customInfoWindowController.onCameraMove!();
@@ -103,7 +103,7 @@ class _MapPageState extends State<MapPage> {
           position: LatLng(element.lat!, element.long!),
           onTap: () {
             _customInfoWindowController.addInfoWindow!(
-                MyWidget(name: element.name!,url:element.imageUrl!), LatLng(element.lat!, element.long!));
+                MyWidget(), LatLng(element.lat!, element.long!));
           },
           icon: BitmapDescriptor.defaultMarkerWithHue(170)));
     });

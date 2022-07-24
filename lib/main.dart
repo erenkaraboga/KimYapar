@@ -1,13 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:kimyapar/constants/colors.dart';
-
-import 'package:kimyapar/pages/navibarPage.dart';
+import 'package:kimyapar/core/constants/colors.dart';
+import 'package:kimyapar/product/widgets/mapInfoWindow.dart';
 import 'package:kimyapar/product/widgets/chefWidget.dart';
+import 'package:kimyapar/product/widgets/navibarPage.dart';
 
 
 
-import 'services/getUser.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
