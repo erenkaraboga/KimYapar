@@ -2,16 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
+import 'package:kimyapar/view/map/service/IMapService.dart';
 
-abstract class IMapService {
-  final FirebaseFirestore _db;
 
-  IMapService(this._db);
-
-  Future<List<UserModel>> retrieveUsers();
-  double drawDistance(double lat, long, endLat, endLong);
-  Future<List<UserModel>> filterGeo();
-}
 
 class UserHelper extends IMapService {
   UserHelper(super.db);

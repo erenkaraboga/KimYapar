@@ -12,7 +12,7 @@ import 'package:kimyapar/product/widgets/chefWidget.dart';
 
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
-import 'package:kimyapar/view/map/service/getUser.dart';
+import 'package:kimyapar/view/map/service/MapService.dart';
 import 'package:shimmer/shimmer.dart';
 
 
