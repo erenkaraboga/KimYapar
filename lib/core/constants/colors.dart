@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static Color AppBarColor = Color.fromARGB(255, 8, 207, 197);
-  static LinearGradient shimmerGradient = LinearGradient(
+  static Color appBarColor = const Color.fromARGB(255, 8, 207, 197);
+  static LinearGradient shimmerGradient = const LinearGradient(
     colors: [
       Color(0xFFEBEBF4),
       Color(0xFFF4F4F4),

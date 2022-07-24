@@ -18,14 +18,14 @@ class StarWidget extends StatelessWidget {
 }
 StarWidget calculateStar(double rate) {
   if (rate > 0.0 && rate < 1.2) {
-    return StarWidget(activated: 1);
+    return const StarWidget(activated: 1);
   } else if (rate > 1.0 && rate < 2.1) {
-    return StarWidget(activated: 2);
+    return const StarWidget(activated: 2);
   } else if (rate > 2.0 && rate < 3.1) {
-    return StarWidget(activated: 3);
+    return const StarWidget(activated: 3);
   } else if (rate > 3.0 && rate < 4.1) {
-    return StarWidget(activated: 4);
+    return const StarWidget(activated: 4);
   } else {
-    return StarWidget(activated: 5);
+    return const StarWidget(activated: 5);
   }
 }

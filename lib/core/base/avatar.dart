@@ -16,12 +16,12 @@ class _AvatarWidgetState extends State<AvatarWidget> {
       height: height,
       width: width,
       child: Card(
-        child: ClipOval(child: Image.asset(widget.path)),
         elevation: 5,
-        shape: CircleBorder(),
-        margin: EdgeInsets.all(
+        shape: const CircleBorder(),
+        margin: const EdgeInsets.all(
           19,
         ),
+        child: ClipOval(child: Image.asset(widget.path)),
       ),
     );
   }

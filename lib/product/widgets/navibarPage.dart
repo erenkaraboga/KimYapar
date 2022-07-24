@@ -11,11 +11,11 @@ class NaviBarPage extends StatefulWidget {
   State<NaviBarPage> createState() => _NaviBarPageState();
 }
 
-final screens = [MapPage(),MyWidget()];
+final screens = [const MapSelect(),MyWidget()];
 final List<BottomNavigationBarItem> items = [
-  BottomNavigationBarItem(
+  const BottomNavigationBarItem(
       icon: Icon(Icons.location_on_outlined), label: Tr.map),
-  BottomNavigationBarItem(icon: Icon(Icons.person), label:Tr.chefs)
+  const BottomNavigationBarItem(icon: Icon(Icons.person), label:Tr.chefs)
 ];
 
 class _NaviBarPageState extends State<NaviBarPage> {

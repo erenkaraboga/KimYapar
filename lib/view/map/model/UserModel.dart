@@ -6,7 +6,7 @@ class UserModel {
   String? name;
   double? lat;
   double? long;
-  UserModel() {}
+  UserModel();
 
   Map<String, dynamic> toMap() {
     return {'name': name, 'lat': lat, 'long': long, 'imageUrl': imageUrl,'id':id};

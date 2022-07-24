@@ -1,11 +1,11 @@
-import 'dart:ui';
+
 
 import 'package:flutter/material.dart';
 import 'package:kimyapar/core/base/avatar.dart';
 import 'package:kimyapar/core/base/star.dart';
 import 'package:kimyapar/core/base/text.dart';
 import 'package:kimyapar/core/constants/styles.dart';
-import 'package:kimyapar/view/map/model/chefmodel.dart';
+import 'package:kimyapar/view/chefs/model/chefmodel.dart';
 class ChefContainer extends StatefulWidget {
   const ChefContainer({Key? key, required this.chefModel}) : super(key: key);
   final ChefModel chefModel;
