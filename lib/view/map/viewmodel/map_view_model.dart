@@ -9,7 +9,7 @@ class MapViewModel = _MapViewModelBase with _$MapViewModel;
 
 abstract class _MapViewModelBase with Store {
   final IMapService mapService;
-   @observable
+  @observable
   List<UserModel> list = [];
   _MapViewModelBase(this.mapService);
   @observable
@@ -18,11 +18,14 @@ abstract class _MapViewModelBase with Store {
   Future<void> fetcAllMaps() async {
     changeLoading();
     final response = await mapService.filterGeo();
+    await Future.delayed(Duration(seconds: 2));
     changeLoading();
+
     list = response;
     inspect(list);
   }
- @action
+
+  @action
   void changeLoading() {
     isLoading = !isLoading;
   }
