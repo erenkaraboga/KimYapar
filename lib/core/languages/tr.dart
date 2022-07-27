@@ -6,7 +6,7 @@ class Tr {
   static const signin = "Giriş";
   static const forgotPass = "Şifremi Unuttum";
   static const map = "Harita";
-  static const pleaseSignin = "Lütfen Giriş Yapın";
+  static const pleaseSignin = "Kaydırın :)";
   static const mail = "Mail";
   static const pass = "Şifre";
   static const loginWithGoogle = "Google ile Giriş Yap";

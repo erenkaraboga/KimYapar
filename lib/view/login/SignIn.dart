@@ -1,37 +1,34 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kimyapar/core/base/text.dart';
+import 'package:kimyapar/core/constants/styles.dart';
 import 'package:kimyapar/core/languages/tr.dart';
+import 'package:kimyapar/product/widgets/swipeButton.dart';
 import 'package:kimyapar/view/map/view/mapPage.dart';
 import 'package:lottie/lottie.dart';
+import 'package:slidable_button/slidable_button.dart';
 
-class LoginApp extends StatefulWidget {
+class SingIn extends StatefulWidget {
   @override
-  State<LoginApp> createState() => _LoginAppState();
+  State<SingIn> createState() => _SingInState();
 }
 
-class _LoginAppState extends State<LoginApp> {
+class _SingInState extends State<SingIn> {
   void click() {
     Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const MapSelect()),
-  );
+      context,
+      MaterialPageRoute(builder: (context) => const MapSelect()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    var width2 = 325.0;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                Colors.orangeAccent,
-                Colors.orange.shade100,
-              ])),
+          decoration: ContainerStyles.backround,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -41,48 +38,33 @@ class _LoginAppState extends State<LoginApp> {
                 height: 70,
               ),
               Container(
-                width: 325,
-                height: 600,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                ),
+                width: width2,
+                height: 620,
+                decoration: ContainerStyles.backroundBox,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Lottiee(),
-                    const Text(
-                      Tr.hello,
-                      style:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                    ),
+                    const CreateText(
+                        text: Tr.hello, style: TextStyles.helloStyle),
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      Tr.pleaseSignin,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    ),
+                    const CreateText(
+                        text: Tr.pleaseSignin, style: TextStyles.pleaseSignIn),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
+                    const SwippableButton(
+                        position: SlidableButtonPosition.start),
                     const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
                       width: 260,
                       height: 60,
                       child: TextField(
-                        decoration: InputDecoration(
-                            suffix: Icon(
-                              FontAwesomeIcons.envelope,
-                              color: Colors.red,
-                            ),
-                            labelText: Tr.mail,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                            )),
+                        decoration: TextFieldStyles.MailField,
                       ),
                     ),
                     const SizedBox(
@@ -159,7 +141,7 @@ class _LoginAppState extends State<LoginApp> {
       children: [
         SignInButton(
           text: Tr.forgotPass,
-          Buttons.GoogleDark,
+          Buttons.Google,
           elevation: 10,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),

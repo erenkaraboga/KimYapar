@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kimyapar/core/constants/colors.dart';
-import 'package:kimyapar/view/login/login.dart';
+import 'package:kimyapar/view/login/SignIn.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: AppColors.appBarColor),
       ),
-      home: LoginApp(),
+      home: SingIn(),
     );
   }
 }

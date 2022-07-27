@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static Color textFieldIcon= Colors.red;
   static Color primary=Colors.orange;
   static Color appBarColor = const Color.fromARGB(255, 8, 207, 197);
   static LinearGradient shimmerGradient = const LinearGradient(
