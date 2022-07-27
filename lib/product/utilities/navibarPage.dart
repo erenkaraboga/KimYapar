@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kimyapar/core/constants/colors.dart';
 import 'package:kimyapar/core/languages/tr.dart';
 
 import 'package:kimyapar/product/widgets/mapInfoWindow.dart';
@@ -11,11 +14,21 @@ class NaviBarPage extends StatefulWidget {
   State<NaviBarPage> createState() => _NaviBarPageState();
 }
 
-final screens = [const MapSelect(),MyWidget()];
+final screens = [MapSelect(), MyWidget()];
 final List<BottomNavigationBarItem> items = [
-  const BottomNavigationBarItem(
-      icon: Icon(Icons.location_on_outlined), label: Tr.map),
-  const BottomNavigationBarItem(icon: Icon(Icons.person), label:Tr.chefs)
+  BottomNavigationBarItem(
+      icon: Icon(
+        CupertinoIcons.location,
+        color: AppColors.primary,
+      ),
+      label: Tr.map),
+  BottomNavigationBarItem(
+      icon: Icon(
+        CupertinoIcons.group,
+        size: 35,
+        color: AppColors.primary,
+      ),
+      label: Tr.chefs)
 ];
 
 class _NaviBarPageState extends State<NaviBarPage> {
@@ -24,7 +37,8 @@ class _NaviBarPageState extends State<NaviBarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        
+        unselectedItemColor: Colors.black,
+        selectedItemColor: Colors.black,
         currentIndex: currentIndex,
         onTap: (index) => setState(() => currentIndex = index),
         items: items,

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  int? id;
+  String? id;
   String? imageUrl;
   String? name;
   double? lat;
