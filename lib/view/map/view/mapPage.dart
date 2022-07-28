@@ -1,21 +1,15 @@
-import 'dart:developer';
-
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart';
 import 'package:kimyapar/core/constants/colors.dart';
 import 'package:kimyapar/core/constants/path.dart';
-import 'package:kimyapar/product/extension/map_marker.dart';
 import 'package:kimyapar/product/init/network/firebase_init.dart';
 import 'package:kimyapar/product/utilities/lottie.dart';
-import 'package:kimyapar/product/widgets/mapInfoWindow.dart';
+import 'package:kimyapar/product/widgets/map/mapInfoWindow.dart';
 import 'package:kimyapar/view/map/service/MapService.dart';
 import 'package:kimyapar/view/map/viewmodel/map_view_model.dart';
-import 'package:mobx/mobx.dart';
-import 'package:lottie/lottie.dart' hide Marker;
 
 import '../model/UserModel.dart';
 
@@ -37,8 +31,6 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
     super.initState();
     _mapViewModel = MapViewModel(MapService(FirebaseInit.instance.db));
     _customInfoWindowController = CustomInfoWindowController();
-    MapService((FirebaseInit.instance.db))
-        .addUser("erenkaraboga@gmail.com", "123455645", "Erenn", 40, 50);
   }
 
   @override
@@ -62,13 +54,20 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
         body: Observer(
           builder: (_) {
             return _mapViewModel.isLoading
-                ? const LottieProgress(url: AppPaths.lottie_progress)
+                ? Lottie()
                 : Stack(
                     children: [Map(), CustomInfo()],
                   );
           },
         ));
   }
+
+  Center Lottie() => const Center(
+        child: SizedBox(
+            width: 200,
+            height: 200,
+            child: LottieProgress(path: AppPaths.lottie_progress)),
+      );
 
   FloatingActionButton FloatButton() {
     return FloatingActionButton(

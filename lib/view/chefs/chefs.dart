@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kimyapar/product/widgets/chefWidget.dart';
+import 'package:kimyapar/product/widgets/chefs/chefWidget.dart';
 import 'package:kimyapar/view/chefs/model/chefmodel.dart';
 
 class ChefsList extends StatefulWidget {

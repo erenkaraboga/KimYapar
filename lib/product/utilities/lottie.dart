@@ -6,8 +6,8 @@ import 'package:lottie/lottie.dart';
 
 import '../../core/constants/path.dart';
 class LottieProgress extends StatefulWidget {
-  const LottieProgress({Key? key,required this.url}) : super(key: key);
-  final String url;
+  const LottieProgress({Key? key,required this.path}) : super(key: key);
+  final String path;
   @override
   State<LottieProgress> createState() => _LottieProgressState();
 }
@@ -15,11 +15,7 @@ class LottieProgress extends StatefulWidget {
 class _LottieProgressState extends State<LottieProgress> {
   @override
   Widget build(BuildContext context) {
-     return Center(
-        child: SizedBox(
-            height: 200,
-            width: 200,
-            child: Lottie.network(AppPaths.lottie_progress,
-                frameRate: FrameRate.max)));
+     return Lottie.asset(widget.path,
+         frameRate: FrameRate.max);
   }
 }

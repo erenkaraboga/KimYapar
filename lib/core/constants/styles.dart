@@ -20,6 +20,9 @@ class TextStyles {
     color: Colors.grey,
     fontSize: 15,
   );
+  static const forgotPassStyle = TextStyle(color: Colors.deepOrange);
+  static const loginButtonStyle =
+      TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
 }
 
 class ContainerStyles {
@@ -36,12 +39,21 @@ class ContainerStyles {
     color: Colors.white,
     borderRadius: BorderRadius.all(Radius.circular(15)),
   );
+  static BoxDecoration LoginBox = const BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(50)),
+      color: Colors.deepOrangeAccent);
 }
 
 class TextFieldStyles {
   static InputDecoration MailField = InputDecoration(
       suffix: AppIcons.envelope,
       labelText: Tr.mail,
+      border: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ));
+  static InputDecoration PassField = InputDecoration(
+      suffix: AppIcons.eyeSlash,
+      labelText: Tr.pass,
       border: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ));

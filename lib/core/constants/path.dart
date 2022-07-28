@@ -1,6 +1,4 @@
 class AppPaths {
-  static const String lottie_progress =
-      "https://assets2.lottiefiles.com/packages/lf20_bpn3lhl6.json";
-  static const String login =
-      "https://assets10.lottiefiles.com/packages/lf20_2aajjzs9.json";
+  static const String lottie_progress = "assets/lottie/lottie_progress.json";
+  static const String login = "assets/lottie/lottie_login.json";
 }

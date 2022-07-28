@@ -7,7 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:slidable_button/slidable_button.dart';
 
 import '../../core/languages/tr.dart';
-import '../../product/widgets/swipeButton.dart';
+import '../../product/widgets/login/swipeButton.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);

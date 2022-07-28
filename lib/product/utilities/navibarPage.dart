@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kimyapar/core/constants/colors.dart';
 import 'package:kimyapar/core/languages/tr.dart';
 
-import 'package:kimyapar/product/widgets/mapInfoWindow.dart';
+import 'package:kimyapar/product/widgets/map/mapInfoWindow.dart';
 import 'package:kimyapar/view/map/view/mapPage.dart';
 
 class NaviBarPage extends StatefulWidget {

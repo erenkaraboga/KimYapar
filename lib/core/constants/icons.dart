@@ -7,4 +7,8 @@ class AppIcons {
     FontAwesomeIcons.envelope,
     color: AppColors.textFieldIcon,
   );
+  static Icon eyeSlash = const Icon(
+    FontAwesomeIcons.eyeSlash,
+    color: Colors.red,
+  );
 }
