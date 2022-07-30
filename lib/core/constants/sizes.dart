@@ -1,0 +1,1 @@
+static const width = 500
