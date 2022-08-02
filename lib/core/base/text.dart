@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class CreateTextWithIcon extends StatelessWidget {
   const CreateTextWithIcon(
       {Key? key, required this.text, required this.icon, required this.style})

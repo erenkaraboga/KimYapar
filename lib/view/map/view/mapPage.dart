@@ -29,6 +29,8 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    MapService((FirebaseInit.instance.db))
+        .addUser("huseifasynaaasdfafsalav@gmail.com", "123455645", "Erenn", 40, 50);
     _mapViewModel = MapViewModel(MapService(FirebaseInit.instance.db));
     _customInfoWindowController = CustomInfoWindowController();
   }

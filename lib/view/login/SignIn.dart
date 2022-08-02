@@ -8,6 +8,7 @@ import 'package:kimyapar/product/utilities/lottie.dart';
 import 'package:kimyapar/product/widgets/login/swipeButton.dart';
 import 'package:kimyapar/view/map/view/mapPage.dart';
 import 'package:slidable_button/slidable_button.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class SingIn extends StatefulWidget {
   @override
@@ -15,13 +16,16 @@ class SingIn extends StatefulWidget {
 }
 
 class _SingInState extends State<SingIn> {
-  void click() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const MapSelect()),
-    );
-  }
-
+  void click() {}
+  final passwordValidator = MultiValidator([
+    RequiredValidator(errorText: 'Şifre Gerekli'),
+    MinLengthValidator(8, errorText: 'Şifreniz en az 8 hane olmalı'),
+  ]);
+  final emailValidator = MultiValidator([
+    RequiredValidator(errorText: 'Mail Gerekli'),
+    PatternValidator('@', errorText: 'Geçerli bir mail giriniz')
+  ]);
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var width2 = 325.0;
@@ -32,47 +36,50 @@ class _SingInState extends State<SingIn> {
           decoration: ContainerStyles.backround,
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 70,
-              ),
-              Container(
-                width: width2,
-                height: height2,
-                decoration: ContainerStyles.backroundBox,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Lottiee(),
-                    HelloText(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    PleaseSignText(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SwippableBtn(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    MailField(),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    PassField(),
-                    ForgotPass(),
-                    LoginButton(),
-                    const SizedBox(
-                      height: 17,
-                    ),
-                    SocialLoginBtn()
-                  ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 70,
                 ),
-              )
-            ],
+                Container(
+                  width: width2,
+                  height: height2,
+                  decoration: ContainerStyles.backroundBox,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Lottiee(),
+                      HelloText(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      PleaseSignText(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SwippableBtn(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      MailField(),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      PassField(),
+                      ForgotPass(),
+                      LoginButton(),
+                      const SizedBox(
+                        height: 17,
+                      ),
+                      SocialLoginBtn()
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -81,17 +88,24 @@ class _SingInState extends State<SingIn> {
 
   GestureDetector LoginButton() {
     return GestureDetector(
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 250,
-                      decoration: ContainerStyles.LoginBox,
-                      child: const Padding(
-                          padding: EdgeInsets.all(12.0),
-                          child: CreateText(
-                              text: Tr.signin,
-                              style: TextStyles.loginButtonStyle)),
-                    ),
-                  );
+      onTap: () {
+        if (_formKey.currentState!.validate()) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MapSelect()),
+          );
+        }
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 250,
+        decoration: ContainerStyles.LoginBox,
+        child: const Padding(
+            padding: EdgeInsets.all(12.0),
+            child: CreateText(
+                text: Tr.signin, style: TextStyles.loginButtonStyle)),
+      ),
+    );
   }
 
   Padding ForgotPass() {
@@ -116,8 +130,9 @@ class _SingInState extends State<SingIn> {
     return SizedBox(
       width: 260,
       height: 60,
-      child: TextField(
+      child: TextFormField(
         obscureText: true,
+        validator: passwordValidator,
         decoration: TextFieldStyles.PassField,
       ),
     );
@@ -127,7 +142,8 @@ class _SingInState extends State<SingIn> {
     return SizedBox(
         width: 260,
         height: 60,
-        child: TextField(
+        child: TextFormField(
+          validator: emailValidator,
           decoration: TextFieldStyles.MailField,
         ));
   }

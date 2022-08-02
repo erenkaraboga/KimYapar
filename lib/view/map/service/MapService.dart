@@ -9,7 +9,7 @@ import 'package:kimyapar/view/map/service/IMapService.dart';
 
 class MapService extends IMapService {
   MapService(super._db);
-  FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
   @override
   Future<List<UserModel>> retrieveUsers() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
@@ -20,10 +20,12 @@ class MapService extends IMapService {
         .toList();
   }
 
+  @override
   double drawDistance(double lat, long, endLat, endLong) {
     return Geolocator.distanceBetween(lat, long, endLat, endLong);
   }
 
+  @override
   Future<List<UserModel>> filterGeo() async {
     List<UserModel> nearList = [];
     await retrieveUsers().then((list) {
@@ -31,7 +33,7 @@ class MapService extends IMapService {
       nearList.retainWhere((element) =>
           drawDistance(element.lat!, element.long, 40.599391, 33.610534) <
           1200);
-      print("Yakındaki Aşçılar = " + "${nearList.length}");
+      print("Yakındaki Aşçılar = " "${nearList.length}");
     });
     return nearList;
   }
@@ -67,6 +69,7 @@ class MapService extends IMapService {
       String mail, String pass, String name, double lat, double long) async {
     final response = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: mail, password: pass);
+
     if (response.user != null) {
       String id = response.user!.uid;
       FirebaseFirestore.instance
@@ -74,5 +77,6 @@ class MapService extends IMapService {
           .doc(id)
           .set({'id': id, 'name': name, 'lat': lat, 'long': long});
     }
+    inspect(response.credential!.token.toString());
   }
 }
