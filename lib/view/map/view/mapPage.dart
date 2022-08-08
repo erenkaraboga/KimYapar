@@ -1,17 +1,17 @@
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kimyapar/core/constants/colors.dart';
 import 'package:kimyapar/core/constants/path.dart';
-import 'package:kimyapar/product/init/network/firebase_init.dart';
 import 'package:kimyapar/product/utilities/lottie.dart';
 import 'package:kimyapar/product/widgets/map/mapInfoWindow.dart';
-import 'package:kimyapar/view/map/service/MapService.dart';
-import 'package:kimyapar/view/map/viewmodel/map_view_model.dart';
 
+import '../../../product/init/network/firebase_init.dart';
 import '../model/UserModel.dart';
+import '../service/MapService.dart';
+import '../viewmodel/controllers/mapController.dart';
 
 class MapSelect extends StatefulWidget {
   const MapSelect({Key? key}) : super(key: key);
@@ -20,8 +20,9 @@ class MapSelect extends StatefulWidget {
   State<MapSelect> createState() => _MapSelectState();
 }
 
-late final MapViewModel _mapViewModel;
-late final AnimationController _controller;
+final mapController =
+    Get.put<MapController>(MapController(MapService(FirebaseInit.instance.db)));
+
 late final CustomInfoWindowController _customInfoWindowController;
 final Set<Marker> markers = {};
 
@@ -29,22 +30,17 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    MapService((FirebaseInit.instance.db))
-        .addUser("huseifasynaaasdfafsalav@gmail.com", "123455645", "Erenn", 40, 50);
-    _mapViewModel = MapViewModel(MapService(FirebaseInit.instance.db));
     _customInfoWindowController = CustomInfoWindowController();
+    mapController.fetcAllMaps();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _mapViewModel.getLocation();
-    _mapViewModel.fetcAllMaps();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     _customInfoWindowController.dispose();
     super.dispose();
   }
@@ -53,15 +49,11 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatButton(),
-        body: Observer(
-          builder: (_) {
-            return _mapViewModel.isLoading
-                ? Lottie()
-                : Stack(
-                    children: [Map(), CustomInfo()],
-                  );
-          },
-        ));
+        body: Obx(() => mapController.isLoading.value
+            ? Lottie()
+            : Stack(
+                children: [Map(), CustomInfo()],
+              )));
   }
 
   Center Lottie() => const Center(
@@ -75,8 +67,8 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
     return FloatingActionButton(
         backgroundColor: AppColors.primary,
         onPressed: () {
-          _mapViewModel.getLocation();
-          _mapViewModel.fetcAllMaps();
+          mapController.getLocation();
+          mapController.fetcAllMaps();
         },
         child: const FaIcon(
           FontAwesomeIcons.locationArrow,
@@ -96,7 +88,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
           _customInfoWindowController.onCameraMove!();
         },
         onTap: (position) {},
-        markers: getMarkers(_mapViewModel.list),
+        markers: getMarkers(mapController.list),
         initialCameraPosition: const CameraPosition(
             target: LatLng(40.599371, 33.610447), zoom: 15.5));
   }
