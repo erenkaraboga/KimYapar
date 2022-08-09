@@ -14,7 +14,7 @@ class NaviBarPage extends StatefulWidget {
   State<NaviBarPage> createState() => _NaviBarPageState();
 }
 
-final screens = [MapSelect(), MyWidget()];
+final screens = [MapSelect()];
 final List<BottomNavigationBarItem> items = [
   BottomNavigationBarItem(
       icon: Icon(

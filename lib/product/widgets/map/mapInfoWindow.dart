@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kimyapar/core/base/avatar.dart';
 
 class MyWidget extends StatelessWidget {
-  const MyWidget({Key? key}) : super(key: key);
-
+  const MyWidget({Key? key, required this.name, required this.url})
+      : super(key: key);
+  final String name;
+  final String url;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -15,11 +16,11 @@ class MyWidget extends StatelessWidget {
           child: ListTile(
             dense: true,
             contentPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
-            title: const Text("Eren Karaboğa"),
-            trailing:const Icon(Icons.chevron_right),
+            title: Text(name),
+            trailing: const Icon(Icons.chevron_right),
             leading: ClipOval(
               child: Image.network(
-                "https://res.cloudinary.com/dinqa9wqr/image/upload/v1658395937/eren_avocqf.jpg",
+                url,
                 width: 50,
                 height: 50,
                 fit: BoxFit.cover,

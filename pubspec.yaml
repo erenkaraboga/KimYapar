@@ -48,6 +48,7 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   shimmer: ^2.0.0
   simple_animations: ^4.2.0
+  simple_speed_dial: ^0.1.7
   slidable_button: ^2.0.0+1
 
 
@@ -73,6 +74,7 @@ flutter:
     - assets/images/eren.jpg
     - assets/lottie/lottie_login.json
     - assets/lottie/lottie_progress.json
+    - assets/lottie/login.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
