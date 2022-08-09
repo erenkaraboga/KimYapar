@@ -2,7 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/colors.dart';
-import 'package:kimyapar/view/login/SignIn.dart';
+import 'package:kimyapar/view/login/view/SignIn.dart';
+import 'package:kimyapar/view/login/view/SignUp.dart';
+import 'package:kimyapar/view/login/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/map/view/mapPage.dart';
 import 'package:kimyapar/view/map/viewmodel/bindings/binding.dart';
 
@@ -22,13 +24,26 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: AppColors.appBarColor),
       ),
-      initialRoute: "/map",
+      initialRoute: "/signIn",
       initialBinding: MapBinding(),
       getPages: [
         GetPage(
-            name: "/map", page: () => const MapSelect(), binding: MapBinding()
-            // transition: Transition.cupertino
-            ),
+          name: "/map", page: () => const MapSelect(),
+          // transition: Transition.cupertino
+        ),
+        GetPage(
+          name: "/signIn", page: () => SingIn(),
+          binding: LoginBinding(),
+          transition: Transition.fade,
+          transitionDuration: const Duration(milliseconds: 600),
+          // transition: Transition.cupertino
+        ),
+        GetPage(
+          name: "/signUp", page: () => const SignUp(),
+          transition: Transition.fade,
+          transitionDuration: const Duration(milliseconds: 600),
+          // transition: Transition.cupertino
+        ),
       ],
     );
   }
