@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
@@ -9,11 +8,12 @@ import 'package:kimyapar/view/map/service/IMapService.dart';
 
 class MapService extends IMapService {
   MapService(super._db);
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  //final FirebaseFirestore _db = FirebaseFirestore.instance;
   @override
   Future<List<UserModel>> retrieveUsers() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
-        await _db.collection("users").get();
+        await super.db.collection("users").get();
 
     return snapshot.docs
         .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))

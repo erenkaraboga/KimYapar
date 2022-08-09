@@ -3,9 +3,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
 
 abstract class IMapService {
-  final FirebaseFirestore _db;
+  final FirebaseFirestore db;
 
-  IMapService(this._db);
+  IMapService(this.db);
   Future<Position> determinePosition();
   Future<void> addUser(String mail, String pass,String name,double lat , double long);
   Future<List<UserModel>> retrieveUsers();
