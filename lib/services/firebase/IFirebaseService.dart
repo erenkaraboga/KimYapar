@@ -8,6 +8,6 @@ abstract class IFirebaseService{
   final FirebaseFirestore db;
   IFirebaseService(this.auth, this.db);
   Future<List<UserModel>> getAllUsers();
-  void getCurrentUser(String id);
+  Future<UserModel> getCurrentUser(String id);
 
 }
