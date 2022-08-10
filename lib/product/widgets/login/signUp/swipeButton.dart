@@ -31,7 +31,7 @@ class _SwippableButtonUPState extends State<SwippableButtonUP> {
       ),
       onChanged: (position) {
         if (position == SlidableButtonPosition.start) {
-          Get.toNamed("/signIn");
+          Get.offNamed("/signIn");
         } else {
           return;
         }

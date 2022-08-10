@@ -1,34 +1,35 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/view/login/service/ILoginService.dart';
-import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
 
 import '../../../../services/firebase/IFirebaseService.dart';
+import '../../../map/model/UserModel.dart';
 
 class LoginController extends GetxController {
   final IFirebaseService service;
   final ILoginService loginService;
-  LoginController(this.service,this.loginService);
+  LoginController(this.service, this.loginService);
+  var model = UserModel().obs;
   late Rx<User?> firebaseAuthUser;
   var isLoading = true.obs;
   @override
   void onReady() {
     super.onReady();
-   
+
     firebaseAuthUser = Rx<User?>(service.auth.currentUser);
     firebaseAuthUser.bindStream(service.auth.userChanges());
-  
+
     ever(firebaseAuthUser, _setInitialScreen);
   }
+
   _setInitialScreen(User? user) async {
     if (user == null) {
       Get.offNamed("/signIn");
     } else {
-       getCurrentUser();
+      await getCurrentUser();
       changeLoading();
       loggedSnackBar();
       await Future.delayed(const Duration(seconds: 2));
@@ -39,8 +40,10 @@ class LoginController extends GetxController {
   void register(String email, password) async {
     loginService.registerUser(email, password);
   }
-  void getCurrentUser()async{
-   
+
+  getCurrentUser() async {
+    model.value = await service.getCurrentUser(service.auth.currentUser!.uid);
+    inspect(model);
   }
 
   void login(String email, password) async {
@@ -60,17 +63,22 @@ class LoginController extends GetxController {
 
   void loggedSnackBar() {
     Get.snackbar(
+      model.value.name.toString(),
       "Hoşgeldiniz",
-      "Hello everyone",
-      icon: const Icon(Icons.person, color: Colors.white),
+      icon: ClipOval(
+          child: CircleAvatar(
+        backgroundImage: NetworkImage(model.value.imageUrl ??
+            "https://images.assetsdelivery.com/compings_v2/tuktukdesign/tuktukdesign1606/tuktukdesign160600119.jpg"),
+      )),
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.orangeAccent,
-      borderRadius: 20,
-      margin: const EdgeInsets.all(15),
+      borderRadius: 10,
+      padding: const EdgeInsets.all(20),
+      snackStyle: SnackStyle.FLOATING,
+      margin: const EdgeInsets.all(10),
       colorText: Colors.white,
       duration: const Duration(seconds: 2),
       isDismissible: true,
-      forwardAnimationCurve: Curves.easeOutBack,
     );
   }
 }

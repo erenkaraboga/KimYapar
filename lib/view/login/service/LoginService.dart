@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:kimyapar/view/login/service/ILoginService.dart';
+import 'package:kimyapar/view/map/model/UserModel.dart';
 
 import '../../map/viewmodel/controllers/mapController.dart';
 
@@ -42,5 +43,7 @@ class LoginService extends ILoginService {
   }
 
   @override
-  void getCurrentUser(String id) {}
+  Future<UserModel> getCurrentUser(String id) {
+    return super.service.getCurrentUser(id);
+  }
 }
