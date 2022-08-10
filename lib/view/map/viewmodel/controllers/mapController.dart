@@ -1,17 +1,14 @@
-import 'dart:developer';
-
-import 'package:custom_info_window/custom_info_window.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kimyapar/services/firebase/IFirebaseService.dart';
 import 'package:kimyapar/view/map/service/IMapService.dart';
 
-import '../../../../product/widgets/map/mapInfoWindow.dart';
 import '../../model/UserModel.dart';
 
 class MapController extends GetxController {
+  final IFirebaseService service;
   final IMapService mapService;
-  MapController(this.mapService);
+  MapController(this.service, this.mapService);
   var isLoading = false.obs;
   List<UserModel> list = <UserModel>[].obs;
   var position = Position(
@@ -28,9 +25,9 @@ class MapController extends GetxController {
   getLocation() async {
     final response = await mapService.determinePosition();
     position.value = response;
-   
   }
-  fetcAllMaps() async {
+
+  fetchFilteredUser() async {
     changeLoading();
     final response = await mapService.filterGeo();
     await Future.delayed(const Duration(seconds: 2));

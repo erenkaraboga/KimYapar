@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:kimyapar/services/firebase/FirebaseService.dart';
 import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
 
 import '../../../../product/init/network/firebase_auth.dart';
@@ -11,8 +11,15 @@ import '../../service/MapService.dart';
 class MapBinding implements Bindings {
   @override
   void dependencies() {
-    Get.put<MapController>(MapController(MapService(FirebaseInit.instance.db)));
-    Get.put<LoginController>(
-        LoginController(LoginService(FirebaseAuthInit.instance.auth)));
-        
-  }}
+    Get.put<MapController>(MapController(
+        FirebaseService(
+            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db),
+        MapService(FirebaseService(
+            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db))));
+    Get.put<LoginController>(LoginController(
+        FirebaseService(
+            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db),
+        LoginService(FirebaseService(
+            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db))));
+  }
+}

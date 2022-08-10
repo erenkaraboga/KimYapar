@@ -1,30 +1,21 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/map/service/IMapService.dart';
 
 class MapService extends IMapService {
-  MapService(super._db);
-
-  //final FirebaseFirestore _db = FirebaseFirestore.instance;
-  @override
-  Future<List<UserModel>> retrieveAllUsers() async {
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await super.db.collection("users").get();
-    return snapshot.docs
-        .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
-        .toList();
-  }
-
+  MapService(super.service);
   @override
   double drawDistance(double lat, long, endLat, endLong) {
     return Geolocator.distanceBetween(lat, long, endLat, endLong);
   }
-
   @override
   Future<List<UserModel>> filterGeo() async {
     List<UserModel> nearList = [];
-    await retrieveAllUsers().then((list) {
+    await super.service.getAllUsers().then((list) {
       nearList.addAll(list);
       nearList.retainWhere((element) =>
           drawDistance(element.lat!, element.long, 40.599391, 33.610534) <
@@ -33,7 +24,6 @@ class MapService extends IMapService {
     });
     return nearList;
   }
-
   @override
   Future<Position> determinePosition() async {
     bool serviceEnabled;
@@ -56,7 +46,7 @@ class MapService extends IMapService {
       return Future.error(
           'Location permissions are permanently denied, we cannot request permissions.');
     }
-
     return await Geolocator.getCurrentPosition();
   }
+
 }

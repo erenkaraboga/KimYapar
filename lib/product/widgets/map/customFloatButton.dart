@@ -27,7 +27,7 @@ class _CustomFloatButtonState extends State<CustomFloatButton> {
           backgroundColor: Colors.green,
           label: 'Konumum',
           onPressed: () {
-            mapController.fetcAllMaps();
+            mapController.fetchFilteredUser();
           },
         ),
         SpeedDialChild(

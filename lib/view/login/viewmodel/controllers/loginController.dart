@@ -7,18 +7,20 @@ import 'package:get/get.dart';
 import 'package:kimyapar/view/login/service/ILoginService.dart';
 import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
 
+import '../../../../services/firebase/IFirebaseService.dart';
+
 class LoginController extends GetxController {
+  final IFirebaseService service;
   final ILoginService loginService;
-  final mapController = Get.find<MapController>();
-  LoginController(this.loginService);
+  LoginController(this.service,this.loginService);
   late Rx<User?> firebaseAuthUser;
   var isLoading = true.obs;
   @override
   void onReady() {
     super.onReady();
    
-    firebaseAuthUser = Rx<User?>(loginService.auth.currentUser);
-    firebaseAuthUser.bindStream(loginService.auth.userChanges());
+    firebaseAuthUser = Rx<User?>(service.auth.currentUser);
+    firebaseAuthUser.bindStream(service.auth.userChanges());
   
     ever(firebaseAuthUser, _setInitialScreen);
   }
@@ -35,32 +37,10 @@ class LoginController extends GetxController {
   }
 
   void register(String email, password) async {
-    try {
-      var user = await loginService.register(email, password);
-      if (user != null) {
-        String id = user.uid;
-        mapController.mapService.db.collection('users').doc(id).set({
-          'id': id,
-          'name': email,
-          'lat': mapController.position.value.latitude,
-          'long': mapController.position.value.longitude
-        });
-      }
-    } catch (firebaseAuthException) {}
+    loginService.registerUser(email, password);
   }
   void getCurrentUser()async{
-   print(firebaseAuthUser.value!.uid);
-   FirebaseFirestore.instance
-    .collection('users')
-    .doc(firebaseAuthUser.value!.uid)
-    .get()
-    .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        print('Document data: ${documentSnapshot.data()}');
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
+   
   }
 
   void login(String email, password) async {
