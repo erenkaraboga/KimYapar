@@ -1,59 +1,96 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/view/login/service/ILoginService.dart';
-import 'package:kimyapar/view/login/view/SignIn.dart';
-
-import '../../../map/view/mapPage.dart';
+import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
 
 class LoginController extends GetxController {
   final ILoginService loginService;
+  final mapController = Get.find<MapController>();
   LoginController(this.loginService);
-  late Rx<User?> firebaseUser;
+  late Rx<User?> firebaseAuthUser;
   var isLoading = true.obs;
   @override
   void onReady() {
     super.onReady();
-    // auth is comning from the constants.dart file but it is basically FirebaseAuth.instance.
-    // Since we have to use that many times I just made a constant file and declared there
-    firebaseUser = Rx<User?>(loginService.auth.currentUser);
-    firebaseUser.bindStream(loginService.auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+   
+    firebaseAuthUser = Rx<User?>(loginService.auth.currentUser);
+    firebaseAuthUser.bindStream(loginService.auth.userChanges());
+  
+    ever(firebaseAuthUser, _setInitialScreen);
   }
-
-  _setInitialScreen(User? user) async{
+  _setInitialScreen(User? user) async {
     if (user == null) {
-      // if the user is not found then the user is navigated to the Register Screen
       Get.offNamed("/signIn");
     } else {
-      // if the user exists and logged in the the user is navigated to the Home Screen
-   
+       getCurrentUser();
       changeLoading();
-        await Future.delayed(const Duration(seconds:2));
+      loggedSnackBar();
+      await Future.delayed(const Duration(seconds: 2));
       Get.toNamed("/map");
     }
   }
 
   void register(String email, password) async {
     try {
-      loginService.auth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      var user = await loginService.register(email, password);
+      if (user != null) {
+        String id = user.uid;
+        mapController.mapService.db.collection('users').doc(id).set({
+          'id': id,
+          'name': email,
+          'lat': mapController.position.value.latitude,
+          'long': mapController.position.value.longitude
+        });
+      }
     } catch (firebaseAuthException) {}
+  }
+  void getCurrentUser()async{
+   print(firebaseAuthUser.value!.uid);
+   FirebaseFirestore.instance
+    .collection('users')
+    .doc(firebaseAuthUser.value!.uid)
+    .get()
+    .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        print('Document data: ${documentSnapshot.data()}');
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
   }
 
   void login(String email, password) async {
     try {
-      loginService.auth
-          .signInWithEmailAndPassword(email: email, password: password);
-      
+      loginService.login(email, password);
     } catch (firebaseAuthException) {}
   }
 
   void signOut() async {
-    loginService.auth.signOut();
+    loginService.logOut();
     changeLoading();
   }
 
   void changeLoading() {
     isLoading.value = !isLoading.value;
+  }
+
+  void loggedSnackBar() {
+    Get.snackbar(
+      "Hoşgeldiniz",
+      "Hello everyone",
+      icon: const Icon(Icons.person, color: Colors.white),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.orangeAccent,
+      borderRadius: 20,
+      margin: const EdgeInsets.all(15),
+      colorText: Colors.white,
+      duration: const Duration(seconds: 2),
+      isDismissible: true,
+      forwardAnimationCurve: Curves.easeOutBack,
+    );
   }
 }

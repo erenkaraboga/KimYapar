@@ -12,4 +12,21 @@ class LoginService extends ILoginService {
 
     return response.user;
   }
+  
+  @override
+  Future<User?> register(String email, String password) async{
+    var response = await super.auth.createUserWithEmailAndPassword(email: email, password: password);
+    return response.user;
+   
+  }
+  
+  @override
+  void logOut() {
+    super.auth.signOut();
+  }
+  
+  @override
+  void getCurrentUser(String id) {
+    
+  }
 }

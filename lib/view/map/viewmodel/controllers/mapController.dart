@@ -24,22 +24,19 @@ class MapController extends GetxController {
           speed: 0,
           speedAccuracy: 0)
       .obs;
+  //ok
   getLocation() async {
     final response = await mapService.determinePosition();
     position.value = response;
-    inspect(position);
+   
   }
-
   fetcAllMaps() async {
     changeLoading();
     final response = await mapService.filterGeo();
     await Future.delayed(const Duration(seconds: 2));
     changeLoading();
     list = response;
-    inspect(list);
   }
-
-  
 
   void changeLoading() {
     isLoading.value = !isLoading.value;

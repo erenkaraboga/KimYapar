@@ -7,8 +7,7 @@ abstract class IMapService {
 
   IMapService(this.db);
   Future<Position> determinePosition();
-  Future<void> addUser(String mail, String pass,String name,double lat , double long);
-  Future<List<UserModel>> retrieveUsers();
+  Future<List<UserModel>> retrieveAllUsers();
   double drawDistance(double lat, long, endLat, endLong);
   Future<List<UserModel>> filterGeo();
 }

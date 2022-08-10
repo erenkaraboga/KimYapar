@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
@@ -11,10 +8,9 @@ class MapService extends IMapService {
 
   //final FirebaseFirestore _db = FirebaseFirestore.instance;
   @override
-  Future<List<UserModel>> retrieveUsers() async {
+  Future<List<UserModel>> retrieveAllUsers() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await super.db.collection("users").get();
-
     return snapshot.docs
         .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
         .toList();
@@ -28,7 +24,7 @@ class MapService extends IMapService {
   @override
   Future<List<UserModel>> filterGeo() async {
     List<UserModel> nearList = [];
-    await retrieveUsers().then((list) {
+    await retrieveAllUsers().then((list) {
       nearList.addAll(list);
       nearList.retainWhere((element) =>
           drawDistance(element.lat!, element.long, 40.599391, 33.610534) <
@@ -62,21 +58,5 @@ class MapService extends IMapService {
     }
 
     return await Geolocator.getCurrentPosition();
-  }
-
-  @override
-  Future<void> addUser(
-      String mail, String pass, String name, double lat, double long) async {
-    final response = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: mail, password: pass);
-
-    if (response.user != null) {
-      String id = response.user!.uid;
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(id)
-          .set({'id': id, 'name': name, 'lat': lat, 'long': long});
-    }
-    inspect(response.credential!.token.toString());
   }
 }

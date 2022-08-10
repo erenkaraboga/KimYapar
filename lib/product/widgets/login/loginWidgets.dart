@@ -50,7 +50,7 @@ class LoginWidgets {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SignInButton(
-          text: Tr.forgotPass,
+          text: Tr.loginWithGoogle,
           Buttons.Google,
           elevation: 10,
           shape: RoundedRectangleBorder(

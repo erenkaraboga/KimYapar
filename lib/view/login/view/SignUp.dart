@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/styles.dart';
 import 'package:kimyapar/product/widgets/login/loginWidgets.dart';
@@ -21,9 +22,12 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController passController = TextEditingController();
   final TextEditingController maiilController = TextEditingController();
+   final TextEditingController RpassController = TextEditingController();
   final loginController = Get.find<LoginController>();
+  String password="";
   @override
   Widget build(BuildContext context) {
+    
     var width2 = 325.0;
     var height2 = 680.0;
     return Scaffold(
@@ -68,7 +72,7 @@ class _SignUpState extends State<SignUp> {
                       const SizedBox(
                         height: 12,
                       ),
-                      PassField(),
+                      RPassField(),
                       LoginWidgets.ForgotPass(),
                       LoginButton(),
                       const SizedBox(
@@ -90,7 +94,7 @@ class _SignUpState extends State<SignUp> {
     return GestureDetector(
       onTap: () {
         if (_formKey.currentState!.validate()) {
-          loginController.login(
+          loginController.register(
               maiilController.text.trim(), passController.text.trim());
         }
       },
@@ -101,7 +105,7 @@ class _SignUpState extends State<SignUp> {
         child: const Padding(
             padding: EdgeInsets.all(12.0),
             child: CreateText(
-                text: Tr.signin, style: TextStyles.loginButtonStyle)),
+                text: Tr.signUp, style: TextStyles.loginButtonStyle)),
       ),
     );
   }
@@ -113,7 +117,20 @@ class _SignUpState extends State<SignUp> {
       child: TextFormField(
         obscureText: true,
         controller: passController,
+        onChanged: (val) => password = val,  
         validator: Validate.passwordValidator,
+        decoration: TextFieldStyles.PassField,
+      ),
+    );
+  }
+  RPassField() {
+    return SizedBox(
+      width: 260,
+      height: 60,
+      child: TextFormField(
+        obscureText: true,
+        controller: RpassController,
+        validator: (pass) => MatchValidator(errorText: 'Şifreler Eşleşmiyor').validateMatch(pass!, password),
         decoration: TextFieldStyles.PassField,
       ),
     );

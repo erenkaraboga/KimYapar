@@ -10,4 +10,5 @@ class Tr {
   static const mail = "Mail";
   static const pass = "Şifre";
   static const loginWithGoogle = "Google ile Giriş Yap";
+  static const signUp = "Kayıt Ol";
 }
