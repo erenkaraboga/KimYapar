@@ -10,7 +10,7 @@ class MapController extends GetxController {
   final IMapService mapService;
   MapController(this.service, this.mapService);
   var isLoading = false.obs;
-  List<UserModel> list = <UserModel>[].obs;
+ var list= Rx<List<UserModel>>([]);
   var position = Position(
           longitude: 0,
           latitude: 0,
@@ -32,7 +32,7 @@ class MapController extends GetxController {
     final response = await mapService.filterGeo();
     await Future.delayed(const Duration(seconds: 2));
     changeLoading();
-    list = response;
+    list.value = response;
   }
 
   void changeLoading() {

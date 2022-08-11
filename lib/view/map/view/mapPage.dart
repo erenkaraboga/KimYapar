@@ -29,6 +29,8 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
     super.initState();
 
     mapController.fetchFilteredUser();
+    print("*********");
+   
   }
 
   @override
@@ -73,7 +75,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
           _customInfoWindowController.onCameraMove!();
         },
         onTap: (position) {},
-        markers: getMarkers(mapController.list),
+        markers: getMarkers(mapController.list.value),
         initialCameraPosition: const CameraPosition(
             target: LatLng(40.536907, 33.588389), zoom: 13.5));
   }
