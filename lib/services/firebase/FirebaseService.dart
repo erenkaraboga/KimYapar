@@ -14,6 +14,14 @@ class FirebaseService extends IFirebaseService {
         .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
         .toList();
   }
+   @override
+  Future<List<UserModel>> getOtherUsers() async{
+     QuerySnapshot<Map<String, dynamic>> snapshot =
+        await super.db.collection("users").where('id',isNotEqualTo: super.auth.currentUser!.uid).get();
+    return snapshot.docs
+        .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
+        .toList();
+  }
 
   @override
   Future<UserModel> getCurrentUser(String id) async {
@@ -26,4 +34,6 @@ class FirebaseService extends IFirebaseService {
     }
     return user;
   }
+  
+ 
 }

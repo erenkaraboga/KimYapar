@@ -8,6 +8,7 @@ abstract class IFirebaseService{
   final FirebaseFirestore db;
   IFirebaseService(this.auth, this.db);
   Future<List<UserModel>> getAllUsers();
+  Future<List<UserModel>> getOtherUsers();
   Future<UserModel> getCurrentUser(String id);
 
 }
