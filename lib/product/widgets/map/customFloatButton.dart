@@ -39,6 +39,15 @@ class _CustomFloatButtonState extends State<CustomFloatButton> {
             loginController.signOut();
           },
         ),
+         SpeedDialChild(
+          child: const Icon(Icons.people),
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.blueAccent,
+          label: 'Şefler Yap!',
+          onPressed: () {
+            Get.offNamed("/chat");
+          },
+        ),
       ],
       closedForegroundColor: Colors.black,
       openForegroundColor: Colors.white,

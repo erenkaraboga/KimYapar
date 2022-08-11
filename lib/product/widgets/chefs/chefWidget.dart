@@ -5,14 +5,14 @@ import 'package:kimyapar/core/base/avatar.dart';
 import 'package:kimyapar/core/base/star.dart';
 import 'package:kimyapar/core/base/text.dart';
 import 'package:kimyapar/core/constants/styles.dart';
-import 'package:kimyapar/view/chefs/model/chefmodel.dart';
-class ChefContainer extends StatefulWidget {
+
+
+/*class ChefContainer extends StatefulWidget {
   const ChefContainer({Key? key, required this.chefModel}) : super(key: key);
   final ChefModel chefModel;
   @override
   State<ChefContainer> createState() => _ChefContainerState();
 }
-
 class _ChefContainerState extends State<ChefContainer> {
   @override
   Widget build(BuildContext context) {
@@ -99,6 +99,6 @@ class DescriptionWidget extends StatelessWidget {
   }
 }
 
-
+*/
 
 
