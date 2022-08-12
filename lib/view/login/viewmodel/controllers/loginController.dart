@@ -43,7 +43,7 @@ class LoginController extends GetxController {
 
   getCurrentUser() async {
     model.value = await service.getCurrentUser(service.auth.currentUser!.uid);
-    inspect(model);
+
   }
 
   void login(String email, password) async {

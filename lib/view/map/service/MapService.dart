@@ -17,9 +17,10 @@ class MapService extends IMapService {
     List<UserModel> nearList = [];
     await super.service.getAllUsers().then((list) {
       nearList.addAll(list);
+      inspect(list);
       nearList.retainWhere((element) =>
           drawDistance(element.lat!, element.long, 40.599391, 33.610534) <
-          1200);
+          2000000);
       print("Yakındaki Aşçılar = " "${nearList.length}");
     });
     return nearList;

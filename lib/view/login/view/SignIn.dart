@@ -16,10 +16,8 @@ class SingIn extends StatefulWidget {
 
 final mapController = Get.find<MapController>();
 final loginControllerr = Get.find<LoginController>();
-final TextEditingController passController =
-    TextEditingController(text: "Eren656656");
-final TextEditingController maiilController =
-    TextEditingController(text: "eren@gmail.com");
+final TextEditingController passController = TextEditingController();
+final TextEditingController maiilController = TextEditingController();
 
 class _SingInState extends State<SingIn> {
   void click() {}

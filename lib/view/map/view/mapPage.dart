@@ -77,7 +77,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
         onTap: (position) {},
         markers: getMarkers(mapController.list.value),
         initialCameraPosition: const CameraPosition(
-            target: LatLng(40.536907, 33.588389), zoom: 13.5));
+            target: LatLng(41.536907, 36.188389), zoom: 5.5));
   }
 
   CustomInfoWindow CustomInfo() {

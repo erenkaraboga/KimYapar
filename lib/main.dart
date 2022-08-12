@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/colors.dart';
 import 'package:kimyapar/view/chats/view/chatScreen.dart';
+import 'package:kimyapar/view/chats/view/chatdetails.dart';
 import 'package:kimyapar/view/chats/viewmodel/bindings/binding.dart';
 
 import 'package:kimyapar/view/login/view/SignIn.dart';
@@ -41,6 +42,10 @@ class MyApp extends StatelessWidget {
           transitionDuration: const Duration(milliseconds: 600),
           // transition: Transition.cupertino
         ),
+        GetPage(
+            name: "/chatDetail", page: () => const ChatDetail(),
+            // transition: Transition.cupertino
+            ),
         GetPage(
           name: "/chat", page: () => const Chats(),
           binding: ChatBinding(),
