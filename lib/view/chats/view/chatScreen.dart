@@ -35,14 +35,10 @@ class _ChatsState extends State<Chats> {
                   style: TextStyle(color: Colors.green, fontSize: 15),
                 ),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChatDetail(
-                              friendId: chatController.list.value[index].id,
-                              friendName: chatController.list.value[index].name,
-                            )),
+                  chatController.bindFriend(index);
+                  Get.toNamed("/chatDetail", 
                   );
+                  
                 },
                 title: Text(chatController.list.value[index].name!));
           }),
