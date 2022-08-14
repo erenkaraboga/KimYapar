@@ -18,7 +18,11 @@ class _ChatsState extends State<Chats> {
     
     super.initState();
   }
-
+@override
+  void dispose() {
+    
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     chatController.getChatUsers();
@@ -34,9 +38,10 @@ class _ChatsState extends State<Chats> {
                   "ACTIVE",
                   style: TextStyle(color: Colors.green, fontSize: 15),
                 ),
-                onTap: () {
+                onTap: () async{
                   chatController.bindFriend(index);
-                  Get.toNamed("/chatDetail", 
+                  await  chatController.checkUser();
+                    Get.offNamed("/chatDetail", 
                   );
                   
                 },

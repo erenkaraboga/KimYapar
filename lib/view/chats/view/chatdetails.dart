@@ -9,9 +9,8 @@ import 'package:get/get.dart';
 import 'package:kimyapar/view/chats/viewmodel/controller/chatcontroller.dart';
 
 class ChatDetail extends StatefulWidget {
-  const ChatDetail({Key? key})
-      : super(key: key);
-  
+  const ChatDetail({Key? key}) : super(key: key);
+
   @override
   _ChatDetailState createState() => _ChatDetailState();
 }
@@ -24,9 +23,13 @@ class _ChatDetailState extends State<ChatDetail> {
   @override
   void initState() {
     super.initState();
-    chatController.checkUser();
+    
   }
+ @override
+  void dispose() {
 
+    super.dispose();
+  }
   void sendMessage(String msg) {
     if (msg == '') return;
     chatController.service.db
@@ -57,7 +60,7 @@ class _ChatDetailState extends State<ChatDetail> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
+      onWillPop: () async {
         Get.offNamed('chat');
         return false;
       },
@@ -66,6 +69,7 @@ class _ChatDetailState extends State<ChatDetail> {
                 .collection('chats')
                 .doc(chatController.chatDocId.value.toString())
                 .collection('messages')
+              
                 .orderBy('createdOn', descending: true)
                 .snapshots(),
             builder:
@@ -76,7 +80,7 @@ class _ChatDetailState extends State<ChatDetail> {
                 );
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                Future.delayed(Duration(seconds: 2));
+                Future.delayed(const Duration(seconds: 2));
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -103,8 +107,8 @@ class _ChatDetailState extends State<ChatDetail> {
                                 var data =
                                     document.data() as Map<String, dynamic>;
                                 return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: ChatBubble(
                                     clipper: ChatBubbleClipper6(
                                       radius: 20,
@@ -120,24 +124,23 @@ class _ChatDetailState extends State<ChatDetail> {
                                             ? const Color(0xFF08C187)
                                             : const Color(0xffE7E7ED),
                                     child: Container(
-                                      constraints: BoxConstraints(
-                                        maxWidth:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                      ),
-                                      child: DefaultTextStyle(
-                                        style:  TextStyle(
-                                                      fontSize: 17,
-                                                        color: isSender(data['uid']
-                                                                .toString())
-                                                            ? Colors.white
-                                                            : Colors.black),
-                                        child: Text(data['msg'],
-                                                    
-                                                    maxLines: 200,
-                                                    overflow: TextOverflow.ellipsis),
-                                      )
-                                    ),
+                                        constraints: BoxConstraints(
+                                          maxWidth: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.5,
+                                        ),
+                                        child: DefaultTextStyle(
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              color: isSender(
+                                                      data['uid'].toString())
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                          child: Text(data['msg'],
+                                              maxLines: 200,
+                                              overflow: TextOverflow.ellipsis),
+                                        )),
                                   ),
                                 );
                               },

@@ -8,7 +8,8 @@ class ChatController extends GetxController {
   final IFirebaseService service;
   ChatController(this.service);
   var list = Rx<List<UserModel>>([]);
-  var chatDocId = Object().obs;
+  var chatDocId="".obs;
+  Map<String, dynamic> chatDocIdd = {};
   var friendUid = "".obs;
   var friendName = "".obs;
   @override
@@ -35,25 +36,19 @@ class ChatController extends GetxController {
       'friendName': widget.friendName,
       'msg': msg
     }).then((value) {
-      _textController.text = '';
+      _textController
+      .text = '';
     });
   }*/
   
-  void bindFriend(int index) {
+   bindFriend(int index) {
     friendUid.value = list.value[index].id!;
     friendName.value = list.value[index].name!;
     friendName.refresh();
     friendUid.refresh();
   }
 
-  void checkUser() async {
-    var response = await service.db
-        .collection('chats')
-        .where('users',
-            isEqualTo: {friendUid.value: null, service.auth.currentUser!.uid: null})
-        .limit(1)
-        .get();
-    if (response.docs.isNotEmpty) {}
+   checkUser() async {
     await service.db
         .collection('chats')
         .where('users',
@@ -64,6 +59,8 @@ class ChatController extends GetxController {
           (QuerySnapshot querySnapshot) async {
             if (querySnapshot.docs.isNotEmpty) {
               chatDocId.value = querySnapshot.docs.single.id;
+              print("***********");
+              print(chatDocId.value);
               chatDocId.refresh();
             } else {
               await service.db.collection('chats').add({
@@ -74,12 +71,15 @@ class ChatController extends GetxController {
                   friendUid.value: friendName.value
                 }
               }).then((value) => {
-                    chatDocId.value = value,
-                    chatDocId.refresh(),
+                     print("******************************"),
+                    chatDocId.value = value.id
+                   
                   });
             }
           },
         )
-        .catchError((error) {});
+        .catchError((error) {
+          print(error);
+        });
   }
 }
