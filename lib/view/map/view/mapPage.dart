@@ -19,6 +19,7 @@ class MapSelect extends StatefulWidget {
 
 final mapController = Get.find<MapController>();
 
+
 CustomInfoWindowController _customInfoWindowController =
     CustomInfoWindowController();
 final Set<Marker> markers = {};
@@ -27,7 +28,6 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     mapController.fetchFilteredUser();
     print("*********");
    

@@ -9,6 +9,8 @@ import '../../map/viewmodel/controllers/mapController.dart';
 class LoginService extends ILoginService {
   LoginService(super.service);
   final mapController = Get.find<MapController>();
+  
+  
   @override
   Future<User?> login(String email, String password) async {
     var response = await super
@@ -31,7 +33,8 @@ class LoginService extends ILoginService {
         'id': id,
         'name': email,
         'lat': mapController.position.value.latitude,
-        'long': mapController.position.value.longitude
+        'long': mapController.position.value.longitude,
+        'email':email
       });
     } catch (firebaseAuthException) {}
     return null;

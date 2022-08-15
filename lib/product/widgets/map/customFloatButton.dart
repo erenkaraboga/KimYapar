@@ -21,6 +21,15 @@ class _CustomFloatButtonState extends State<CustomFloatButton> {
   Widget build(BuildContext context) {
     return SpeedDial(
       speedDialChildren: <SpeedDialChild>[
+     SpeedDialChild(
+          child: const Icon(Icons.location_on),
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.green,
+          label: 'Siparişler',
+          onPressed: () {
+           Get.toNamed('/order');
+          },
+        ),
         SpeedDialChild(
           child: const Icon(Icons.location_on),
           foregroundColor: Colors.white,
@@ -39,13 +48,13 @@ class _CustomFloatButtonState extends State<CustomFloatButton> {
             loginController.signOut();
           },
         ),
-         SpeedDialChild(
+        SpeedDialChild(
           child: const Icon(Icons.people),
           foregroundColor: Colors.white,
           backgroundColor: Colors.blueAccent,
-          label: 'Şefler Yap!',
+          label: 'Şefler!',
           onPressed: () {
-            Get.offNamed("/chat");
+            Get.toNamed("/chat");
           },
         ),
       ],

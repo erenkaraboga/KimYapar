@@ -23,23 +23,6 @@ class ChatController extends GetxController {
     var response = await service.getOtherUsers();
     list.value = response;
   }
-
-  /*void sendMessage(String msg) {
-    if (msg == '') return;
-    service.db
-        .collection('chats')
-        .doc(chatDocId.value.toString())
-        .collection('messages')
-        .add({
-      'createdOn': FieldValue.serverTimestamp(),
-      'uid': currentUserId,
-      'friendName': widget.friendName,
-      'msg': msg
-    }).then((value) {
-      _textController
-      .text = '';
-    });
-  }*/
   
    bindFriend(int index) {
     friendUid.value = list.value[index].id!;

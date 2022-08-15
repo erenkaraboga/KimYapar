@@ -10,6 +10,6 @@ class ChatBinding implements Bindings {
   void dependencies() {
     Get.put<ChatController>(ChatController(
       FirebaseService(FirebaseAuthInit.instance.auth, FirebaseInit.instance.db),
-    ));
+    ),permanent: true);
   }
 }

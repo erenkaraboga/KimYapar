@@ -40,7 +40,7 @@ class _ChatsState extends State<Chats> {
                 ),
                 onTap: () async{
                   chatController.bindFriend(index);
-                  await  chatController.checkUser();
+                 await chatController.checkUser();
                     Get.offNamed("/chatDetail", 
                   );
                   

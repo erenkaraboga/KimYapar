@@ -33,7 +33,7 @@ class LoginController extends GetxController {
       changeLoading();
       loggedSnackBar();
       await Future.delayed(const Duration(seconds: 2));
-      Get.toNamed("/map");
+      Get.offNamed("/map");
     }
   }
 
@@ -43,7 +43,6 @@ class LoginController extends GetxController {
 
   getCurrentUser() async {
     model.value = await service.getCurrentUser(service.auth.currentUser!.uid);
-
   }
 
   void login(String email, password) async {
