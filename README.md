@@ -7,4 +7,5 @@
     #  Firebase Push Notifications
     #  Google Maps 
     #  Getx State Management
+    #  Lottie
     #  It is written as cleanly as possible.
