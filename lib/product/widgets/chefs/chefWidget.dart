@@ -6,8 +6,10 @@ import 'package:kimyapar/core/base/star.dart';
 import 'package:kimyapar/core/base/text.dart';
 import 'package:kimyapar/core/constants/styles.dart';
 
+import '../../../view/chats/model/chefmodel.dart';
 
-/*class ChefContainer extends StatefulWidget {
+
+class ChefContainer extends StatefulWidget {
   const ChefContainer({Key? key, required this.chefModel}) : super(key: key);
   final ChefModel chefModel;
   @override
@@ -99,6 +101,6 @@ class DescriptionWidget extends StatelessWidget {
   }
 }
 
-*/
+
 
 

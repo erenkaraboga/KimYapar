@@ -10,7 +10,7 @@ class FirebaseService extends IFirebaseService {
   Future<List<UserModel>> getAllUsers() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await super.db.collection("users").get();
-    return snapshot.docs
+        return snapshot.docs
         .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
         .toList();
   }
@@ -22,7 +22,6 @@ class FirebaseService extends IFirebaseService {
         .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
         .toList();
   }
-
   @override
   Future<UserModel> getCurrentUser(String id) async {
     var user = UserModel();
@@ -34,6 +33,4 @@ class FirebaseService extends IFirebaseService {
     }
     return user;
   }
-  
- 
 }
