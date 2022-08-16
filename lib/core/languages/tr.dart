@@ -11,4 +11,5 @@ class Tr {
   static const pass = "Şifre";
   static const loginWithGoogle = "Google ile Giriş Yap";
   static const signUp = "Kayıt Ol";
+  static const order = "Ne yemek istersiniz?";
 }

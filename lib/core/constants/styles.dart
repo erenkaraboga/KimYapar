@@ -57,4 +57,40 @@ class TextFieldStyles {
       border: const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ));
+  static InputDecoration orderField = InputDecoration(
+      hintStyle: const TextStyle(color: Colors.deepOrange),
+      hoverColor: Colors.deepOrange,
+      suffix: AppIcons.order,
+      labelStyle: const TextStyle(color: Colors.deepOrange),
+      labelText: Tr.order,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide: const BorderSide(
+          color: Colors.orange,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide: const BorderSide(color: Colors.orangeAccent, width: 1.5),
+      ),
+      border: const OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ));
 }
+/*InputDecoration(
+                labelText: "Enter Email",
+                fillColor: Colors.white,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                    color: Colors.blue,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(25.0),
+                  borderSide: BorderSide(
+                    color: Colors.red,
+                    width: 2.0,
+                  ),
+                ),
+) */

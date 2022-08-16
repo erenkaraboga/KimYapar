@@ -11,4 +11,8 @@ class AppIcons {
     FontAwesomeIcons.eyeSlash,
     color: Colors.red,
   );
+  static Icon order = const Icon(
+    Icons.restaurant,
+    color: Colors.orange,
+  );
 }
