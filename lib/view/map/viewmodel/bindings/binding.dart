@@ -6,6 +6,8 @@ import '../../../../product/init/network/firebase_auth.dart';
 import '../../../../product/init/network/firebase_init.dart';
 import '../../../login/service/LoginService.dart';
 import '../../../login/viewmodel/controllers/loginController.dart';
+import '../../../order/service/OrderService.dart';
+import '../../../order/viewmodel/controllers/controller.dart';
 import '../../service/MapService.dart';
 
 class MapBinding implements Bindings {
@@ -20,6 +22,11 @@ class MapBinding implements Bindings {
         FirebaseService(
             FirebaseAuthInit.instance.auth, FirebaseInit.instance.db),
         LoginService(FirebaseService(
+            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db))));
+            Get.put<OrderController>(OrderController(
+        FirebaseService(
+            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db),
+        OrderService(FirebaseService(
             FirebaseAuthInit.instance.auth, FirebaseInit.instance.db))));
   }
 }

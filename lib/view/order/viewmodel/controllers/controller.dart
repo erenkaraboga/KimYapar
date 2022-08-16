@@ -9,6 +9,9 @@ class OrderController extends GetxController{
 
   OrderController(this.service, this.orderService);
   Stream<QuerySnapshot<Map<String, dynamic>>> getOrders(){
-    return service.db.collection('orders').snapshots();
+    return orderService.getOrders();
+  }
+  void addOrder(String desc){
+     orderService.addOrder(desc);
   }
 }

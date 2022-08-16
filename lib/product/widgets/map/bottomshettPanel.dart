@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
+import 'package:kimyapar/view/order/viewmodel/controllers/controller.dart';
 
 import '../../../core/constants/styles.dart';
 final loginController = Get.find<LoginController>();
+final orderController = Get.find<OrderController>();
 panel(ScrollController sc, BuildContext context) {
   return MediaQuery.removePadding(
       context: context,
@@ -49,11 +51,14 @@ panel(ScrollController sc, BuildContext context) {
             child: SizedBox(
               height: 50,
               child: ElevatedButton.icon(
+                  
                   autofocus: true,
                   style: ElevatedButton.styleFrom(
                       shape: const StadiumBorder(),
                       primary: Colors.orange.shade300),
-                  onPressed: () {},
+                  onPressed: () {
+                      orderController.addOrder("Patatesli yumurta");
+                  },
                   icon: const Icon(Icons.add),
                   label: const Text(
                     "Sipariş et",
@@ -69,7 +74,11 @@ panel(ScrollController sc, BuildContext context) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  _button("Siparişlerim", Icons.restaurant, Colors.red),
+                  GestureDetector(
+                    onTap: (){
+                       Get.toNamed("/order");
+                    },
+                    child: _button("Siparişlerim", Icons.restaurant, Colors.red)),
                   _button("Şefler", Icons.people_alt, Colors.amber),
                   GestureDetector(
                       onTap: () {
