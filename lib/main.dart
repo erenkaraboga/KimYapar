@@ -9,10 +9,13 @@ import 'package:kimyapar/view/chats/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/login/view/SignIn.dart';
 import 'package:kimyapar/view/login/view/SignUp.dart';
 import 'package:kimyapar/view/login/viewmodel/bindings/binding.dart';
+import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/map/view/mapPage.dart';
 import 'package:kimyapar/view/map/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/order/view/orderPage.dart';
 import 'package:kimyapar/view/order/viewmodel/bindings/binding.dart';
+import 'package:kimyapar/view/profile/view/profileScreen.dart';
+import 'package:kimyapar/view/profile/viewmodel/bindings/binding.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: AppColors.appBarColor),
       ),
-      initialRoute: "/signIn",
+      initialRoute: "/map",
       initialBinding: MapBinding(),
       getPages: [
         GetPage(
@@ -39,6 +42,13 @@ class MyApp extends StatelessWidget {
           name: "/signIn",
           page: () => SingIn(),
           binding: LoginBinding(),
+          transition: Transition.fade,
+          transitionDuration: const Duration(milliseconds: 600),
+        ),
+        GetPage(
+          name: "/profile",
+          page: () => const ProfilePage(),
+          binding: ProfileBinding(),
           transition: Transition.fade,
           transitionDuration: const Duration(milliseconds: 600),
         ),
