@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kimyapar/core/constants/path.dart';
 import 'package:kimyapar/product/utilities/lottie.dart';
-import 'package:kimyapar/product/widgets/map/customFloatButton.dart';
 import 'package:kimyapar/product/widgets/map/mapInfoWindow.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../../product/widgets/map/bottomshettPanel.dart';
 import '../model/UserModel.dart';
 import '../viewmodel/controllers/mapController.dart';
 
@@ -19,18 +20,20 @@ class MapSelect extends StatefulWidget {
 
 final mapController = Get.find<MapController>();
 
-
 CustomInfoWindowController _customInfoWindowController =
     CustomInfoWindowController();
 final Set<Marker> markers = {};
 
 class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
+  final double _initFabHeight = 110.0;
+  double _fabHeight = 0;
+  double _panelHeightOpen = 0;
+  final double _panelHeightClosed = 85.0;
   @override
   void initState() {
     super.initState();
+    _fabHeight = _initFabHeight;
     mapController.fetchFilteredUser();
-    print("*********");
-   
   }
 
   @override
@@ -46,13 +49,34 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    _panelHeightOpen = MediaQuery.of(context).size.height * .55;
     return Scaffold(
-        floatingActionButton: const CustomFloatButton(),
-        body: Obx(() => mapController.isLoading.value
-            ? Lottie()
-            : Stack(
-                children: [Map(), CustomInfo()],
-              )));
+      body: Obx(() => mapController.isLoading.value
+          ? Lottie()
+          : Stack(children: [
+              MapWithPanel(),
+              CustomInfo(),
+            ])),
+    );
+  }
+
+  MapWithPanel() {
+    return SlidingUpPanel(
+      backdropEnabled: true,
+      backdropOpacity: 0.6,
+      maxHeight: _panelHeightOpen,
+      minHeight: _panelHeightClosed,
+      parallaxEnabled: true,
+      parallaxOffset: .5,
+      body: _body(),
+      panelBuilder: (sc) => panel(sc, context),
+      borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
+      onPanelSlide: (double pos) => setState(() {
+        _fabHeight =
+            pos * (_panelHeightOpen - _panelHeightClosed) + _initFabHeight;
+      }),
+    );
   }
 
   Center Lottie() => const Center(
@@ -62,10 +86,11 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
             child: LottieProgress(path: AppPaths.lottie_progress)),
       );
 
-  Map() {
+  _body() {
     return GoogleMap(
-        zoomControlsEnabled: false,
-        myLocationButtonEnabled: false,
+        zoomControlsEnabled: true,
+        myLocationButtonEnabled: true,
+        myLocationEnabled: true,
         compassEnabled: false,
         mapToolbarEnabled: false,
         onMapCreated: (GoogleMapController controller) async {
@@ -77,7 +102,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
         onTap: (position) {},
         markers: getMarkers(mapController.list.value),
         initialCameraPosition: const CameraPosition(
-            target: LatLng(41.536907, 36.188389), zoom: 5.5));
+            target: LatLng(40.536907, 33.588389), zoom: 12.5));
   }
 
   CustomInfoWindow CustomInfo() {
