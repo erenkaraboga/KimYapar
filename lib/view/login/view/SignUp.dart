@@ -22,14 +22,14 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController passController = TextEditingController();
   final TextEditingController maiilController = TextEditingController();
-   final TextEditingController RpassController = TextEditingController();
+  final TextEditingController RpassController = TextEditingController();
   final loginController = Get.find<LoginController>();
-  String password="";
+  String password = "";
   @override
   Widget build(BuildContext context) {
-    
-    var width2 = 325.0;
-    var height2 = 680.0;
+    var width2 = context.width * 0.85;
+    var height2 = context.height * 0.95;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -41,8 +41,8 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 40,
+                SizedBox(
+                  height: context.height * 0.03,
                 ),
                 Container(
                   width: width2,
@@ -51,34 +51,31 @@ class _SignUpState extends State<SignUp> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      LoginWidgets.LottieLogin(),
-                      LoginWidgets.HelloText(),
-                      const SizedBox(
-                        height: 10,
+                      LottieLogin(),
+                      HelloText(),
+                      SizedBox(
+                        height: context.height * 0.01,
                       ),
-                      LoginWidgets.PleaseSignText(),
-                      const SizedBox(
-                        height: 10,
+                      PleaseSignText(),
+                      SizedBox(
+                        height: context.height * 0.01,
                       ),
-                      LoginWidgets.SwippableBtnUP(),
-                      const SizedBox(
-                        height: 20,
+                      SwippableBtnUP(),
+                      SizedBox(
+                        height: context.height * 0.02,
                       ),
-                      MailField(),
-                      const SizedBox(
-                        height: 12,
+                      mailField(),
+                      SizedBox(
+                        height: context.height * 0.02,
                       ),
-                      PassField(),
-                      const SizedBox(
-                        height: 12,
+                      passField(),
+                      SizedBox(
+                        height: context.height * 0.02,
                       ),
-                      RPassField(),
-                      LoginWidgets.ForgotPass(),
+                      rpassField(),
+                      forgotPass(),
                       LoginButton(),
-                      const SizedBox(
-                        height: 17,
-                      ),
-                      LoginWidgets.SocialLoginBtn()
+                      SocialLoginBtn()
                     ],
                   ),
                 )
@@ -100,7 +97,7 @@ class _SignUpState extends State<SignUp> {
       },
       child: Container(
         alignment: Alignment.center,
-        width: 250,
+        width: context.width * 0.7,
         decoration: ContainerStyles.LoginBox,
         child: const Padding(
             padding: EdgeInsets.all(12.0),
@@ -110,36 +107,38 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  PassField() {
+  passField() {
     return SizedBox(
-      width: 260,
-      height: 60,
+      width: context.width * 0.67,
+      height: context.height * 0.10,
       child: TextFormField(
         obscureText: true,
         controller: passController,
-        onChanged: (val) => password = val,  
+        onChanged: (val) => password = val,
         validator: Validate.passwordValidator,
         decoration: TextFieldStyles.PassField,
       ),
     );
   }
-  RPassField() {
+
+  rpassField() {
     return SizedBox(
-      width: 260,
-      height: 60,
+      width: context.width * 0.67,
+      height: context.height * 0.10,
       child: TextFormField(
         obscureText: true,
         controller: RpassController,
-        validator: (pass) => MatchValidator(errorText: 'Şifreler Eşleşmiyor').validateMatch(pass!, password),
+        validator: (pass) => MatchValidator(errorText: 'Şifreler Eşleşmiyor')
+            .validateMatch(pass!, password),
         decoration: TextFieldStyles.PassField,
       ),
     );
   }
 
-  MailField() {
+  mailField() {
     return SizedBox(
-        width: 260,
-        height: 60,
+        width: context.width * 0.67,
+        height: context.height * 0.10,
         child: TextFormField(
           controller: maiilController,
           validator: Validate.emailValidator,

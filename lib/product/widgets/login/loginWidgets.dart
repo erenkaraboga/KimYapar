@@ -9,72 +9,69 @@ import '../../../core/base/text.dart';
 import '../../../core/constants/styles.dart';
 import '../../../core/languages/tr.dart';
 
-class LoginWidgets {
-  static ForgotPass() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 30, 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: const Text(
-              Tr.forgotPass,
-              style: TextStyles.forgotPassStyle,
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  static SwippableBtnUP() {
-    return const SwippableButtonUP();
-  }
-
-  static SwippableBtnIN() {
-    return const SwippableButtonIN();
-  }
-
-  static PleaseSignText() {
-    return const CreateText(
-        text: Tr.pleaseSignin, style: TextStyles.pleaseSignIn);
-  }
-
-  static HelloText() {
-    return const CreateText(text: Tr.hello, style: TextStyles.helloStyle);
-  }
-
-  static SocialLoginBtn() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+forgotPass() {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(20, 0, 30, 0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        SignInButton(
-          text: Tr.loginWithGoogle,
-          Buttons.Google,
-          elevation: 10,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
+        TextButton(
           onPressed: () {},
-        ),
+          child: const Text(
+            Tr.forgotPass,
+            style: TextStyles.forgotPassStyle,
+          ),
+        )
       ],
-    );
-  }
+    ),
+  );
+}
 
-  static LottieLogin() {
-    return const SizedBox(
-      height: 175,
-      width: 175,
-      child: LottieProgress(path: AppPaths.login),
-    );
-  }
+SwippableBtnUP() {
+  return const SwippableButtonUP();
+}
 
-  static LottieLoginSuccess() {
-    return const SizedBox(
-      height: 175,
-      width: 175,
-      child: LottieProgress(path: AppPaths.loginsuccess),
-    );
-  }
+SwippableBtnIN() {
+  return const SwippableButtonIN();
+}
+
+PleaseSignText() {
+  return const CreateText(
+      text: Tr.pleaseSignin, style: TextStyles.pleaseSignIn);
+}
+
+HelloText() {
+  return const CreateText(text: Tr.hello, style: TextStyles.helloStyle);
+}
+
+SocialLoginBtn() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      SignInButton(
+        text: Tr.loginWithGoogle,
+        Buttons.Google,
+        elevation: 10,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        onPressed: () {},
+      ),
+    ],
+  );
+}
+
+LottieLogin() {
+  return const SizedBox(
+    height: 175,
+    width: 175,
+    child: LottieProgress(path: AppPaths.login),
+  );
+}
+
+LottieLoginSuccess() {
+  return const SizedBox(
+    width: 175,
+    child: LottieProgress(path: AppPaths.loginsuccess),
+  );
 }

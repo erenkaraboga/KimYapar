@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/styles.dart';
 import 'package:kimyapar/product/widgets/login/loginWidgets.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
-
 import '../../../core/base/text.dart';
 import '../../../core/languages/tr.dart';
 import '../../../product/utilities/validate/validate.dart';
@@ -30,8 +29,8 @@ class _SingInState extends State<SingIn> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var width2 = 325.0;
-    var height2 = 620.0;
+    var width2 = context.width * 0.85;
+    var height2 = context.height * 0.85;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -43,8 +42,8 @@ class _SingInState extends State<SingIn> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 70,
+                SizedBox(
+                  height: context.height * 0.1,
                 ),
                 Container(
                   width: width2,
@@ -55,32 +54,32 @@ class _SingInState extends State<SingIn> {
                     children: [
                       Obx(
                         () => loginControllerr.isLoading.value
-                            ? LoginWidgets.LottieLogin()
-                            : LoginWidgets.LottieLoginSuccess(),
+                            ? LottieLogin()
+                            : LottieLoginSuccess(),
                       ),
-                      LoginWidgets.HelloText(),
-                      const SizedBox(
-                        height: 10,
+                      HelloText(),
+                      SizedBox(
+                        height: context.height * 0.01,
                       ),
-                      LoginWidgets.PleaseSignText(),
-                      const SizedBox(
-                        height: 10,
+                      PleaseSignText(),
+                      SizedBox(
+                        height: context.height * 0.01,
                       ),
-                      LoginWidgets.SwippableBtnIN(),
-                      const SizedBox(
-                        height: 20,
+                      SwippableBtnIN(),
+                      SizedBox(
+                        height: context.height * 0.02,
                       ),
-                      MailField(),
-                      const SizedBox(
-                        height: 12,
+                      mailField(),
+                      SizedBox(
+                        height: context.height * 0.02,
                       ),
-                      PassField(),
-                      LoginWidgets.ForgotPass(),
-                      LoginButton(),
-                      const SizedBox(
-                        height: 17,
+                      passField(),
+                      forgotPass(),
+                      loginButton(),
+                      SizedBox(
+                        height: context.height * 0.02,
                       ),
-                      LoginWidgets.SocialLoginBtn()
+                      SocialLoginBtn()
                     ],
                   ),
                 )
@@ -92,7 +91,7 @@ class _SingInState extends State<SingIn> {
     );
   }
 
-  LoginButton() {
+  loginButton() {
     return GestureDetector(
       onTap: () {
         if (_formKey.currentState!.validate()) {
@@ -102,7 +101,7 @@ class _SingInState extends State<SingIn> {
       },
       child: Container(
         alignment: Alignment.center,
-        width: 250,
+        width: context.width * 0.7,
         decoration: ContainerStyles.LoginBox,
         child: const Padding(
             padding: EdgeInsets.all(12.0),
@@ -112,10 +111,10 @@ class _SingInState extends State<SingIn> {
     );
   }
 
-  PassField() {
+  passField() {
     return SizedBox(
-      width: 260,
-      height: 60,
+      width: context.width * 0.67,
+      height: context.height * 0.10,
       child: TextFormField(
         obscureText: true,
         controller: passController,
@@ -125,10 +124,10 @@ class _SingInState extends State<SingIn> {
     );
   }
 
-  MailField() {
+  mailField() {
     return SizedBox(
-        width: 260,
-        height: 60,
+        width: context.width * 0.67,
+        height: context.height * 0.10,
         child: TextFormField(
           controller: maiilController,
           validator: Validate.emailValidator,
