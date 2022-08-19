@@ -51,8 +51,16 @@ orderStatusBox() {
   );
 }
 
+
 loginBox() {
   return const BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(50)),
       color: Colors.deepOrangeAccent);
+}
+
+orderUserAvatarBox(){
+ return const BoxDecoration(
+        color: Colors.transparent,
+        shape: BoxShape.circle,
+      );
 }

@@ -7,5 +7,5 @@ abstract class ILoginService {
   Future<User?> login(String email, String password);
   Future<User?> registerUser(String email, String password);
   void logOut();
-  void getCurrentUser(String id);
+ 
 }

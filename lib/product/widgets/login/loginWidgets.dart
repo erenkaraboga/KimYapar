@@ -6,7 +6,8 @@ import 'package:kimyapar/product/widgets/login/signIn/swipeButton.dart';
 import 'package:kimyapar/product/widgets/login/signUp/swipeButton.dart';
 
 import '../../../core/base/text.dart';
-import '../../../core/constants/styles.dart';
+
+import '../../../core/constants/styles/text.dart';
 import '../../../core/languages/tr.dart';
 
 forgotPass() {
@@ -17,9 +18,9 @@ forgotPass() {
       children: [
         TextButton(
           onPressed: () {},
-          child: const Text(
+          child:  Text(
             Tr.forgotPass,
-            style: TextStyles.forgotPassStyle,
+            style: forgotPassStyle(),
           ),
         )
       ],
@@ -36,12 +37,12 @@ SwippableBtnIN() {
 }
 
 PleaseSignText() {
-  return const CreateText(
-      text: Tr.pleaseSignin, style: TextStyles.pleaseSignIn);
+  return  CreateText(
+      text: Tr.pleaseSignin, style: pleaseSignIn());
 }
 
 HelloText() {
-  return const CreateText(text: Tr.hello, style: TextStyles.helloStyle);
+  return  CreateText(text: Tr.hello, style:helloStyle());
 }
 
 SocialLoginBtn() {

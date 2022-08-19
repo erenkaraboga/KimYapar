@@ -5,6 +5,7 @@ import 'package:kimyapar/core/constants/styles/container.dart';
 import 'package:kimyapar/product/extension/date.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
+import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
 import 'package:kimyapar/view/order/model/OrderModel.dart';
 import 'package:kimyapar/view/order/viewmodel/controllers/controller.dart';
 import '../../../core/constants/responsive.dart';
@@ -16,18 +17,18 @@ import '../../../product/widgets/order/orderStatus.dart';
 import '../../../product/widgets/order/userAvatar.dart';
 import '../../chats/viewmodel/controller/chatcontroller.dart';
 
-class Orders extends StatefulWidget {
-  const Orders({Key? key}) : super(key: key);
+class ChefOrder extends StatefulWidget {
+  const ChefOrder({Key? key}) : super(key: key);
 
   @override
-  State<Orders> createState() => _OrdersState();
+  State<ChefOrder> createState() => _ChefOrderState();
 }
 
 final orderController = Get.find<OrderController>();
 final loginController = Get.find<LoginController>();
 final chatController = Get.find<ChatController>();
-
-class _OrdersState extends State<Orders> {
+final mapController = Get.find<MapController>();
+class _ChefOrderState extends State<ChefOrder> {
   @override
   void initState() {
     super.initState();
@@ -86,8 +87,15 @@ class _OrdersState extends State<Orders> {
           );
         });
   }
+   calculate(UserModel orderedModel)async{
+    var position = mapController.position.value;
 
-  orders(BuildContext context, OrderModel orderModel, UserModel orderedModel) {
+    var distance = mapController.drawDistance(orderedModel.lat!, orderedModel.long!, position.latitude  , position.longitude);
+    print(distance);
+  }
+
+  orders(BuildContext context, OrderModel orderModel, UserModel userModel) {
+    calculate(userModel);
     return GestureDetector(
       onTap: () {},
       child: Padding(
@@ -108,7 +116,7 @@ class _OrdersState extends State<Orders> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     orderDetail(context, orderModel),
-                    chefDetail(orderModel, context, orderedModel)
+                    chefDetail(orderModel, context, userModel)
                   ],
                 )
               ],

@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 import 'package:kimyapar/view/order/viewmodel/controllers/controller.dart';
 
-import '../../../core/constants/styles.dart';
+import '../../../core/constants/styles/textfield.dart';
+
 final loginController = Get.find<LoginController>();
 final orderController = Get.find<OrderController>();
 panel(ScrollController sc, BuildContext context) {
@@ -29,7 +30,7 @@ panel(ScrollController sc, BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text("Kim Yapar!",
-                  style: GoogleFonts.kalam(
+                  style: GoogleFonts.aBeeZee(
                     fontSize: 25,
                     color: Colors.orange,
                     fontWeight: FontWeight.w600,
@@ -43,7 +44,7 @@ panel(ScrollController sc, BuildContext context) {
             padding: const EdgeInsets.fromLTRB(40, 0, 40, 20),
             child: Form(
                 child: TextFormField(
-              decoration: TextFieldStyles.orderField,
+              decoration: orderFieldd(),
             )),
           ),
           Padding(
@@ -51,13 +52,13 @@ panel(ScrollController sc, BuildContext context) {
             child: SizedBox(
               height: 50,
               child: ElevatedButton.icon(
-                  
                   autofocus: true,
                   style: ElevatedButton.styleFrom(
+                      elevation: 6,
                       shape: const StadiumBorder(),
                       primary: Colors.orange.shade300),
                   onPressed: () {
-                      orderController.addOrder("Patatesli yumurta");
+                    orderController.addOrder("Patatesli yumurta");
                   },
                   icon: const Icon(Icons.add),
                   label: const Text(
@@ -75,23 +76,31 @@ panel(ScrollController sc, BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   GestureDetector(
+                      onTap: () {
+                        Get.toNamed("/order");
+                      },
+                      child: GestureDetector(
+                          child: _button(
+                              "Siparişlerim", Icons.restaurant, Colors.red))),
+                  GestureDetector(
                     onTap: (){
-                       Get.toNamed("/order");
+                      Get.toNamed('chefOrder');
                     },
-                    child: _button("Siparişlerim", Icons.restaurant, Colors.red)),
-                  _button("Şefler", Icons.people_alt, Colors.amber),
+                    child: _button("Şefler", Icons.people_alt, Colors.amber)),
                   GestureDetector(
                       onTap: () {
                         Get.toNamed("/profile");
                       },
                       child: _button("Profilim", Icons.person, Colors.green)),
-                  GestureDetector(child: _button("Çıkış Yap", Icons.logout, Colors.purple),
-                  onTap: (){
-                    loginController.signOut();
-                  },),
+                  GestureDetector(
+                    child: _button("Çıkış Yap", Icons.logout, Colors.purple),
+                    onTap: () {
+                      loginController.signOut();
+                    },
+                  ),
                 ],
-              
-          )],
+              )
+            ],
           ),
         ],
       ));

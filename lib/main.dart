@@ -2,16 +2,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/colors.dart';
-import 'package:kimyapar/view/chats/view/chatScreen.dart';
+
 import 'package:kimyapar/view/chats/view/chatdetails.dart';
 import 'package:kimyapar/view/chats/viewmodel/bindings/binding.dart';
 
 import 'package:kimyapar/view/login/view/SignIn.dart';
 import 'package:kimyapar/view/login/view/SignUp.dart';
 import 'package:kimyapar/view/login/viewmodel/bindings/binding.dart';
-import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/map/view/mapPage.dart';
 import 'package:kimyapar/view/map/viewmodel/bindings/binding.dart';
+import 'package:kimyapar/view/order/view/chefOrders.dart';
 import 'package:kimyapar/view/order/view/orderPage.dart';
 import 'package:kimyapar/view/order/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/profile/view/profileScreen.dart';
@@ -20,11 +20,11 @@ import 'package:kimyapar/view/profile/viewmodel/bindings/binding.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(KimYapar());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+class KimYapar extends StatelessWidget {
+  KimYapar({Key? key}) : super(key: key);
   int index = 0;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: AppColors.appBarColor),
       ),
-      initialRoute: "/map",
+      initialRoute:"/map",
       initialBinding: MapBinding(),
       getPages: [
         GetPage(
@@ -58,17 +58,15 @@ class MyApp extends StatelessWidget {
           binding: ChatBinding(),
         ),
         GetPage(
-          name: "/order",
-          page: () => const Orders(),
-          binding: OrderBinding(),
-        ),
+            name: "/order",
+            page: () => const Orders(),
+            binding: OrderBinding(),
+            transition: Transition.cupertino),
         GetPage(
-          name: "/chat",
-          page: () => const Chats(),
-          binding: ChatBinding(),
-          transition: Transition.fade,
-          transitionDuration: const Duration(milliseconds: 600),
-        ),
+            name: "/chefOrder",
+            page: () => const ChefOrder(),
+            binding: OrderBinding(),
+            transition: Transition.cupertino),
         GetPage(
           name: "/signUp", page: () => const SignUp(),
           transition: Transition.fade,

@@ -45,8 +45,4 @@ class LoginService extends ILoginService {
     super.service.auth.signOut();
   }
 
-  @override
-  Future<UserModel> getCurrentUser(String id) {
-    return super.service.getCurrentUser(id);
-  }
 }

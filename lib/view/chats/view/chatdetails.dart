@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
@@ -14,13 +14,13 @@ class ChatDetail extends StatefulWidget {
   const ChatDetail({Key? key}) : super(key: key);
 
   @override
-  _ChatDetailState createState() => _ChatDetailState();
+  ChatDetailState createState() => ChatDetailState();
 }
 
-class _ChatDetailState extends State<ChatDetail> {
+class ChatDetailState extends State<ChatDetail> {
   final chatController = Get.find<ChatController>();
   final _textController = TextEditingController();
-  _ChatDetailState();
+  ChatDetailState();
   @override
   var currentUserId;
 
@@ -37,64 +37,56 @@ class _ChatDetailState extends State<ChatDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        Get.offNamed('chat');
-        return false;
-      },
-      child: Obx(() => StreamBuilder<QuerySnapshot>(
-            stream: streamRequest(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (snapshot.hasError) {
-                return const Center(
-                  child: Text(Tr.error),
-                );
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                Future.delayed(const Duration(seconds: 2));
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasData) {
-                return MessagePage(snapshot, context);
-              } else {
-                return Container();
-              }
-            },
-          )),
-    );
-  }
-
-  CupertinoPageScaffold MessagePage(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, BuildContext context) {
-    return CupertinoPageScaffold(
-                navigationBar: CupertinoNavigationBar(
-                  middle: Text(chatController.friendName.value),
-                  trailing: phoneButton(),
-                  previousPageTitle: "Back",
-                ),
-                child: SafeArea(
-                  child: Column(
-                    children: [
-                      messages(snapshot, context),
-                      writeMessageBox()
-                    ],
-                  ),
-                ),
+    return Obx(() => StreamBuilder<QuerySnapshot>(
+          stream: chatController.streamRequest(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text(Tr.error),
               );
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              Future.delayed(const Duration(seconds: 2));
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasData) {
+              return chatController.isLoading.value
+                ? MessagePage(snapshot, context):const Center(child: CircularProgressIndicator());
+            } else {
+              return Container();
+            }
+          },
+        ));
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> streamRequest() {
-    return chatController.service.db
-              .collection('chats')
-              .doc(chatController.chatDocId.value.toString())
-              .collection('messages')
-              .orderBy('createdOn', descending: true)
-              .snapshots();
+  MessagePage(
+      AsyncSnapshot<QuerySnapshot<Object?>> snapshot, BuildContext context) {
+    return CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          middle: Text(chatController.friendName.value),
+          trailing: deleteButton(),
+          leading: Material(
+            child: IconButton(
+              icon: const Icon(
+                Icons.chevron_left_outlined,
+              ),
+              onPressed: () {
+                Get.offNamed('order');
+              },
+            ),
+          ),
+        ),
+        child: SafeArea(
+            child:  Column(
+                    children: [messages(snapshot, context), writeMessageBox()],
+                  )
+               ));
   }
 
-  Row writeMessageBox() {
+  writeMessageBox() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -113,7 +105,7 @@ class _ChatDetailState extends State<ChatDetail> {
     );
   }
 
-  Expanded messages(
+  messages(
       AsyncSnapshot<QuerySnapshot<Object?>> snapshot, BuildContext context) {
     return Expanded(
       child: ListView(
@@ -133,7 +125,7 @@ class _ChatDetailState extends State<ChatDetail> {
                 alignment: getAlignment(data['uid'].toString()),
                 margin: const EdgeInsets.only(top: 20),
                 backGroundColor: isSender(data['uid'].toString())
-                    ? const Color(0xFF08C187)
+                    ? Colors.orange
                     : const Color(0xffE7E7ED),
                 child: Container(
                     constraints: BoxConstraints(
@@ -156,11 +148,18 @@ class _ChatDetailState extends State<ChatDetail> {
     );
   }
 
-  CupertinoButton phoneButton() {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      onPressed: () {},
-      child: const Icon(CupertinoIcons.phone),
+  deleteButton() {
+    return Material(
+      child: IconButton(
+        icon: const Icon(
+          Icons.delete_outline,
+        ),
+        color: Colors.amber,
+        onPressed: () async {
+          print("*****************");
+          await chatController.deleteMessage();
+        },
+      ),
     );
   }
 

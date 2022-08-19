@@ -22,15 +22,12 @@ class FirebaseService extends IFirebaseService {
         .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
         .toList();
   }
-  @override
-  Future<UserModel> getCurrentUser(String id) async {
-    var user = UserModel();
-    var list = await getAllUsers();
-    for (var element in list) {
-      if (element.id == id) {
-        user = element;
-      }
-    }
-    return user;
+  
+    @override
+     Future<UserModel> getCurrentUserV2(String id) async{
+    var response = await  super.db.collection('users').doc(id).get();
+     var user = UserModel.fromDocumentSnapshot(response);
+     return user;
   }
+
 }

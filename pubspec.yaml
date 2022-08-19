@@ -83,6 +83,8 @@ flutter:
     - assets/lottie/lottie_login.json
     - assets/lottie/lottie_progress.json
     - assets/lottie/login.json
+    - assets/images/chef.jpg
+    - assets/images/user.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

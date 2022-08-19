@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:kimyapar/core/base/avatar.dart';
 import 'package:kimyapar/core/base/star.dart';
 import 'package:kimyapar/core/base/text.dart';
-import 'package:kimyapar/core/constants/styles.dart';
 
+
+import '../../../core/constants/styles/text.dart';
 import '../../../view/chats/model/chefmodel.dart';
 
 
@@ -65,7 +66,7 @@ class DescriptionWidget extends StatelessWidget {
               top: 75,
               child: SizedBox(
                 width: 180,
-                child: CreateText(text: name, style: TextStyles.nameStyle),
+                child: CreateText(text: name, style: nameStyle()),
               ),
             ),
             Positioned(
@@ -75,7 +76,7 @@ class DescriptionWidget extends StatelessWidget {
                 width: 180,
                 child: CreateTextWithIcon(
                     icon: const Icon(Icons.directions_run),
-                    style: TextStyles.distanceStyle,
+                    style: distanceStyle(),
                     text: distance.toString() + "m" + " İlerinizde!"),
               ),
             ),
@@ -83,7 +84,7 @@ class DescriptionWidget extends StatelessWidget {
                 left: 90,
                 bottom: 55,
                 child: CreateText(
-                  style: TextStyles.rateStyle,
+                  style: rateStyle(),
                   text: rate.toString(),
                 )),
             Positioned(
