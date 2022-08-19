@@ -19,7 +19,6 @@ class MapSelect extends StatefulWidget {
 }
 
 final mapController = Get.find<MapController>();
-
 CustomInfoWindowController _customInfoWindowController =
     CustomInfoWindowController();
 final Set<Marker> markers = {};
@@ -33,6 +32,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _fabHeight = _initFabHeight;
+    mapController.getLocation();
     mapController.fetchFilteredUser();
   }
 
@@ -62,6 +62,8 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
 
   MapWithPanel() {
     return SlidingUpPanel(
+      backdropTapClosesPanel: true,
+      color: Colors.white,
       backdropEnabled: true,
       backdropOpacity: 0.6,
       maxHeight: _panelHeightOpen,
@@ -73,6 +75,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
       onPanelSlide: (double pos) => setState(() {
+        _customInfoWindowController.hideInfoWindow!();
         _fabHeight =
             pos * (_panelHeightOpen - _panelHeightClosed) + _initFabHeight;
       }),
@@ -85,24 +88,28 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
             height: 200,
             child: LottieProgress(path: AppPaths.lottie_progress)),
       );
-
   _body() {
     return GoogleMap(
-        zoomControlsEnabled: true,
         myLocationButtonEnabled: true,
+        zoomGesturesEnabled: true,
         myLocationEnabled: true,
         compassEnabled: false,
-        mapToolbarEnabled: false,
+        zoomControlsEnabled: true,
+        mapToolbarEnabled: true,
         onMapCreated: (GoogleMapController controller) async {
           _customInfoWindowController.googleMapController = controller;
         },
         onCameraMove: (position) {
           _customInfoWindowController.onCameraMove!();
         },
-        onTap: (position) {},
+        onTap: (position) {
+          _customInfoWindowController.hideInfoWindow!();
+        },
         markers: getMarkers(mapController.list.value),
-        initialCameraPosition: const CameraPosition(
-            target: LatLng(40.536907, 33.588389), zoom: 12.5));
+        initialCameraPosition: CameraPosition(
+            target: LatLng(mapController.position.value.latitude,
+                mapController.position.value.longitude),
+            zoom: 12.5));
   }
 
   CustomInfoWindow CustomInfo() {
@@ -124,7 +131,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
                 MyWidget(name: element.name!, url: element.imageUrl!),
                 LatLng(element.lat!, element.long!));
           },
-          icon: BitmapDescriptor.defaultMarkerWithHue(170)));
+          icon: BitmapDescriptor.defaultMarkerWithHue(45)));
     }
     return markers;
   }

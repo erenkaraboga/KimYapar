@@ -42,7 +42,7 @@ class LoginController extends GetxController {
   }
 
   getCurrentUser() async {
-    model.value = await service.getCurrentUser(service.auth.currentUser!.uid);
+    model.value = await service.getCurrentUserV2((service.auth.currentUser!.uid));
   }
 
   void login(String email, password) async {
@@ -62,7 +62,7 @@ class LoginController extends GetxController {
 
   void loggedSnackBar() {
     Get.snackbar(
-      model.value.name.toString(),
+      model.value.name??"null",
       "Hoşgeldiniz",
       icon: ClipOval(
           child: CircleAvatar(

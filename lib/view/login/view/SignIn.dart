@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kimyapar/core/constants/styles.dart';
+import 'package:kimyapar/core/constants/styles/container.dart';
+
 import 'package:kimyapar/product/widgets/login/loginWidgets.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 import '../../../core/base/text.dart';
+import '../../../core/constants/styles/text.dart';
+import '../../../core/constants/styles/textfield.dart';
 import '../../../core/languages/tr.dart';
 import '../../../product/utilities/validate/validate.dart';
 import '../../map/viewmodel/controllers/mapController.dart';
@@ -34,7 +37,7 @@ class _SingInState extends State<SingIn> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          decoration: ContainerStyles.backround,
+          decoration: backround(),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Form(
@@ -48,7 +51,7 @@ class _SingInState extends State<SingIn> {
                 Container(
                   width: width2,
                   height: height2,
-                  decoration: ContainerStyles.backroundBox,
+                  decoration: backroundBox(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -102,11 +105,11 @@ class _SingInState extends State<SingIn> {
       child: Container(
         alignment: Alignment.center,
         width: context.width * 0.7,
-        decoration: ContainerStyles.LoginBox,
-        child: const Padding(
+        decoration: loginBox(),
+        child:  Padding(
             padding: EdgeInsets.all(12.0),
             child: CreateText(
-                text: Tr.signin, style: TextStyles.loginButtonStyle)),
+                text: Tr.signin, style: loginButtonStyle())),
       ),
     );
   }
@@ -119,7 +122,7 @@ class _SingInState extends State<SingIn> {
         obscureText: true,
         controller: passController,
         validator: Validate.passwordValidator,
-        decoration: TextFieldStyles.PassField,
+        decoration: passFieldd(),
       ),
     );
   }
@@ -131,7 +134,7 @@ class _SingInState extends State<SingIn> {
         child: TextFormField(
           controller: maiilController,
           validator: Validate.emailValidator,
-          decoration: TextFieldStyles.MailField,
+          decoration: mailFieldd(),
         ));
   }
 }

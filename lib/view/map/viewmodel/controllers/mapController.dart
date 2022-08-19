@@ -26,13 +26,18 @@ class MapController extends GetxController {
     final response = await mapService.determinePosition();
     position.value = response;
   }
-
+  double drawDistance(double lat, double long ,double endLat,double endLong){
+    return mapService.drawDistance(lat, long, endLat, endLong);
+  }
   fetchFilteredUser() async {
     changeLoading();
     final response = await mapService.filterGeo();
     await Future.delayed(const Duration(seconds: 2));
     changeLoading();
     list.value = response;
+  }
+  Future<Position> determinePosition()async{
+   return await mapService.determinePosition();
   }
 
   void changeLoading() {
