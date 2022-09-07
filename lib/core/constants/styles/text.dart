@@ -31,7 +31,7 @@ helloStyle() {
 pleaseSignIn() {
   return const TextStyle(
     color: Colors.grey,
-    fontSize: 15,
+    fontSize: 17,
   );
 }
 
