@@ -54,7 +54,7 @@ foodNameTextStyle(BuildContext context){
   return GoogleFonts.aBeeZee(
                                             fontSize:
                                                 Responsive.isTablet(context)
-                                                    ? 18
+                                                    ? 19
                                                     : 15,
                                             fontWeight: FontWeight.bold,
                                             color: AppColors.primary,
