@@ -6,8 +6,9 @@ import 'package:kimyapar/view/chats/viewmodel/controller/chatcontroller.dart';
 import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
 
 import '../../../view/map/model/UserModel.dart';
-import '../../../view/order/model/OrderModel.dart';
-import '../../../view/order/view/orderPage.dart';
+import '../../../view/user_order/model/ordermodel.dart';
+import '../../../view/user_order/view/chefOrders.dart';
+
 
 messageBox(OrderModel orderModel, UserModel model) {
   return GestureDetector(
@@ -18,6 +19,15 @@ messageBox(OrderModel orderModel, UserModel model) {
         Icons.message,
         color: CupertinoColors.activeGreen,
       ),
+    ),
+  );
+}
+messageBoxChef(OrderModel orderModel, UserModel model) {
+  return GestureDetector(
+    onTap: () => chatController.sendMessage(model),
+    child: const Icon(
+      Icons.message,
+      color: CupertinoColors.activeGreen,
     ),
   );
 }

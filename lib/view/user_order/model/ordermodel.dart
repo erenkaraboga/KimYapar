@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OrderModel {
-  
   String? createdUser;
   Timestamp? createdOn;
   String? receivedUser;
@@ -16,9 +15,9 @@ class OrderModel {
       'createdUser': createdUser,
       'receivedUser': receivedUser,
       'desc': desc,
-      'status':status,
-      'receivedUrl':receivedUrl,
-      'createdOn':createdOn
+      'status': status,
+      'receivedUrl': receivedUrl,
+      'createdOn': createdOn
     };
   }
 
@@ -27,6 +26,6 @@ class OrderModel {
         receivedUser = doc.data()!["receivedUser"],
         desc = doc.data()!["desc"],
         status = doc.data()!["status"],
-        receivedUrl=doc.data()!["receivedUrl"],
-        createdOn =doc.data()!["createdOn"];
+        receivedUrl = doc.data()!["receivedUrl"],
+        createdOn = doc.data()!["createdOn"];
 }

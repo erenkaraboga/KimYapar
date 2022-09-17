@@ -5,8 +5,7 @@ import 'package:kimyapar/core/constants/styles/container.dart';
 import 'package:kimyapar/product/extension/date.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
-import 'package:kimyapar/view/order/model/OrderModel.dart';
-import 'package:kimyapar/view/order/viewmodel/controllers/controller.dart';
+
 import '../../../core/constants/responsive.dart';
 import '../../../core/constants/styles/text.dart';
 import '../../../core/languages/tr.dart';
@@ -15,6 +14,9 @@ import '../../../product/widgets/order/message.dart';
 import '../../../product/widgets/order/orderStatus.dart';
 import '../../../product/widgets/order/userAvatar.dart';
 import '../../chats/viewmodel/controller/chatcontroller.dart';
+
+import '../model/ordermodel.dart';
+import '../viewmodel/controllers/controller.dart';
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
@@ -60,16 +62,18 @@ class _OrdersState extends State<Orders> {
     );
   }
 
-  ordersWithUsers(snapshot) {
+  ordersWithUsers(AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
     return ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: snapshot.data!.docs.length,
         itemBuilder: (context, index) {
+          var docId = snapshot.data!.docs[index].reference.id;
           var orderModel = OrderModel.fromDocumentSnapshot(snapshot
               .data!.docs[index] as DocumentSnapshot<Map<String, dynamic>>);
+              
           return StreamBuilder<QuerySnapshot>(
             stream: orderModel.receivedUser != ''
-                ? orderController.getOrderedUser(orderModel.receivedUser!)
+                ? orderController.getCurrentOrderedUser(orderModel.receivedUser!)
                 : orderController.getUser(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -119,11 +123,11 @@ class _OrdersState extends State<Orders> {
     );
   }
 
-  chefDetail(OrderModel orderModel, BuildContext context, UserModel userModel) {
+  chefDetail(OrderModel orderModell, BuildContext context, UserModel userModel) {
     return Column(
       children: [
-        chefAvatar(orderModel, context, userModel),
-        messageBox(orderModel, userModel),
+        chefAvatar(orderModell, context, userModel),
+        messageBox(orderModell, userModel),
       ],
     );
   }

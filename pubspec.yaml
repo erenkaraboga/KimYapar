@@ -39,6 +39,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_chat_bubble: ^2.0.0
+  flutter_local_notifications: ^9.9.1
   flutter_map: ^2.2.0
   flutter_mobx: ^2.0.6+1
   flutter_signin_button: ^2.0.0

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,10 +19,10 @@ class LoginController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-
+ 
     firebaseAuthUser = Rx<User?>(service.auth.currentUser);
     firebaseAuthUser.bindStream(service.auth.userChanges());
-
+      
     ever(firebaseAuthUser, _setInitialScreen);
   }
 
@@ -80,4 +81,5 @@ class LoginController extends GetxController {
       isDismissible: true,
     );
   }
+ 
 }

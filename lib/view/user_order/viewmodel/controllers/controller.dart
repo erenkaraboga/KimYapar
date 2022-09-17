@@ -2,27 +2,43 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/services/firebase/IFirebaseService.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
-import 'package:kimyapar/view/order/service/IOrderService.dart';
+
+import '../../service/IOrderService.dart';
 
 class OrderController extends GetxController {
   final IFirebaseService service;
   final IOrderService orderService;
   var chefModel = UserModel().obs;
   OrderController(this.service, this.orderService);
+    
+    void onReady() {
+    listenState();
+    super.onReady();
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getMyOrders() {
+  }
+   getMyOrders() {
     return orderService.getMyOrders();
   }
-
-  void addOrder(String desc) {
+   
+   addOrder(String desc) {
     orderService.addOrder(desc);
   }
-
-  Stream<QuerySnapshot<Map<String, dynamic>>> getOrderedUser(String id) {
-    return orderService.getOrderedUser(id);
+   getNotTakenOrders(){
+     return orderService.getNotTakenOrders(); 
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getUser() {
+  getCurrentOrderedUser(String id) {
+    return orderService.getCurrentOrderedUser(id);
+  }
+
+   getUser() {
     return service.db.collection('users').snapshots();
   }
+   takeOrder(String docId){
+    orderService.takeOrder(docId);
+   }
+   listenState(){
+    orderService.listenState();
+   }
+ 
 }

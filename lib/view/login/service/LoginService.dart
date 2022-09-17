@@ -34,7 +34,8 @@ class LoginService extends ILoginService {
         'name': email,
         'lat': mapController.position.value.latitude,
         'long': mapController.position.value.longitude,
-        'email':email
+        'email':email,
+        'imageUrl':"https://res.cloudinary.com/dinqa9wqr/image/upload/v1663226962/indir_oj3zv3.png"
       });
     } catch (firebaseAuthException) {}
     return null;

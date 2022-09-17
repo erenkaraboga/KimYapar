@@ -5,7 +5,8 @@ import '../../../core/constants/path.dart';
 import '../../../core/constants/responsive.dart';
 import '../../../core/constants/styles/container.dart';
 import '../../../view/map/model/UserModel.dart';
-import '../../../view/order/model/OrderModel.dart';
+import '../../../view/user_order/model/ordermodel.dart';
+
 
 userAvatar(BuildContext context, String imagePath) {
   return Container(

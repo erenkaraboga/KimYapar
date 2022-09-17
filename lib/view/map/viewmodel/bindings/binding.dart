@@ -6,8 +6,9 @@ import '../../../../product/init/network/firebase_auth.dart';
 import '../../../../product/init/network/firebase_init.dart';
 import '../../../login/service/LoginService.dart';
 import '../../../login/viewmodel/controllers/loginController.dart';
-import '../../../order/service/OrderService.dart';
-import '../../../order/viewmodel/controllers/controller.dart';
+
+import '../../../user_order/service/OrderService.dart';
+import '../../../user_order/viewmodel/controllers/controller.dart';
 import '../../service/MapService.dart';
 
 class MapBinding implements Bindings {

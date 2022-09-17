@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/responsive.dart';
 import '../../../core/constants/styles/container.dart';
 import '../../../core/constants/styles/text.dart';
-import '../../../view/order/model/OrderModel.dart';
+import '../../../view/user_order/model/ordermodel.dart';
+
 
 orderStatus(BuildContext context, OrderModel model) {
     return Container(

@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../view/map/model/UserModel.dart';
 abstract class IFirebaseService{
-   final FirebaseAuth auth;
+  final FirebaseAuth auth;
   final FirebaseFirestore db;
   IFirebaseService(this.auth, this.db);
   Future<List<UserModel>> getAllUsers();

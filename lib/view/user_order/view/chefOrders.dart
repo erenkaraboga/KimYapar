@@ -6,8 +6,7 @@ import 'package:kimyapar/product/extension/date.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
-import 'package:kimyapar/view/order/model/OrderModel.dart';
-import 'package:kimyapar/view/order/viewmodel/controllers/controller.dart';
+
 import '../../../core/constants/responsive.dart';
 import '../../../core/constants/styles/text.dart';
 import '../../../core/languages/tr.dart';
@@ -16,6 +15,9 @@ import '../../../product/widgets/order/message.dart';
 import '../../../product/widgets/order/orderStatus.dart';
 import '../../../product/widgets/order/userAvatar.dart';
 import '../../chats/viewmodel/controller/chatcontroller.dart';
+
+import '../model/ordermodel.dart';
+import '../viewmodel/controllers/controller.dart';
 
 class ChefOrder extends StatefulWidget {
   const ChefOrder({Key? key}) : super(key: key);
@@ -28,6 +30,7 @@ final orderController = Get.find<OrderController>();
 final loginController = Get.find<LoginController>();
 final chatController = Get.find<ChatController>();
 final mapController = Get.find<MapController>();
+
 class _ChefOrderState extends State<ChefOrder> {
   @override
   void initState() {
@@ -40,7 +43,7 @@ class _ChefOrderState extends State<ChefOrder> {
     return Scaffold(
       appBar: orderAppBar(),
       body: StreamBuilder<QuerySnapshot>(
-        stream: orderController.getMyOrders(),
+        stream: orderController.getNotTakenOrders(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -66,12 +69,12 @@ class _ChefOrderState extends State<ChefOrder> {
         scrollDirection: Axis.vertical,
         itemCount: snapshot.data!.docs.length,
         itemBuilder: (context, index) {
+          var docId = snapshot.data!.docs[index].reference.id;
           var orderModel = OrderModel.fromDocumentSnapshot(snapshot
               .data!.docs[index] as DocumentSnapshot<Map<String, dynamic>>);
           return StreamBuilder<QuerySnapshot>(
-            stream: orderModel.receivedUser != ''
-                ? orderController.getOrderedUser(orderModel.receivedUser!)
-                : orderController.getUser(),
+            stream: 
+                 orderController.getCurrentOrderedUser(orderModel.createdUser!),  
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -82,19 +85,20 @@ class _ChefOrderState extends State<ChefOrder> {
               }
               var orderedModel = UserModel.fromDocumentSnapshot(snapshot
                   .data!.docs[0] as DocumentSnapshot<Map<String, dynamic>>);
-              return orders(context, orderModel, orderedModel);
+              return orders(context, orderModel, orderedModel,docId);
             },
           );
         });
   }
-   calculate(UserModel orderedModel)async{
-    var position = mapController.position.value;
 
-    var distance = mapController.drawDistance(orderedModel.lat!, orderedModel.long!, position.latitude  , position.longitude);
-    print(distance);
+  calculate(UserModel orderedModel) async {
+    var position = mapController.position.value;
+    var distance = mapController.drawDistance(orderedModel.lat!,
+        orderedModel.long!, position.latitude, position.longitude);
+    //print(distance);
   }
 
-  orders(BuildContext context, OrderModel orderModel, UserModel userModel) {
+  orders(BuildContext context, OrderModel orderModel, UserModel userModel,String docId) {
     calculate(userModel);
     return GestureDetector(
       onTap: () {},
@@ -115,8 +119,8 @@ class _ChefOrderState extends State<ChefOrder> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    orderDetail(context, orderModel),
-                    chefDetail(orderModel, context, userModel)
+                    orderDetail(context, orderModel, userModel),
+                    chefDetail(orderModel, context, userModel, docId)
                   ],
                 )
               ],
@@ -127,19 +131,30 @@ class _ChefOrderState extends State<ChefOrder> {
     );
   }
 
-  chefDetail(OrderModel orderModel, BuildContext context, UserModel userModel) {
+  chefDetail(OrderModel orderModel, BuildContext context, UserModel userModel,String docId) {
     return Column(
       children: [
-        chefAvatar(orderModel, context, userModel),
-        messageBox(orderModel, userModel),
+        GestureDetector(
+          onTap: (){
+           orderController.takeOrder(docId);
+          },
+          child: Text("Ben Yaparım!")
+          ),
+        //chefAvatar(orderModel, context, userModel),
       ],
     );
   }
 
-  orderDetail(BuildContext context, OrderModel orderModel) {
+  orderDetail(
+      BuildContext context, OrderModel orderModel, UserModel userModel) {
     return Row(
       children: [
-        userAvatar(context, loginController.model.value.imageUrl!),
+        Column(
+          children: [
+             userAvatar(context, userModel.imageUrl!),
+             messageBoxChef(orderModel, userModel)
+          ],
+        ),
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

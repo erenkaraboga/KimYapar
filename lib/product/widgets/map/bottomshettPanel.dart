@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kimyapar/product/utilities/notification/notification_helper.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
-import 'package:kimyapar/view/order/viewmodel/controllers/controller.dart';
+
+
 
 import '../../../core/constants/styles/textfield.dart';
+import '../../../view/user_order/viewmodel/controllers/controller.dart';
 
 final loginController = Get.find<LoginController>();
 final orderController = Get.find<OrderController>();
@@ -29,12 +32,17 @@ panel(ScrollController sc, BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Kim Yapar!",
-                  style: GoogleFonts.aBeeZee(
-                    fontSize: 25,
-                    color: Colors.orange,
-                    fontWeight: FontWeight.w600,
-                  )),
+              GestureDetector(
+                onTap: (){
+                  NotificationHelper.showNotification(id: 1,title: "Deneme",body: "Deneme");
+                },
+                child: Text("Kim Yapar!",
+                    style: GoogleFonts.aBeeZee(
+                      fontSize: 25,
+                      color: Colors.orange,
+                      fontWeight: FontWeight.w600,
+                    )),
+              ),
             ],
           ),
           const SizedBox(
@@ -84,12 +92,13 @@ panel(ScrollController sc, BuildContext context) {
                               "Siparişlerim", Icons.restaurant, Colors.red))),
                   GestureDetector(
                     onTap: (){
-                      Get.toNamed('chefOrder');
+                      Get.toNamed('/chefOrder');
                     },
-                    child: _button("Şefler", Icons.people_alt, Colors.amber)),
+                    child: _button("Bana Gelen Sipariş", Icons.people_alt, Colors.amber)),
                   GestureDetector(
                       onTap: () {
-                        Get.toNamed("/profile");
+                        
+                        
                       },
                       child: _button("Profilim", Icons.person, Colors.green)),
                   GestureDetector(

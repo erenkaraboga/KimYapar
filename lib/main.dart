@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,15 +13,17 @@ import 'package:kimyapar/view/login/view/SignUp.dart';
 import 'package:kimyapar/view/login/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/map/view/mapPage.dart';
 import 'package:kimyapar/view/map/viewmodel/bindings/binding.dart';
-import 'package:kimyapar/view/order/view/chefOrders.dart';
-import 'package:kimyapar/view/order/view/orderPage.dart';
-import 'package:kimyapar/view/order/viewmodel/bindings/binding.dart';
+
 import 'package:kimyapar/view/profile/view/profileScreen.dart';
 import 'package:kimyapar/view/profile/viewmodel/bindings/binding.dart';
+import 'package:kimyapar/view/user_order/view/chefOrders.dart';
+import 'package:kimyapar/view/user_order/view/orderPage.dart';
+import 'package:kimyapar/view/user_order/viewmodel/bindings/binding.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  
   runApp(KimYapar());
 }
 
@@ -62,6 +66,13 @@ class KimYapar extends StatelessWidget {
             page: () => const Orders(),
             binding: OrderBinding(),
             transition: Transition.cupertino),
+            GetPage(
+          name: "/chefOrder", page: () => const ChefOrder(),
+          binding: OrderBinding(),
+          transition: Transition.fade,
+          transitionDuration: const Duration(milliseconds: 600),
+          // transition: Transition.cupertino
+        ),
         GetPage(
             name: "/chefOrder",
             page: () => const ChefOrder(),
