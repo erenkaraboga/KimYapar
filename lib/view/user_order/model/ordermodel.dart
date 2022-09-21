@@ -5,7 +5,7 @@ class OrderModel {
   Timestamp? createdOn;
   String? receivedUser;
   String? desc;
-  bool? status;
+  int? status;
   String? receivedUrl;
 
   OrderModel();

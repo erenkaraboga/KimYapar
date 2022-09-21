@@ -70,10 +70,10 @@ class _OrdersState extends State<Orders> {
           var docId = snapshot.data!.docs[index].reference.id;
           var orderModel = OrderModel.fromDocumentSnapshot(snapshot
               .data!.docs[index] as DocumentSnapshot<Map<String, dynamic>>);
-              
           return StreamBuilder<QuerySnapshot>(
             stream: orderModel.receivedUser != ''
-                ? orderController.getCurrentOrderedUser(orderModel.receivedUser!)
+                ? orderController
+                    .getCurrentOrderedUser(orderModel.receivedUser!)
                 : orderController.getUser(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -123,7 +123,8 @@ class _OrdersState extends State<Orders> {
     );
   }
 
-  chefDetail(OrderModel orderModell, BuildContext context, UserModel userModel) {
+  chefDetail(
+      OrderModel orderModell, BuildContext context, UserModel userModel) {
     return Column(
       children: [
         chefAvatar(orderModell, context, userModel),

@@ -10,5 +10,6 @@ class FirebaseInit {
   late final FirebaseFirestore db;
   FirebaseInit.init() {
     db = FirebaseFirestore.instance;
+  
   }
 }

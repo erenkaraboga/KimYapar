@@ -50,6 +50,12 @@ ksmallTextStyle(BuildContext context) {
     color: const Color(0xFF8D8E98),
   );
 }
+kBigStyle(BuildContext context) {
+  return GoogleFonts.aBeeZee(
+    fontSize: Responsive.isTablet(context) ? 20 : 13,
+    color: const Color(0xFF8D8E98),
+  );
+}
 foodNameTextStyle(BuildContext context){
   return GoogleFonts.aBeeZee(
                                             fontSize:

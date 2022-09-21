@@ -71,7 +71,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
       parallaxEnabled: true,
       parallaxOffset: .5,
       body: _body(),
-      panelBuilder: (sc) => panel(sc, context),
+      panelBuilder: (sc) => mapPanel(sc, context),
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(18.0), topRight: Radius.circular(18.0)),
       onPanelSlide: (double pos) => setState(() {

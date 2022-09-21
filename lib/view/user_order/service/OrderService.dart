@@ -18,7 +18,7 @@ class OrderService extends IOrderService {
       'createdUser': super.service.auth.currentUser!.uid,
       'desc': desc,
       'receivedUser': "",
-      'status': false
+      'status': 0
     });
   }
 
@@ -49,30 +49,12 @@ class OrderService extends IOrderService {
 
   @override
   takeOrder(String docId) {
-    getOrderRequest()
-        .doc(docId)
-        .update({'receivedUser': super.service.auth.currentUser!.uid});
+    getOrderRequest().doc(docId).update(
+        {'receivedUser': super.service.auth.currentUser!.uid, 'status': 1});
   }
 
   @override
-  void listenState() {
-    getOrderRequest()
-        .where("createdUser", isNotEqualTo: super.service.auth.currentUser!.uid)
-        .where("receivedUser",
-            whereIn: ["", super.service.auth.currentUser!.uid]).snapshots().listen((event) {
-      for (var change in event.docChanges) {
-        switch (change.type) {
-          case DocumentChangeType.added:
-            print("New : ${change.doc.data()}");
-            break;
-          case DocumentChangeType.modified:
-            print("Modified : ${change.doc.data()}");
-            break;
-          case DocumentChangeType.removed:
-            print("Removed : ${change.doc.data()}");
-            break;
-        }
-      }
-    });
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentOrder(String docId) {
+    return getOrderRequest().doc(docId).snapshots();
   }
 }

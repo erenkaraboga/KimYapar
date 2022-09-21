@@ -18,15 +18,15 @@ orderStatus(BuildContext context, OrderModel model) {
   }
 
   checkStatus(BuildContext context,OrderModel model) {
-    if (model.status == true && model.receivedUser != '') {
+    if (model.status == 3 && model.receivedUser != '') {
       return orderStatusBuilder(
           context,
           const Icon(
-            Icons.verified,
+            Icons.motorcycle,
             color: CupertinoColors.activeGreen,
           ),
-          "Hazırlandı");
-    } else if (model.status == false && model.receivedUser != '') {
+          "Yolda");
+    } else if (model.status == 2 && model.receivedUser != '') {
       return orderStatusBuilder(
           context,
           const Icon(
@@ -34,7 +34,7 @@ orderStatus(BuildContext context, OrderModel model) {
             color: Colors.redAccent,
           ),
           "Hazırlanıyor ");
-    } else {
+    } else if(model.status ==0 && model.receivedUser == '') {
       return orderStatusBuilder(
           context,
           const Icon(
@@ -42,7 +42,35 @@ orderStatus(BuildContext context, OrderModel model) {
             color: Colors.blueGrey,
           ),
           "Şef Bekleniyor");
+    }else if(model.status == 1 && model.receivedUser != ''){
+      return orderStatusBuilder(
+          context,
+          const Icon(
+            Icons.record_voice_over,
+            color: Colors.blueGrey,
+          ),
+          "Şef Siparişinizi Aldı");
     }
+    else if(model.status == 4 && model.receivedUser != ''){
+       return orderStatusBuilder(
+          context,
+          const Icon(
+            Icons.record_voice_over,
+            color: Colors.blueGrey,
+          ),
+          "Teslim Aldınız");
+    }
+    else if(model.status == 5 && model.receivedUser != ''){
+       return orderStatusBuilder(
+          context,
+          const Icon(
+            Icons.record_voice_over,
+            color: Colors.blueGrey,
+          ),
+          "Tamamlanan Sipariş");
+    }
+    
+
   }
 
   orderStatusBuilder(BuildContext context, Icon icon, String text) {

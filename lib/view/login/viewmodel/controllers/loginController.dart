@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,10 +16,10 @@ class LoginController extends GetxController {
   @override
   void onReady() {
     super.onReady();
- 
+
     firebaseAuthUser = Rx<User?>(service.auth.currentUser);
     firebaseAuthUser.bindStream(service.auth.userChanges());
-      
+
     ever(firebaseAuthUser, _setInitialScreen);
   }
 
@@ -43,7 +40,7 @@ class LoginController extends GetxController {
   }
 
   getCurrentUser() async {
-    model.value = await service.getCurrentUserV2((service.auth.currentUser!.uid));
+    model.value = await service.getCurrentUser((service.auth.currentUser!.uid));
   }
 
   void login(String email, password) async {
@@ -63,7 +60,7 @@ class LoginController extends GetxController {
 
   void loggedSnackBar() {
     Get.snackbar(
-      model.value.name??"null",
+      model.value.name ?? "null",
       "Hoşgeldiniz",
       icon: ClipOval(
           child: CircleAvatar(
@@ -81,5 +78,4 @@ class LoginController extends GetxController {
       isDismissible: true,
     );
   }
- 
 }

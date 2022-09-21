@@ -7,6 +7,7 @@ import 'package:kimyapar/core/constants/colors.dart';
 
 import 'package:kimyapar/view/chats/view/chatdetails.dart';
 import 'package:kimyapar/view/chats/viewmodel/bindings/binding.dart';
+import 'package:kimyapar/view/deneme/deneme.dart';
 
 import 'package:kimyapar/view/login/view/SignIn.dart';
 import 'package:kimyapar/view/login/view/SignUp.dart';
@@ -17,6 +18,7 @@ import 'package:kimyapar/view/map/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/profile/view/profileScreen.dart';
 import 'package:kimyapar/view/profile/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/user_order/view/chefOrders.dart';
+import 'package:kimyapar/view/user_order/view/orderDetail.dart';
 import 'package:kimyapar/view/user_order/view/orderPage.dart';
 import 'package:kimyapar/view/user_order/viewmodel/bindings/binding.dart';
 
@@ -40,6 +42,7 @@ class KimYapar extends StatelessWidget {
       initialRoute:"/map",
       initialBinding: MapBinding(),
       getPages: [
+        GetPage(name: "/deneme", page:() =>MyApp() ),
         GetPage(
             name: "/map", page: () => const MapSelect(), binding: MapBinding()),
         GetPage(
@@ -51,7 +54,7 @@ class KimYapar extends StatelessWidget {
         ),
         GetPage(
           name: "/profile",
-          page: () => const ProfilePage(),
+          page: () =>  MyAccount(),
           binding: ProfileBinding(),
           transition: Transition.fade,
           transitionDuration: const Duration(milliseconds: 600),
@@ -76,6 +79,11 @@ class KimYapar extends StatelessWidget {
         GetPage(
             name: "/chefOrder",
             page: () => const ChefOrder(),
+            binding: OrderBinding(),
+            transition: Transition.cupertino),
+            GetPage(
+            name: "/orderDetail",
+            page: () =>  PackageDeliveryTrackingPage(),
             binding: OrderBinding(),
             transition: Transition.cupertino),
         GetPage(

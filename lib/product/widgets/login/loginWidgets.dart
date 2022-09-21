@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/path.dart';
 import 'package:kimyapar/product/utilities/lottie.dart';
 import 'package:kimyapar/product/widgets/login/signIn/swipeButton.dart';
@@ -17,7 +18,9 @@ forgotPass() {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.offNamed("/deneme");
+          },
           child:  Text(
             Tr.forgotPass,
             style: forgotPassStyle(),

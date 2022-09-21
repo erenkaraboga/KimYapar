@@ -10,6 +10,7 @@ abstract class IOrderService {
   Stream<QuerySnapshot<Map<String, dynamic>>> getNotTakenOrders(); 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMyOrders();
   Stream<QuerySnapshot<Map<String, dynamic>>> getCurrentOrderedUser(String id);
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentOrder(String docId);
   void takeOrder(String docId);
-  void listenState();
+  
 }

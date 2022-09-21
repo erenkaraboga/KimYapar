@@ -1,72 +1,111 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
-import 'package:kimyapar/view/map/model/UserModel.dart';
+import 'package:kimyapar/product/widgets/order/userAvatar.dart';
 
-import '../../../product/widgets/profile/appbar.dart';
-import '../../../product/widgets/profile/buttonWidget.dart';
-import '../../../product/widgets/profile/profileWidget.dart';
-import '../../../product/widgets/profile/textField.dart';
+import '../../login/viewmodel/controllers/loginController.dart';
+import '../../map/model/UserModel.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  ProfilePageState createState() => ProfilePageState();
-}
-
-final loginControllerr = Get.find<LoginController>();
-
-class ProfilePageState extends State<ProfilePage> {
+class MyAccount extends StatelessWidget {
+  final loginController = Get.find<LoginController>();
   @override
   Widget build(BuildContext context) {
+    var user = loginController.model.value;
     return Scaffold(
-      appBar: buildAppbar(context),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
-        physics: const BouncingScrollPhysics(),
-        children: [
-          ProfileWidget(
-            imagePath: loginControllerr.model.value.imageUrl!,
-            onClicked: () async {},
-          ),
-          const SizedBox(height: 24),
-          buildName(loginControllerr.model.value),
-          TextFieldWidget(
-            label: 'İsim Soyisim',
-            text: loginControllerr.model.value.name!,
-            onChanged: (name) {},
-          ),
-          const SizedBox(height: 24),
-          TextFieldWidget(
-            label: 'Email',
-            text: loginControllerr.model.value.email!,
-            onChanged: (email) {},
-          ),
-          const SizedBox(height: 24),
-          buildUpgradeButton()
-        ],
+      backgroundColor: Colors.white,
+      body: Container(
+        padding: const EdgeInsets.only(left: 10, right: 10, top: 90),
+        child: SingleChildScrollView(
+            child: Column(
+          children: <Widget>[
+            UserCard(
+              user: user,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Card(
+                elevation: 4,
+                child: Column(
+                  children: const <Widget>[
+                    UserProfileActions(
+                      text: "İletişim",
+                      icon: Icon(Icons.mail_outline, color: Color(0xFFF9893E)),
+                    ),
+                    Divider(),
+                    UserProfileActions(
+                        text: "Ödeme Seçenekleri",
+                        icon: Icon(Icons.payment, color: Color(0xFFF9893E))),
+                    Divider(),
+                    UserProfileActions(
+                        text: "Yardım",
+                        icon:
+                            Icon(Icons.help_outline, color: Color(0xFFF9893E))),
+                    Divider(),
+                    UserProfileActions(
+                        text: "Hakkında",
+                        icon:
+                            Icon(Icons.info_outline, color: Color(0xFFF9893E))),
+                    Divider(),
+                    UserProfileActions(
+                        text: "Çıkış Yap",
+                        icon: Icon(Icons.logout, color: Color(0xFFF9893E))),
+                  ],
+                )),
+          ],
+        )),
       ),
     );
   }
+}
 
-  Widget buildUpgradeButton() => ButtonWidget(
-        text: 'Güncelle',
-        onClicked: () {},
-      );
-  Widget buildName(UserModel model) => Column(
-        children: [
-          Text(
-            model.name!,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+class UserCard extends StatelessWidget {
+  final UserModel user;
+
+  const UserCard({super.key, required this.user});
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: ListTile(
+          leading: userAvatar(context, user.imageUrl!),
+          title: Text(user.name!,
+              style: const TextStyle(
+                  color: Color(0XFF174757),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800)),
+          subtitle: Text(user.email!,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+              )),
+          trailing: const Icon(
+            Icons.arrow_forward_ios,
+            size: 15,
+            color: Colors.grey,
           ),
-          const SizedBox(height: 4),
-          Text(
-            model.email!,
-            style: const TextStyle(color: Colors.grey),
-          )
-        ],
-      );
+        ),
+      ),
+    );
+  }
+}
+
+class UserProfileActions extends StatelessWidget {
+  final Icon icon;
+  final String text;
+  const UserProfileActions({Key? key, required this.icon, required this.text})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: icon ?? const Icon(Icons.error),
+      title: Text(text),
+      trailing: const Icon(
+        Icons.arrow_forward_ios,
+        size: 15,
+        color: Colors.grey,
+      ),
+    );
+  }
 }

@@ -4,6 +4,7 @@ import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
 
 import '../../../../product/init/network/firebase_auth.dart';
 import '../../../../product/init/network/firebase_init.dart';
+import '../../../../product/init/network/firebase_messaging.dart';
 import '../../../login/service/LoginService.dart';
 import '../../../login/viewmodel/controllers/loginController.dart';
 
@@ -18,7 +19,7 @@ class MapBinding implements Bindings {
         FirebaseService(
             FirebaseAuthInit.instance.auth, FirebaseInit.instance.db),
         MapService(FirebaseService(
-            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db))));
+            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db,))));
     Get.put<LoginController>(LoginController(
         FirebaseService(
             FirebaseAuthInit.instance.auth, FirebaseInit.instance.db),
@@ -28,6 +29,6 @@ class MapBinding implements Bindings {
         FirebaseService(
             FirebaseAuthInit.instance.auth, FirebaseInit.instance.db),
         OrderService(FirebaseService(
-            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db))));
+            FirebaseAuthInit.instance.auth, FirebaseInit.instance.db,))));
   }
 }

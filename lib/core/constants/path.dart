@@ -4,4 +4,5 @@ class AppPaths {
   static const String loginsuccess = "assets/lottie/login.json";
   static const String defaultChef =
       "https://res.cloudinary.com/dinqa9wqr/image/upload/v1660811170/chef_tpts0x.jpg";
+  static const String orderSuccess = "assets/lottie/orderSuccess.json"  ;  
 }

@@ -25,7 +25,6 @@ class ChefOrder extends StatefulWidget {
   @override
   State<ChefOrder> createState() => _ChefOrderState();
 }
-
 final orderController = Get.find<OrderController>();
 final loginController = Get.find<LoginController>();
 final chatController = Get.find<ChatController>();
@@ -70,11 +69,12 @@ class _ChefOrderState extends State<ChefOrder> {
         itemCount: snapshot.data!.docs.length,
         itemBuilder: (context, index) {
           var docId = snapshot.data!.docs[index].reference.id;
+          orderController.docId.value=docId;
           var orderModel = OrderModel.fromDocumentSnapshot(snapshot
               .data!.docs[index] as DocumentSnapshot<Map<String, dynamic>>);
           return StreamBuilder<QuerySnapshot>(
-            stream: 
-                 orderController.getCurrentOrderedUser(orderModel.createdUser!),  
+            stream:
+                orderController.getCurrentOrderedUser(orderModel.createdUser!),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -85,7 +85,8 @@ class _ChefOrderState extends State<ChefOrder> {
               }
               var orderedModel = UserModel.fromDocumentSnapshot(snapshot
                   .data!.docs[0] as DocumentSnapshot<Map<String, dynamic>>);
-              return orders(context, orderModel, orderedModel,docId);
+              orderController.bindOrder(orderModel, orderedModel);
+              return orders(context, orderModel, orderedModel, docId);
             },
           );
         });
@@ -98,8 +99,9 @@ class _ChefOrderState extends State<ChefOrder> {
     //print(distance);
   }
 
-  orders(BuildContext context, OrderModel orderModel, UserModel userModel,String docId) {
-    calculate(userModel);
+  orders(BuildContext context, OrderModel orderModel, UserModel ordered,
+      String docId) {
+    calculate(ordered);
     return GestureDetector(
       onTap: () {},
       child: Padding(
@@ -116,11 +118,10 @@ class _ChefOrderState extends State<ChefOrder> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    orderDetail(context, orderModel, userModel),
-                    chefDetail(orderModel, context, userModel, docId)
+                    orderDetail(context, orderModel, ordered),
+                    const Spacer(),
+                    chefDetail(orderModel, context, ordered, docId)
                   ],
                 )
               ],
@@ -131,28 +132,26 @@ class _ChefOrderState extends State<ChefOrder> {
     );
   }
 
-  chefDetail(OrderModel orderModel, BuildContext context, UserModel userModel,String docId) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: (){
-           orderController.takeOrder(docId);
-          },
-          child: Text("Ben Yaparım!")
-          ),
-        //chefAvatar(orderModel, context, userModel),
-      ],
+  chefDetail(OrderModel orderModel, BuildContext context, UserModel ordered,
+      String docId) {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed("/orderDetail");
+      },
+      child: const Icon(
+        Icons.chevron_right,
+        size: 30,
+      ),
     );
   }
 
-  orderDetail(
-      BuildContext context, OrderModel orderModel, UserModel userModel) {
+  orderDetail(BuildContext context, OrderModel orderModel, UserModel ordered) {
     return Row(
       children: [
         Column(
           children: [
-             userAvatar(context, userModel.imageUrl!),
-             messageBoxChef(orderModel, userModel)
+            userAvatar(context, ordered.imageUrl!),
+            messageBoxChef(orderModel, ordered)
           ],
         ),
         const SizedBox(width: 10),

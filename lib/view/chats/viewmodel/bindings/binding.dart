@@ -3,6 +3,7 @@ import 'package:kimyapar/view/chats/viewmodel/controller/chatcontroller.dart';
 
 import '../../../../product/init/network/firebase_auth.dart';
 import '../../../../product/init/network/firebase_init.dart';
+import '../../../../product/init/network/firebase_messaging.dart';
 import '../../../../services/firebase/FirebaseService.dart';
 
 class ChatBinding implements Bindings {
