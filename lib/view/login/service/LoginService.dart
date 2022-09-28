@@ -45,5 +45,4 @@ class LoginService extends ILoginService {
   void logOut() {
     super.service.auth.signOut();
   }
-
 }

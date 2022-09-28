@@ -4,7 +4,9 @@ class OrderModel {
   String? createdUser;
   Timestamp? createdOn;
   String? receivedUser;
+  String? adress;
   String? desc;
+  String? title;
   int? status;
   String? receivedUrl;
 
@@ -14,18 +16,22 @@ class OrderModel {
     return {
       'createdUser': createdUser,
       'receivedUser': receivedUser,
-      'desc': desc,
+      'title': title,
       'status': status,
       'receivedUrl': receivedUrl,
-      'createdOn': createdOn
+      'createdOn': createdOn,
+      'adress': adress,
+      'desc': desc
     };
   }
 
   OrderModel.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
       : createdUser = doc.data()!["createdUser"],
         receivedUser = doc.data()!["receivedUser"],
-        desc = doc.data()!["desc"],
+        title = doc.data()!["title"],
         status = doc.data()!["status"],
         receivedUrl = doc.data()!["receivedUrl"],
-        createdOn = doc.data()!["createdOn"];
+        createdOn = doc.data()!["createdOn"],
+        desc = doc.data()!["desc"],
+        adress = doc.data()!["adress"];
 }

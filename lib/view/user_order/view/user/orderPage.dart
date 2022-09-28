@@ -3,20 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/styles/container.dart';
 import 'package:kimyapar/product/extension/date.dart';
+import 'package:kimyapar/product/utilities/qr_code/qr_code_generator.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
+import 'package:kimyapar/view/user_order/view/user/timelinestatuspage.dart';
 
-import '../../../core/constants/responsive.dart';
-import '../../../core/constants/styles/text.dart';
-import '../../../core/languages/tr.dart';
-import '../../../product/widgets/order/appbar.dart';
-import '../../../product/widgets/order/message.dart';
-import '../../../product/widgets/order/orderStatus.dart';
-import '../../../product/widgets/order/userAvatar.dart';
-import '../../chats/viewmodel/controller/chatcontroller.dart';
+import '../../../../core/constants/responsive.dart';
+import '../../../../core/constants/styles/text.dart';
+import '../../../../core/languages/tr.dart';
+import '../../../../product/widgets/order/appbar.dart';
+import '../../../../product/widgets/order/message.dart';
+import '../../../../product/widgets/order/orderStatus.dart';
+import '../../../../product/widgets/order/userAvatar.dart';
+import '../../../chats/viewmodel/controller/chatcontroller.dart';
 
-import '../model/ordermodel.dart';
-import '../viewmodel/controllers/controller.dart';
+import '../../model/ordermodel.dart';
+import '../../viewmodel/controllers/controller.dart';
 
 class Orders extends StatefulWidget {
   const Orders({Key? key}) : super(key: key);
@@ -39,7 +41,7 @@ class _OrdersState extends State<Orders> {
   Widget build(BuildContext context) {
     loginController.getCurrentUser();
     return Scaffold(
-      appBar: orderAppBar(),
+      appBar: appBar("Siparişlerim"),
       body: StreamBuilder<QuerySnapshot>(
         stream: orderController.getMyOrders(),
         builder: (context, snapshot) {
@@ -85,38 +87,54 @@ class _OrdersState extends State<Orders> {
               }
               var orderedModel = UserModel.fromDocumentSnapshot(snapshot
                   .data!.docs[0] as DocumentSnapshot<Map<String, dynamic>>);
-              return orders(context, orderModel, orderedModel);
+              return orders(context, orderModel, orderedModel, docId);
             },
           );
         });
   }
 
-  orders(BuildContext context, OrderModel orderModel, UserModel orderedModel) {
+  orders(BuildContext context, OrderModel orderModel, UserModel orderedModel,
+      String docId) {
     return GestureDetector(
       onTap: () {},
       child: Padding(
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
         child: Container(
-          height: Responsive.isTablet(context) ? 130 : 110,
+          height: Responsive.isTablet(context) ? 250 : 220,
           width: double.infinity,
           decoration: foodOrderBox(),
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    orderDetail(context, orderModel),
-                    chefDetail(orderModel, context, orderedModel)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        orderDetail(context, orderModel),
+                        GestureDetector(
+                          child: chefDetail(orderModel, context, orderedModel),
+                          onTap: () {
+                            qrGenarator(docId);
+                          },
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              SizedBox(
+                  width: 500,
+                  height: 100,
+                  child: ProcessTimelinePage(
+                    processIndex: orderModel.status,
+                  ))
+            ],
           ),
         ),
       ),
@@ -141,16 +159,21 @@ class _OrdersState extends State<Orders> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("20 TL", style: ksmallTextStyle(context)),
-            Text(orderModel.desc!, style: foodNameTextStyle(context)),
+            Text(orderModel.title!, style: foodNameTextStyle(context)),
             const SizedBox(height: 6),
             orderStatus(context, orderModel),
             const SizedBox(height: 5),
-            Text(
-              //extension
-              orderModel.createdOn!.toDatee(orderModel),
-              style: ksmallTextStyle(context),
-            ),
+            orderModel.createdOn == null
+                ? Text(
+                    //extension
+                    "date",
+                    style: ksmallTextStyle(),
+                  )
+                : Text(
+                    //extension
+                    orderModel.createdOn!.toDatee(orderModel),
+                    style: ksmallTextStyle(),
+                  )
           ],
         ),
       ],

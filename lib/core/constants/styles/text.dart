@@ -44,25 +44,31 @@ loginButtonStyle() {
       color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold);
 }
 
-ksmallTextStyle(BuildContext context) {
+ksmallTextStyle() {
   return GoogleFonts.aBeeZee(
-    fontSize: Responsive.isTablet(context) ? 15 : 11,
+    fontSize: 11,
     color: const Color(0xFF8D8E98),
   );
 }
+
+addOrder() {
+  return GoogleFonts.aBeeZee(
+    fontSize: 14,
+    color: const Color(0xFF8D8E98),
+  );
+}
+
 kBigStyle(BuildContext context) {
   return GoogleFonts.aBeeZee(
-    fontSize: Responsive.isTablet(context) ? 20 : 13,
+    fontSize: 13,
     color: const Color(0xFF8D8E98),
   );
 }
-foodNameTextStyle(BuildContext context){
+
+foodNameTextStyle(BuildContext context) {
   return GoogleFonts.aBeeZee(
-                                            fontSize:
-                                                Responsive.isTablet(context)
-                                                    ? 19
-                                                    : 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.primary,
-                                          );
+    fontSize: Responsive.isTablet(context) ? 19 : 15,
+    fontWeight: FontWeight.bold,
+    color: AppColors.primary,
+  );
 }

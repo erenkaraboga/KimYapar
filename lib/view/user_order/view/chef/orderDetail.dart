@@ -1,20 +1,20 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/colors.dart';
 import 'package:kimyapar/core/constants/styles/text.dart';
 import 'package:kimyapar/product/widgets/order/orderDetail/bottomshetPanel.dart';
+import 'package:kimyapar/view/user_order/model/ordermodel.dart';
 import 'package:kimyapar/view/user_order/viewmodel/controllers/controller.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:timelines/timelines.dart';
 
-import '../../../core/languages/tr.dart';
-import '../../../product/widgets/order/orderDetail/order_detail_title.dart';
-import '../../login/viewmodel/controllers/loginController.dart';
-import '../model/orderInfo.dart';
-import '../model/ordermodel.dart';
+import '../../../../core/languages/tr.dart';
+import '../../../../product/widgets/order/orderDetail/order_detail_title.dart';
+import '../../../login/viewmodel/controllers/loginController.dart';
+import '../../model/orderInfo.dart';
+import '../../viewmodel/inner_timeline.dart';
+
 
 const kTileHeight = 50.0;
 final orderController = Get.find<OrderController>();
@@ -53,7 +53,7 @@ class PackageDeliveryTrackingPage extends StatelessWidget {
 
 _body() {
   return StreamBuilder<DocumentSnapshot>(
-      stream: orderController.getCurrentOrder(),
+      stream: orderController.getCurrentOrder(Get.arguments),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -69,7 +69,7 @@ _body() {
               itemBuilder: (context, index) {
                 var orderModel = OrderModel.fromDocumentSnapshot(
                     snapshot.data! as DocumentSnapshot<Map<String, dynamic>>);
-                inspect(orderModel);
+
                 return Center(
                   child: SizedBox(
                     width: 360.0,
@@ -106,54 +106,6 @@ _body() {
       });
 }
 
-class InnerTimeline extends StatelessWidget {
-  const InnerTimeline({
-    required this.messages,
-  });
-  final List<DeliveryMessage> messages;
-  @override
-  Widget build(BuildContext context) {
-    bool isEdgeIndex(int index) {
-      return index == 0 || index == messages.length + 1;
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: FixedTimeline.tileBuilder(
-        theme: TimelineTheme.of(context).copyWith(
-          nodePosition: 0,
-          connectorTheme: TimelineTheme.of(context).connectorTheme.copyWith(
-                thickness: 1.0,
-              ),
-          indicatorTheme: TimelineTheme.of(context).indicatorTheme.copyWith(
-                size: 10.0,
-                position: 0.5,
-              ),
-        ),
-        builder: TimelineTileBuilder(
-          indicatorBuilder: (_, index) =>
-              !isEdgeIndex(index) ? Indicator.outlined(borderWidth: 1.0) : null,
-          startConnectorBuilder: (_, index) => Connector.solidLine(),
-          endConnectorBuilder: (_, index) => Connector.solidLine(),
-          contentsBuilder: (_, index) {
-            if (isEdgeIndex(index)) {
-              return null;
-            }
-            return Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(messages[index - 1].toString()),
-            );
-          },
-          itemExtentBuilder: (_, index) => isEdgeIndex(index) ? 10.0 : 30.0,
-          nodeItemOverlapBuilder: (_, index) =>
-              isEdgeIndex(index) ? true : null,
-          itemCount: messages.length + 2,
-        ),
-      ),
-    );
-  }
-}
-
 class _DeliveryProcesses extends StatelessWidget {
   const _DeliveryProcesses(
       {Key? key, required this.processes, required this.orderModel})
@@ -166,64 +118,68 @@ class _DeliveryProcesses extends StatelessWidget {
       style: kBigStyle(context),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: FixedTimeline.tileBuilder(
-          theme: TimelineThemeData(
-            nodePosition: 0,
-            color: const Color(0xff989898),
-            indicatorTheme: const IndicatorThemeData(
-              position: 0,
-              size: 30.0,
-            ),
-            connectorTheme: const ConnectorThemeData(
-              thickness: 2.5,
-            ),
-          ),
-          builder: TimelineTileBuilder.connected(
-            connectionDirection: ConnectionDirection.before,
-            itemCount: processes.length,
-            contentsBuilder: (_, index) {
-              return Padding(
-                padding: const EdgeInsets.only(left: 9.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      processes[index].name,
-                      style: foodNameTextStyle(context),
-                    ),
-                    InnerTimeline(messages: processes[index].messages),
-                  ],
+        child: _timeline(context),
+      ),
+    );
+  }
+
+  _timeline(BuildContext context) {
+    return FixedTimeline.tileBuilder(
+      theme: TimelineThemeData(
+        nodePosition: 0,
+        color: const Color(0xff989898),
+        indicatorTheme: const IndicatorThemeData(
+          position: 0,
+          size: 30.0,
+        ),
+        connectorTheme: const ConnectorThemeData(
+          thickness: 2.5,
+        ),
+      ),
+      builder: TimelineTileBuilder.connected(
+        connectionDirection: ConnectionDirection.before,
+        itemCount: processes.length,
+        contentsBuilder: (_, index) {
+          return Padding(
+            padding: const EdgeInsets.only(left: 9.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  processes[index].name,
+                  style: foodNameTextStyle(context),
                 ),
-              );
-            },
-            indicatorBuilder: (_, index) {
-              if (!processes[index].compllete) {
-                return const OutlinedDotIndicator(
-                  borderWidth: 2.5,
-                  size: 20,
-                );
-              } else {
-                return DotIndicator(
-                    size: 30,
-                    color: AppColors.primary,
-                    child: const Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ));
-              }
-            },
-            connectorBuilder: (_, index, ___) => SolidLineConnector(
-              color: AppColors.primary,
+                InnerTimeline(messages: processes[index].messages),
+              ],
             ),
-          ),
+          );
+        },
+        indicatorBuilder: (_, index) {
+          if (!processes[index].compllete) {
+            return const OutlinedDotIndicator(
+              borderWidth: 2.5,
+              size: 20,
+            );
+          } else {
+            return DotIndicator(
+                size: 30,
+                color: AppColors.primary,
+                child: const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                ));
+          }
+        },
+        connectorBuilder: (_, index, ___) => SolidLineConnector(
+          color: AppColors.primary,
         ),
       ),
     );
   }
 }
 
-OrderInfo _data(OrderModel orderModel) => OrderInfo(
+_data(OrderModel orderModel) => OrderInfo(
       date: DateTime.now(),
       driverInfo: DriverInfo(
         name: orderController.orderedModel.value.name!,
@@ -236,9 +192,9 @@ OrderInfo _data(OrderModel orderModel) => OrderInfo(
               ? true
               : false,
           messages: [
-            DeliveryMessage('Yemek:', orderModel.desc!),
+            DeliveryMessage('Yemek:', orderModel.title!),
             const DeliveryMessage('Fiyat:', '20 TL'),
-            const DeliveryMessage('Detay:', 'Ketçaplı'),
+             DeliveryMessage('Detay:', orderModel.desc!),
           ],
         ),
         DeliveryProcess(
@@ -247,7 +203,6 @@ OrderInfo _data(OrderModel orderModel) => OrderInfo(
           messages: [
             DeliveryMessage(
                 'Başlangıç', orderModel.createdOn!.toDate().toString()),
-            const DeliveryMessage('Tahmini Bitiş', '17.25'),
           ],
         ),
         DeliveryProcess(
@@ -256,22 +211,20 @@ OrderInfo _data(OrderModel orderModel) => OrderInfo(
           messages: [
             DeliveryMessage(
                 'Başlangıç', orderModel.createdOn!.toDate().toString()),
-            const DeliveryMessage('Tahmini Bitiş', '17.25'),
           ],
         ),
         DeliveryProcess(
           'Teslim Et',
           orderModel.status! > 3 ? true : false,
           messages: [
-            const DeliveryMessage('Adres:',
-                'Yeni Mah. Mustafa Kale Sok. Kervansaray Sit C Blok Nu 13'),
+            DeliveryMessage('', orderModel.adress.toString()),
           ],
         ),
         DeliveryProcess(
           'Tamamlandı',
           orderModel.status! > 4 ? true : false,
           messages: [
-            const DeliveryMessage('Adres:', 'Alıcı Siparişi Onayladı!'),
+            const DeliveryMessage('', 'Alıcı Siparişi Onayladı!'),
           ],
         )
       ],

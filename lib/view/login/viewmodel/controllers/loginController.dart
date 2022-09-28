@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kimyapar/product/utilities/cached_image.dart';
 import 'package:kimyapar/view/login/service/ILoginService.dart';
 
 import '../../../../services/firebase/IFirebaseService.dart';
@@ -62,11 +63,14 @@ class LoginController extends GetxController {
     Get.snackbar(
       model.value.name ?? "null",
       "Hoşgeldiniz",
-      icon: ClipOval(
-          child: CircleAvatar(
-        backgroundImage: NetworkImage(model.value.imageUrl ??
-            "https://images.assetsdelivery.com/compings_v2/tuktukdesign/tuktukdesign1606/tuktukdesign160600119.jpg"),
-      )),
+      icon: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ClipOval(
+            child: Material(
+          child: cachedImage(model.value.imageUrl ??
+              "https://images.assetsdelivery.com/compings_v2/tuktukdesign/tuktukdesign1606/tuktukdesign160600119.jpg"),
+        )),
+      ),
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.orangeAccent,
       borderRadius: 10,

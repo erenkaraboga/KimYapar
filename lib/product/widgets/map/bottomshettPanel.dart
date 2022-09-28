@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 
-import '../../../core/constants/styles/textfield.dart';
 import '../../../view/user_order/viewmodel/controllers/controller.dart';
 
 final loginController = Get.find<LoginController>();
 final orderController = Get.find<OrderController>();
+
 mapPanel(ScrollController sc, BuildContext context) {
   return MediaQuery.removePadding(
       context: context,
@@ -31,7 +31,7 @@ mapPanel(ScrollController sc, BuildContext context) {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  // NotificationHelper.showNotification(id: 1,title: "Deneme",body: "Deneme");
+                  Get.toNamed("/timeline");
                 },
                 child: Text("Kim Yapar!",
                     style: GoogleFonts.aBeeZee(
@@ -46,13 +46,6 @@ mapPanel(ScrollController sc, BuildContext context) {
             height: 19.0,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(40, 0, 40, 20),
-            child: Form(
-                child: TextFormField(
-              decoration: orderFieldd(),
-            )),
-          ),
-          Padding(
             padding: const EdgeInsets.fromLTRB(80, 10, 80, 20),
             child: SizedBox(
               height: 50,
@@ -63,7 +56,8 @@ mapPanel(ScrollController sc, BuildContext context) {
                       shape: const StadiumBorder(),
                       primary: Colors.orange.shade300),
                   onPressed: () {
-                    orderController.addOrder("Patatesli yumurta");
+                    Get.toNamed("/addOrder");
+                    //orderController.addOrder("Patatesli yumurta");
                   },
                   icon: const Icon(Icons.add),
                   label: const Text(
@@ -105,6 +99,13 @@ mapPanel(ScrollController sc, BuildContext context) {
                     },
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 55,
+              ),
+              const Text(
+                " darksoft v1.0.0 beta ",
+                style: TextStyle(color: Colors.grey),
               )
             ],
           ),
@@ -138,4 +139,3 @@ Widget _button(String label, IconData icon, Color color) {
     ],
   );
 }
-

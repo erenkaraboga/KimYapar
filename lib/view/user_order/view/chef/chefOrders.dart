@@ -7,17 +7,18 @@ import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/map/viewmodel/controllers/mapController.dart';
 
-import '../../../core/constants/responsive.dart';
-import '../../../core/constants/styles/text.dart';
-import '../../../core/languages/tr.dart';
-import '../../../product/widgets/order/appbar.dart';
-import '../../../product/widgets/order/message.dart';
-import '../../../product/widgets/order/orderStatus.dart';
-import '../../../product/widgets/order/userAvatar.dart';
-import '../../chats/viewmodel/controller/chatcontroller.dart';
+import '../../../../core/constants/responsive.dart';
+import '../../../../core/constants/styles/text.dart';
+import '../../../../core/languages/tr.dart';
+import '../../../../product/widgets/order/appbar.dart';
+import '../../../../product/widgets/order/message.dart';
+import '../../../../product/widgets/order/orderStatus.dart';
+import '../../../../product/widgets/order/userAvatar.dart';
+import '../../../chats/viewmodel/controller/chatcontroller.dart';
+import '../../model/ordermodel.dart';
+import '../../viewmodel/controllers/controller.dart';
 
-import '../model/ordermodel.dart';
-import '../viewmodel/controllers/controller.dart';
+
 
 class ChefOrder extends StatefulWidget {
   const ChefOrder({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class ChefOrder extends StatefulWidget {
   @override
   State<ChefOrder> createState() => _ChefOrderState();
 }
+
 final orderController = Get.find<OrderController>();
 final loginController = Get.find<LoginController>();
 final chatController = Get.find<ChatController>();
@@ -40,7 +42,7 @@ class _ChefOrderState extends State<ChefOrder> {
   Widget build(BuildContext context) {
     loginController.getCurrentUser();
     return Scaffold(
-      appBar: orderAppBar(),
+      appBar: appBar("Siparişlerim"),
       body: StreamBuilder<QuerySnapshot>(
         stream: orderController.getNotTakenOrders(),
         builder: (context, snapshot) {
@@ -69,7 +71,7 @@ class _ChefOrderState extends State<ChefOrder> {
         itemCount: snapshot.data!.docs.length,
         itemBuilder: (context, index) {
           var docId = snapshot.data!.docs[index].reference.id;
-          orderController.docId.value=docId;
+          //orderController.docId.value=docId;
           var orderModel = OrderModel.fromDocumentSnapshot(snapshot
               .data!.docs[index] as DocumentSnapshot<Map<String, dynamic>>);
           return StreamBuilder<QuerySnapshot>(
@@ -136,7 +138,8 @@ class _ChefOrderState extends State<ChefOrder> {
       String docId) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed("/orderDetail");
+        orderController.docId.value = docId;
+        Get.toNamed("/orderDetail", arguments: docId);
       },
       child: const Icon(
         Icons.chevron_right,
@@ -158,16 +161,22 @@ class _ChefOrderState extends State<ChefOrder> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("20 TL", style: ksmallTextStyle(context)),
-            Text(orderModel.desc!, style: foodNameTextStyle(context)),
+            Text("20 TL", style: ksmallTextStyle()),
+            Text(orderModel.title!, style: foodNameTextStyle(context)),
             const SizedBox(height: 6),
             orderStatus(context, orderModel),
             const SizedBox(height: 5),
-            Text(
-              //extension
-              orderModel.createdOn!.toDatee(orderModel),
-              style: ksmallTextStyle(context),
-            ),
+            orderModel.createdOn == null
+                ? Text(
+                    //extension
+                    "date",
+                    style: ksmallTextStyle(),
+                  )
+                : Text(
+                    //extension
+                    orderModel.createdOn!.toDatee(orderModel),
+                    style: ksmallTextStyle(),
+                  )
           ],
         ),
       ],

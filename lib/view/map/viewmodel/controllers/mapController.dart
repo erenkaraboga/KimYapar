@@ -30,10 +30,10 @@ class MapController extends GetxController {
     return mapService.drawDistance(lat, long, endLat, endLong);
   }
   fetchFilteredUser() async {
-    changeLoading();
+    isLoading.value=true;
     final response = await mapService.filterGeo();
     await Future.delayed(const Duration(seconds: 2));
-    changeLoading();
+    isLoading.value=false;
     list.value = response;
   }
   Future<Position> determinePosition()async{
@@ -41,6 +41,6 @@ class MapController extends GetxController {
   }
 
   void changeLoading() {
-    isLoading.value = !isLoading.value;
+    isLoading.value =true;
   }
 }

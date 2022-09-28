@@ -25,7 +25,7 @@ class _SingInState extends State<SingIn> {
   void click() {}
   @override
   void initState() {
-    mapController.getLocation();
+    //mapController.getLocation();
     super.initState();
   }
 

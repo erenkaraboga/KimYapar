@@ -3,6 +3,7 @@ import 'package:kimyapar/services/firebase/IFirebaseService.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/user_order/model/ordermodel.dart';
 
+import '../../../add_order/model/add_order_model.dart';
 import '../../service/IOrderService.dart';
 
 class OrderController extends GetxController {
@@ -11,6 +12,8 @@ class OrderController extends GetxController {
   var orderModel = OrderModel().obs;
   var orderedModel = UserModel().obs;
   var docId = "".obs;
+  var qr = "".obs;
+  var success = false.obs;
   var isOrderButtonEneabled = false.obs;
   var isPrepareButtonEneabled = true.obs;
   var isRoadButtonEneabled = true.obs;
@@ -26,8 +29,8 @@ class OrderController extends GetxController {
     return orderService.getMyOrders();
   }
 
-  addOrder(String desc) {
-    orderService.addOrder(desc);
+  addOrder(AddOrderModel model) {
+    orderService.addOrder(model);
   }
 
   getNotTakenOrders() {
@@ -42,11 +45,21 @@ class OrderController extends GetxController {
     return service.db.collection('users').snapshots();
   }
 
-  takeOrder(String docId) {
-    orderService.takeOrder(docId);
+  takeOrder() {
+    orderService.takeOrder(docId.value);
   }
 
-  getCurrentOrder() {
-    return orderService.getCurrentOrder(docId.value);
+  getCurrentOrder(String docId) {
+    return orderService.getCurrentOrder(docId);
   }
+
+  finishOrder() {
+    if (orderService.finishOrder(docId.value, qr.value)) {
+      Get.toNamed("/successPage");
+    } else {
+      Get.toNamed("/errorPage");
+    }
+  }
+
+  routeScreen() {}
 }

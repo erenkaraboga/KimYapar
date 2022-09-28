@@ -49,7 +49,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _panelHeightOpen = MediaQuery.of(context).size.height * .55;
+    _panelHeightOpen = MediaQuery.of(context).size.height * .44;
     return Scaffold(
       body: Obx(() => mapController.isLoading.value
           ? Lottie()

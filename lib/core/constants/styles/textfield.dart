@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kimyapar/core/constants/styles/text.dart';
 
 import '../../languages/tr.dart';
+import '../colors.dart';
 import '../icons.dart';
 
 mailFieldd() {
@@ -20,6 +22,26 @@ passFieldd() {
           borderRadius: BorderRadius.all(Radius.circular(20))));
 }
 
+orderBox(String text) {
+  return InputDecoration(
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1,
+          color: AppColors.primary,
+        ),
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          width: 1,
+          color: AppColors.primary,
+        ),
+        borderRadius: BorderRadius.circular(5.0),
+      ),
+      labelText: text,
+      labelStyle: addOrder());
+}
+
 orderFieldd() {
   return InputDecoration(
       hintStyle: const TextStyle(color: Colors.deepOrange),
@@ -31,7 +53,6 @@ orderFieldd() {
         borderRadius: BorderRadius.circular(25.0),
         borderSide: const BorderSide(
           color: Colors.orange,
-
         ),
       ),
       enabledBorder: OutlineInputBorder(

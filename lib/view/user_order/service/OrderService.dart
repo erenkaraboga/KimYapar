@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kimyapar/view/add_order/model/add_order_model.dart';
 
 import 'IOrderService.dart';
 
@@ -12,14 +11,17 @@ class OrderService extends IOrderService {
   }
 
   @override
-  void addOrder(String desc) {
-    getOrderRequest().add({
+  void addOrder(AddOrderModel model) async{
+   var response =  await getOrderRequest().add({
       'createdOn': FieldValue.serverTimestamp(),
       'createdUser': super.service.auth.currentUser!.uid,
-      'desc': desc,
+      'desc': model.desc,
       'receivedUser': "",
-      'status': 0
+      'status': 0,
+      'adress': model.adress,
+      'title':model.title
     });
+   
   }
 
   @override
@@ -27,7 +29,7 @@ class OrderService extends IOrderService {
     var response = getOrderRequest()
         .where('createdUser', isEqualTo: super.service.auth.currentUser!.uid)
         .snapshots();
-    inspect(response);
+
     return response;
   }
 
@@ -56,5 +58,14 @@ class OrderService extends IOrderService {
   @override
   Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentOrder(String docId) {
     return getOrderRequest().doc(docId).snapshots();
+  }
+
+  @override
+  finishOrder(String docId, String qr) {
+    if (docId == qr) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
