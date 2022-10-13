@@ -100,7 +100,7 @@ class _OrdersState extends State<Orders> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
         child: Container(
-          height: Responsive.isTablet(context) ? 250 : 220,
+          height: Responsive.isTablet(context) ? 250 : 240,
           width: double.infinity,
           decoration: foodOrderBox(),
           child: Column(
@@ -127,6 +127,12 @@ class _OrdersState extends State<Orders> {
                     )
                   ],
                 ),
+              ),
+              const Divider(
+                thickness: 2,
+              ),
+              const SizedBox(
+                height: 10,
               ),
               SizedBox(
                   width: 500,

@@ -19,9 +19,9 @@ forgotPass() {
       children: [
         TextButton(
           onPressed: () {
-            Get.offNamed("/deneme");
+            Get.offNamed("/signInNew");
           },
-          child:  Text(
+          child: Text(
             Tr.forgotPass,
             style: forgotPassStyle(),
           ),
@@ -40,12 +40,11 @@ SwippableBtnIN() {
 }
 
 PleaseSignText() {
-  return  CreateText(
-      text: Tr.pleaseSignin, style: pleaseSignIn());
+  return CreateText(text: Tr.pleaseSignin, style: pleaseSignIn());
 }
 
 HelloText() {
-  return  CreateText(text: Tr.hello, style:helloStyle());
+  return CreateText(text: Tr.hello, style: helloStyle());
 }
 
 SocialLoginBtn() {

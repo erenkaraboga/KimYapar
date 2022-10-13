@@ -1,49 +1,45 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kimyapar/product/widgets/map/bottomshettPanel.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../core/constants/colors.dart';
+import '../../../../view/user_order/model/ordermodel.dart';
 import '../../../../view/user_order/viewmodel/controllers/controller.dart';
 
-road() {
+road(OrderModel model) {
   final orderController = Get.find<OrderController>();
-  return Positioned(
-    bottom: 50,
-    right: 110,
-    child: Container(
-      margin: const EdgeInsets.only(top: 20),
-      child: ChoiceChip(
-        labelStyle: const TextStyle(color: Colors.white),
-        label: const Text(
-          "Yoldayım",
-          style: TextStyle(color: Colors.white),
-        ),
-        selected: false,
-        avatar: !orderController.isRoadButtonEneabled.value
-            ? const Icon(
-                Icons.touch_app_outlined,
-                color: Colors.white,
-              )
-            : null,
-        onSelected: orderController.isRoadButtonEneabled.value
-            ? null
-            : (bool selected) {
-                orderController.isRoadButtonEneabled.value = true;
-                orderController.isFinishButtonEneabled.value = false;
-                _dialog();
-              },
-        //Do whatever you want when the chip is selected
-        selectedColor: CupertinoColors.activeGreen,
-        disabledColor: AppColors.primary,
-        backgroundColor: Colors.green,
-        elevation: 15,
+  return Container(
+    margin: const EdgeInsets.only(top: 20),
+    child: ChoiceChip(
+      labelStyle: const TextStyle(color: Colors.white),
+      label: const Text(
+        "Yola Çık",
+        style: TextStyle(color: Colors.white),
       ),
+      selected: false,
+      avatar: model.status == 1
+          ? const Icon(
+              Icons.touch_app_outlined,
+              color: Colors.white,
+            )
+          : null,
+      onSelected: model.status == 1
+          ? (bool selected) {
+              _dialog(model);
+            }
+          : null,
+      //Do whatever you want when the chip is selected
+      selectedColor: CupertinoColors.activeGreen,
+      disabledColor: AppColors.primary,
+      backgroundColor: Colors.green,
+      elevation: 15,
     ),
   );
 }
 
-_dialog() {
+_dialog(OrderModel model) {
   return Get.defaultDialog(
       titlePadding: const EdgeInsets.all(10),
       title: "Sipariş Alımı",
@@ -51,6 +47,10 @@ _dialog() {
       titleStyle: const TextStyle(color: Colors.black),
       middleTextStyle: const TextStyle(color: Colors.black),
       textConfirm: "Evet",
+      onConfirm: () {
+        orderController.roadOrder();
+        Get.close(1);
+      },
       textCancel: "Geri",
       cancelTextColor: Colors.black,
       confirmTextColor: Colors.white,

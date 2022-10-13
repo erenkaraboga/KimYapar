@@ -59,6 +59,10 @@ class LoginController extends GetxController {
     isLoading.value = !isLoading.value;
   }
 
+  void verify(String number) {
+    loginService.verifyNumber(number);
+  }
+
   void loggedSnackBar() {
     Get.snackbar(
       model.value.name ?? "null",

@@ -6,6 +6,7 @@ abstract class ILoginService {
   ILoginService(this.service);
   Future<User?> login(String email, String password);
   Future<User?> registerUser(String email, String password);
+  void verifyNumber(String number);
   void logOut();
  
 }

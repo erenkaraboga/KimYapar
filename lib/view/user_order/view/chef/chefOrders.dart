@@ -18,8 +18,6 @@ import '../../../chats/viewmodel/controller/chatcontroller.dart';
 import '../../model/ordermodel.dart';
 import '../../viewmodel/controllers/controller.dart';
 
-
-
 class ChefOrder extends StatefulWidget {
   const ChefOrder({Key? key}) : super(key: key);
 

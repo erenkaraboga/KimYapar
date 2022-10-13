@@ -63,9 +63,28 @@ class OrderService extends IOrderService {
   @override
   finishOrder(String docId, String qr) {
     if (docId == qr) {
+     completeOrder(docId);
       return true;
     } else {
       return false;
     }
+  }
+  
+  @override
+  void roadOrder(String docId) {
+    getOrderRequest().doc(docId).update(
+        {'status': 2});
+  }
+  
+  @override
+  void qrStatus(String docId) {
+     getOrderRequest().doc(docId).update(
+        {'status': 3});
+  }
+  
+  @override
+  void completeOrder(String docId) {
+    getOrderRequest().doc(docId).update(
+        {'status': 4});
   }
 }

@@ -9,8 +9,7 @@ import '../../map/viewmodel/controllers/mapController.dart';
 class LoginService extends ILoginService {
   LoginService(super.service);
   final mapController = Get.find<MapController>();
-  
-  
+
   @override
   Future<User?> login(String email, String password) async {
     var response = await super
@@ -34,8 +33,9 @@ class LoginService extends ILoginService {
         'name': email,
         'lat': mapController.position.value.latitude,
         'long': mapController.position.value.longitude,
-        'email':email,
-        'imageUrl':"https://res.cloudinary.com/dinqa9wqr/image/upload/v1663226962/indir_oj3zv3.png"
+        'email': email,
+        'imageUrl':
+            "https://res.cloudinary.com/dinqa9wqr/image/upload/v1663226962/indir_oj3zv3.png"
       });
     } catch (firebaseAuthException) {}
     return null;
@@ -44,5 +44,26 @@ class LoginService extends ILoginService {
   @override
   void logOut() {
     super.service.auth.signOut();
+  }
+
+  @override
+  void verifyNumber(String number) async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: number,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await FirebaseAuth.instance
+              .signInWithCredential(credential)
+              .then((value) async {
+            if (value.user != null) {
+              print(value.user!.uid);
+            }
+          });
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          print(e.message);
+        },
+        codeSent: (String? verficationID, int? resendToken) {},
+        codeAutoRetrievalTimeout: (String verificationID) {},
+        timeout: const Duration(seconds: 120));
   }
 }

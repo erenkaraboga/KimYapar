@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +11,7 @@ import 'package:kimyapar/view/deneme/deneme.dart';
 
 import 'package:kimyapar/view/login/view/SignIn.dart';
 import 'package:kimyapar/view/login/view/SignUp.dart';
+import 'package:kimyapar/view/login/view/new/signIn.dart';
 import 'package:kimyapar/view/login/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/map/view/mapPage.dart';
 import 'package:kimyapar/view/map/viewmodel/bindings/binding.dart';
@@ -25,7 +24,6 @@ import 'package:kimyapar/view/user_order/view/chef/orderDetail.dart';
 import 'package:kimyapar/view/user_order/view/user/orderPage.dart';
 import 'package:kimyapar/view/user_order/view/status/error.dart';
 import 'package:kimyapar/view/user_order/view/status/success.dart';
-import 'package:kimyapar/view/user_order/view/user/timelinestatuspage.dart';
 import 'package:kimyapar/view/user_order/viewmodel/bindings/binding.dart';
 
 Future main() async {
@@ -70,7 +68,6 @@ class KimYapar extends StatelessWidget {
           page: () => const ChatDetail(),
           binding: ChatBinding(),
         ),
-       
         GetPage(
             name: "/order",
             page: () => const Orders(),
@@ -87,11 +84,6 @@ class KimYapar extends StatelessWidget {
           transitionDuration: const Duration(milliseconds: 600),
           // transition: Transition.cupertino
         ),
-        GetPage(
-            name: "/chefOrder",
-            page: () => const ChefOrder(),
-            binding: OrderBinding(),
-            transition: Transition.cupertino),
         GetPage(
             name: "/orderDetail",
             page: () => PackageDeliveryTrackingPage(),
@@ -119,6 +111,13 @@ class KimYapar extends StatelessWidget {
           name: "/errorPage", page: () => const ErrorPage(),
           transition: Transition.fade,
           transitionDuration: const Duration(milliseconds: 600),
+          // transition: Transition.cupertino
+        ),
+        GetPage(
+          name: "/signInNew", page: () => SignInNEW(),
+          transition: Transition.fade,
+          transitionDuration: const Duration(milliseconds: 600),
+          binding: LoginBinding(),
           // transition: Transition.cupertino
         ),
       ],

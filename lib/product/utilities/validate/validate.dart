@@ -9,6 +9,10 @@ class Validate {
     RequiredValidator(errorText: 'Mail Gerekli'),
     PatternValidator('@', errorText: 'Geçerli bir mail giriniz')
   ]);
+  static final phone = MultiValidator([
+    RequiredValidator(errorText: 'Numara Gerekli'),
+  
+  ]);
 
   static final orderTitle = MultiValidator([
     RequiredValidator(errorText: 'Gerekli'),

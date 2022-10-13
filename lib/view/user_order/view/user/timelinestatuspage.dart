@@ -38,11 +38,12 @@ class _ProcessTimelinePageState extends State<ProcessTimelinePage> {
         height: 100,
         width: 400,
         child: Timeline.tileBuilder(
+          physics: const NeverScrollableScrollPhysics(),
           theme: TimelineThemeData(
             direction: Axis.horizontal,
             connectorTheme: const ConnectorThemeData(
-              space: 10.0,
-              thickness: 2.0,
+              space: 5.00,
+              thickness: 1.5,
             ),
           ),
           builder: TimelineTileBuilder.connected(
@@ -52,13 +53,12 @@ class _ProcessTimelinePageState extends State<ProcessTimelinePage> {
                 padding: const EdgeInsets.only(bottom: 15.0),
                 child: Image.asset(
                   'assets/orderStatus/status${index + 1}.png',
-                  width: 50.0,
-                  color: getColor(index),
+                  width: 20.0,
                 ),
               );
             },
             itemExtentBuilder: (_, __) =>
-                MediaQuery.of(context).size.width / _processes.length,
+                MediaQuery.of(context).size.width / 4.3,
             contentsBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(top: 5.0),
@@ -246,6 +246,5 @@ final _processes = [
   'Bekliyor',
   'Hazırlanıyor',
   'Yolda',
-  'Teslim',
   'Qr',
 ];

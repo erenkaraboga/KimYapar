@@ -14,10 +14,7 @@ class OrderController extends GetxController {
   var docId = "".obs;
   var qr = "".obs;
   var success = false.obs;
-  var isOrderButtonEneabled = false.obs;
-  var isPrepareButtonEneabled = true.obs;
-  var isRoadButtonEneabled = true.obs;
-  var isFinishButtonEneabled = true.obs;
+
   bindOrder(OrderModel orderModel, UserModel orderedModel) {
     this.orderModel.value = orderModel;
     this.orderedModel.value = orderedModel;
@@ -45,6 +42,10 @@ class OrderController extends GetxController {
     return service.db.collection('users').snapshots();
   }
 
+  roadOrder() {
+    orderService.roadOrder(docId.value);
+  }
+
   takeOrder() {
     orderService.takeOrder(docId.value);
   }
@@ -61,5 +62,7 @@ class OrderController extends GetxController {
     }
   }
 
-  routeScreen() {}
+  qrStatus() {
+    orderService.qrStatus(docId.value);
+  }
 }
