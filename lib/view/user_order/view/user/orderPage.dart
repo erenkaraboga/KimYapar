@@ -13,6 +13,7 @@ import '../../../../core/constants/styles/text.dart';
 import '../../../../core/languages/tr.dart';
 import '../../../../product/widgets/order/appbar.dart';
 import '../../../../product/widgets/order/message.dart';
+import '../../../../product/widgets/order/orderDetail/cancel_button.dart';
 import '../../../../product/widgets/order/orderStatus.dart';
 import '../../../../product/widgets/order/userAvatar.dart';
 import '../../../chats/viewmodel/controller/chatcontroller.dart';
@@ -41,7 +42,7 @@ class _OrdersState extends State<Orders> {
   Widget build(BuildContext context) {
     loginController.getCurrentUser();
     return Scaffold(
-      appBar: appBarWithPath("Siparişlerim","/completeOrder"),
+      appBar: appBarWithPath("Siparişlerim", "/completeOrder"),
       body: StreamBuilder<QuerySnapshot>(
         stream: orderController.getNotCompletedOrders(),
         builder: (context, snapshot) {
@@ -100,7 +101,7 @@ class _OrdersState extends State<Orders> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
         child: Container(
-          height: Responsive.isTablet(context) ? 250 : 240,
+          height: Responsive.isTablet(context) ? 250 : 284,
           width: double.infinity,
           decoration: foodOrderBox(),
           child: Column(
@@ -118,8 +119,10 @@ class _OrdersState extends State<Orders> {
                       children: [
                         orderDetail(context, orderModel),
                         GestureDetector(
-                          child: chefDetail(orderModel, context, orderedModel),
+                          child: chefDetail(
+                              orderModel, context, orderedModel, docId),
                           onTap: () {
+                            
                             qrGenarator(docId);
                           },
                         ),
@@ -129,17 +132,26 @@ class _OrdersState extends State<Orders> {
                 ),
               ),
               const Divider(
-                thickness: 2,
+                thickness: 1,
               ),
               const SizedBox(
                 height: 10,
               ),
               SizedBox(
                   width: 500,
-                  height: 100,
+                  height: 90,
                   child: ProcessTimelinePage(
                     processIndex: orderModel.status,
-                  ))
+                  )),
+              Column(
+                children: [
+                  cancelButtonOrder(orderModel,docId),
+                  Text(
+                    "Sadece bekliyor durumunda sipariş iptal edilebilir",
+                    style: ksmallTextStyleCancel(),
+                  )
+                ],
+              )
             ],
           ),
         ),
@@ -147,8 +159,9 @@ class _OrdersState extends State<Orders> {
     );
   }
 
-  chefDetail(
-      OrderModel orderModell, BuildContext context, UserModel userModel) {
+  chefDetail(OrderModel orderModell, BuildContext context, UserModel userModel,
+      String docId) {
+    orderController.docId.value = docId;
     return Column(
       children: [
         chefAvatar(orderModell, context, userModel),

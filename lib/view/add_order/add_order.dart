@@ -18,13 +18,13 @@ class AddOrder extends StatefulWidget {
 
 class _AddOrderState extends State<AddOrder> {
   int _currentStep = 0;
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController detailController = TextEditingController();
-  final TextEditingController adressTitleController = TextEditingController();
-  final TextEditingController adressController = TextEditingController();
-  final TextEditingController apartmentController = TextEditingController();
-  final TextEditingController floorController = TextEditingController();
-  final TextEditingController flatController = TextEditingController();
+  final TextEditingController titleController = TextEditingController(text: "Et Sote");
+  final TextEditingController detailController = TextEditingController(text: "4 tabak acılı");
+  final TextEditingController adressTitleController = TextEditingController(text: "Ev Adresim");
+  final TextEditingController adressController = TextEditingController(text: "Yeni Mah Mustafa Kale Sok");
+  final TextEditingController apartmentController = TextEditingController(text: 13.toString());
+  final TextEditingController floorController = TextEditingController(text :7.toString());
+  final TextEditingController flatController = TextEditingController(text: 13.toString());
   final TextEditingController mobileController = TextEditingController();
   StepperType stepperType = StepperType.vertical;
   List<GlobalKey<FormState>> formKeys = [

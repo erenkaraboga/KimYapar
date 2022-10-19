@@ -51,6 +51,11 @@ ksmallTextStyle() {
   );
 }
 
+ksmallTextStyleCancel() {
+  return GoogleFonts.aBeeZee(
+      fontSize: 9, color: const Color(0xFF8D8E98), fontStyle: FontStyle.italic);
+}
+
 addOrder() {
   return GoogleFonts.aBeeZee(
     fontSize: 14,
@@ -58,10 +63,24 @@ addOrder() {
   );
 }
 
-kBigStyle(BuildContext context) {
+kBigStyle() {
   return GoogleFonts.aBeeZee(
     fontSize: 13,
     color: const Color(0xFF8D8E98),
+  );
+}
+
+dialogTitleStyle() {
+  return GoogleFonts.aBeeZee(
+    fontSize: 20,
+    color: const Color.fromARGB(255, 0, 0, 0),
+  );
+}
+
+dialogmidTextStyle() {
+  return GoogleFonts.aBeeZee(
+    fontSize: 15,
+    color: const Color.fromARGB(255, 0, 0, 0),
   );
 }
 

@@ -99,6 +99,7 @@ flutter:
     - assets/lottie/roadOrder.json
     - assets/lottie/qrOrder.json
     - assets/lottie/orderqrSuccess.json
+    - assets/lottie/cancel.json
     - assets/lottie/errorqr.json
     - assets/orderStatus/status1.png
     - assets/orderStatus/status2.png

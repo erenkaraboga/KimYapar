@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart';
 import 'package:kimyapar/view/add_order/model/add_order_model.dart';
 
 import 'IOrderService.dart';
@@ -29,6 +30,7 @@ class OrderService extends IOrderService {
     var response = getOrderRequest()
         .where('createdUser', isEqualTo: super.service.auth.currentUser!.uid)
         .where('completed', isEqualTo: false)
+        .orderBy("createdOn", descending: true)
         .snapshots();
 
     return response;
@@ -56,6 +58,7 @@ class OrderService extends IOrderService {
     var response = getOrderRequest()
         .where('receivedUser', isEqualTo: super.service.auth.currentUser!.uid)
         .where('completed', isEqualTo: true)
+    
         .snapshots();
 
     return response;
@@ -67,7 +70,7 @@ class OrderService extends IOrderService {
         .where("createdUser", isNotEqualTo: super.service.auth.currentUser!.uid)
         .where("receivedUser",
             whereIn: ["", super.service.auth.currentUser!.uid])
-        .where('completed', isEqualTo: false)
+        .where('completed', isEqualTo: false)    
         .snapshots();
   }
 
@@ -105,5 +108,10 @@ class OrderService extends IOrderService {
   @override
   void completeOrder(String docId) {
     getOrderRequest().doc(docId).update({'status': 4, 'completed': true});
+  }
+  
+  @override
+  void cancelOrder(String docId) {
+   getOrderRequest().doc(docId).delete();
   }
 }

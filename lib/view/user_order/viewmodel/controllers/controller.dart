@@ -29,10 +29,12 @@ class OrderController extends GetxController {
   addOrder(AddOrderModel model) {
     orderService.addOrder(model);
   }
-  getCompletedOrders(){
-   return orderService.getCompletedOrders();
+
+  getCompletedOrders() {
+    return orderService.getCompletedOrders();
   }
-  getCompletedOrdersByChef(){
+
+  getCompletedOrdersByChef() {
     return orderService.getCompletedUserByChef();
   }
 
@@ -42,6 +44,10 @@ class OrderController extends GetxController {
 
   getCurrentOrderedUser(String id) {
     return orderService.getCurrentOrderedUser(id);
+  }
+
+  cancelOrder() {
+    orderService.cancelOrder(docId.value);
   }
 
   getUser() {

@@ -13,6 +13,7 @@ abstract class IOrderService {
   Stream<QuerySnapshot<Map<String, dynamic>>> getCompletedUserByChef();
   Stream<QuerySnapshot<Map<String, dynamic>>> getCurrentOrderedUser(String id);
   Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentOrder(String docId);
+  void cancelOrder(String docId);
   void roadOrder(String docId);
   void qrStatus(String docId);
   void takeOrder(String docId);

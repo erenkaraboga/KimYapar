@@ -112,7 +112,7 @@ class _DeliveryProcesses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-      style: kBigStyle(context),
+      style: kBigStyle(),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: _timeline(context),
