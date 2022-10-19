@@ -9,11 +9,13 @@ class OrderModel {
   String? title;
   int? status;
   String? receivedUrl;
+  bool? completed;
 
   OrderModel();
 
   Map<String, dynamic> toMap() {
     return {
+      'completed': completed,
       'createdUser': createdUser,
       'receivedUser': receivedUser,
       'title': title,
@@ -33,5 +35,6 @@ class OrderModel {
         receivedUrl = doc.data()!["receivedUrl"],
         createdOn = doc.data()!["createdOn"],
         desc = doc.data()!["desc"],
-        adress = doc.data()!["adress"];
+        adress = doc.data()!["adress"],
+        completed = doc.data()!["completed"];
 }

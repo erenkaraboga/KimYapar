@@ -276,6 +276,7 @@ class _AddOrderState extends State<AddOrder> {
 
   AddOrderModel bindAddOrderModel() {
     var model = AddOrderModel();
+    model.completed=false;
     model.desc = detailController.text;
     model.title = titleController.text;
     model.adress =

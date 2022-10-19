@@ -22,12 +22,18 @@ class OrderController extends GetxController {
 
   OrderController(this.service, this.orderService);
 
-  getMyOrders() {
-    return orderService.getMyOrders();
+  getNotCompletedOrders() {
+    return orderService.getNotCompletedOrders();
   }
 
   addOrder(AddOrderModel model) {
     orderService.addOrder(model);
+  }
+  getCompletedOrders(){
+   return orderService.getCompletedOrders();
+  }
+  getCompletedOrdersByChef(){
+    return orderService.getCompletedUserByChef();
   }
 
   getNotTakenOrders() {

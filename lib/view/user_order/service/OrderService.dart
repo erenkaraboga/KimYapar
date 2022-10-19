@@ -11,25 +11,35 @@ class OrderService extends IOrderService {
   }
 
   @override
-  void addOrder(AddOrderModel model) async{
-   var response =  await getOrderRequest().add({
+  void addOrder(AddOrderModel model) async {
+    var response = await getOrderRequest().add({
       'createdOn': FieldValue.serverTimestamp(),
       'createdUser': super.service.auth.currentUser!.uid,
       'desc': model.desc,
       'receivedUser': "",
       'status': 0,
       'adress': model.adress,
-      'title':model.title
+      'title': model.title,
+      'completed': model.completed
     });
-   
   }
 
   @override
-  getMyOrders() {
+  getNotCompletedOrders() {
     var response = getOrderRequest()
         .where('createdUser', isEqualTo: super.service.auth.currentUser!.uid)
+        .where('completed', isEqualTo: false)
         .snapshots();
 
+    return response;
+  }
+
+  @override
+  getCompletedOrders() {
+    var response = getOrderRequest()
+        .where('createdUser', isEqualTo: super.service.auth.currentUser!.uid)
+        .where('completed', isEqualTo: true)
+        .snapshots();
     return response;
   }
 
@@ -42,11 +52,23 @@ class OrderService extends IOrderService {
   }
 
   @override
+  getCompletedUserByChef() {
+    var response = getOrderRequest()
+        .where('receivedUser', isEqualTo: super.service.auth.currentUser!.uid)
+        .where('completed', isEqualTo: true)
+        .snapshots();
+
+    return response;
+  }
+
+  @override
   getNotTakenOrders() {
     return getOrderRequest()
         .where("createdUser", isNotEqualTo: super.service.auth.currentUser!.uid)
         .where("receivedUser",
-            whereIn: ["", super.service.auth.currentUser!.uid]).snapshots();
+            whereIn: ["", super.service.auth.currentUser!.uid])
+        .where('completed', isEqualTo: false)
+        .snapshots();
   }
 
   @override
@@ -63,28 +85,25 @@ class OrderService extends IOrderService {
   @override
   finishOrder(String docId, String qr) {
     if (docId == qr) {
-     completeOrder(docId);
+      completeOrder(docId);
       return true;
     } else {
       return false;
     }
   }
-  
+
   @override
   void roadOrder(String docId) {
-    getOrderRequest().doc(docId).update(
-        {'status': 2});
+    getOrderRequest().doc(docId).update({'status': 2});
   }
-  
+
   @override
   void qrStatus(String docId) {
-     getOrderRequest().doc(docId).update(
-        {'status': 3});
+    getOrderRequest().doc(docId).update({'status': 3});
   }
-  
+
   @override
   void completeOrder(String docId) {
-    getOrderRequest().doc(docId).update(
-        {'status': 4});
+    getOrderRequest().doc(docId).update({'status': 4, 'completed': true});
   }
 }

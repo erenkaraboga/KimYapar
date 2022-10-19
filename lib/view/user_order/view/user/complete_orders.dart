@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kimyapar/core/constants/styles/container.dart';
 import 'package:kimyapar/product/extension/date.dart';
 import 'package:kimyapar/product/utilities/qr_code/qr_code_generator.dart';
+import 'package:kimyapar/product/widgets/order/appbar.dart';
 import 'package:kimyapar/view/login/viewmodel/controllers/loginController.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/user_order/view/user/timelinestatuspage.dart';
@@ -11,7 +12,6 @@ import 'package:kimyapar/view/user_order/view/user/timelinestatuspage.dart';
 import '../../../../core/constants/responsive.dart';
 import '../../../../core/constants/styles/text.dart';
 import '../../../../core/languages/tr.dart';
-import '../../../../product/widgets/order/appbar.dart';
 import '../../../../product/widgets/order/message.dart';
 import '../../../../product/widgets/order/orderStatus.dart';
 import '../../../../product/widgets/order/userAvatar.dart';
@@ -20,18 +20,18 @@ import '../../../chats/viewmodel/controller/chatcontroller.dart';
 import '../../model/ordermodel.dart';
 import '../../viewmodel/controllers/controller.dart';
 
-class Orders extends StatefulWidget {
-  const Orders({Key? key}) : super(key: key);
+class CompleteOrder extends StatefulWidget {
+  const CompleteOrder({Key? key}) : super(key: key);
 
   @override
-  State<Orders> createState() => _OrdersState();
+  State<CompleteOrder> createState() => _CompleteOrderState();
 }
 
 final orderController = Get.find<OrderController>();
 final loginController = Get.find<LoginController>();
 final chatController = Get.find<ChatController>();
 
-class _OrdersState extends State<Orders> {
+class _CompleteOrderState extends State<CompleteOrder> {
   @override
   void initState() {
     super.initState();
@@ -40,10 +40,10 @@ class _OrdersState extends State<Orders> {
   @override
   Widget build(BuildContext context) {
     loginController.getCurrentUser();
+    appBar("Tamamlanan Siparişler");
     return Scaffold(
-      appBar: appBarWithPath("Siparişlerim","/completeOrder"),
       body: StreamBuilder<QuerySnapshot>(
-        stream: orderController.getNotCompletedOrders(),
+        stream: orderController.getCompletedOrders(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

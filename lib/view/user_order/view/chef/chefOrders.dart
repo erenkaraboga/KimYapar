@@ -40,7 +40,7 @@ class _ChefOrderState extends State<ChefOrder> {
   Widget build(BuildContext context) {
     loginController.getCurrentUser();
     return Scaffold(
-      appBar: appBar("Siparişlerim"),
+      appBar: appBarWithPath("Gelen Siparişler", '/completeOrderChef'),
       body: StreamBuilder<QuerySnapshot>(
         stream: orderController.getNotTakenOrders(),
         builder: (context, snapshot) {

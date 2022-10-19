@@ -17,15 +17,14 @@ class _SwippableButtonUPState extends State<SwippableButtonUP> {
       buttonWidth: 90.0,
       color: Colors.black12,
       buttonColor: Colors.orange.shade200,
-      label: const Center(child: Text('Kayıt Ol')),
+      label: const Center(child: Text('Kayıt Ol ')),
       dismissible: false,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
-            Text('Giriş'),
-            
+            Text(' Giriş'),
           ],
         ),
       ),

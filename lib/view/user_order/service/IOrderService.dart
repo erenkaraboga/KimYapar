@@ -8,13 +8,14 @@ abstract class IOrderService {
   IOrderService(this.service);
   void addOrder(AddOrderModel model);
   Stream<QuerySnapshot<Map<String, dynamic>>> getNotTakenOrders();
-  Stream<QuerySnapshot<Map<String, dynamic>>> getMyOrders();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getNotCompletedOrders();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getCompletedOrders();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getCompletedUserByChef();
   Stream<QuerySnapshot<Map<String, dynamic>>> getCurrentOrderedUser(String id);
   Stream<DocumentSnapshot<Map<String, dynamic>>> getCurrentOrder(String docId);
   void roadOrder(String docId);
   void qrStatus(String docId);
   void takeOrder(String docId);
   void completeOrder(String docId);
-  
   finishOrder(String docId, String qr);
 }
