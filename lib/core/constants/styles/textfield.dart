@@ -42,6 +42,55 @@ orderBox(String text) {
       labelStyle: addOrder());
 }
 
+cardNumberDecoration() {
+  return InputDecoration(
+    labelText: 'Kart Numarası',
+    hintText: 'XXXX XXXX XXXX XXXX',
+    hintStyle: creditCardFieldsStyle(),
+    labelStyle: creditCardFieldsStyle(),
+    focusedBorder: creditCardFieldBorder(),
+    enabledBorder: creditCardFieldBorder(),
+  );
+}
+
+cvvNumberDecoration() {
+  return InputDecoration(
+    hintStyle: creditCardFieldsStyle(),
+    labelStyle: creditCardFieldsStyle(),
+    focusedBorder: creditCardFieldBorder(),
+    enabledBorder: creditCardFieldBorder(),
+    labelText: 'CVV',
+    hintText: 'XXX',
+  );
+}
+
+cardHolderDecoration() {
+  return InputDecoration(
+    hintStyle: creditCardFieldsStyle(),
+    labelStyle: creditCardFieldsStyle(),
+    focusedBorder: creditCardFieldBorder(),
+    enabledBorder: creditCardFieldBorder(),
+    labelText: 'Kart Sahibi',
+  );
+}
+
+expiryDateDecoration() {
+  return InputDecoration(
+    hintStyle: creditCardFieldsStyle(),
+    labelStyle: creditCardFieldsStyle(),
+    focusedBorder: creditCardFieldBorder(),
+    enabledBorder: creditCardFieldBorder(),
+    labelText: 'Kullanım Tarihi',
+    hintText: 'XX/XX',
+  );
+}
+creditCardFieldBorder(){
+  return OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.orange.withOpacity(0.9),
+        width: 1.0,
+      ));
+}
 orderFieldd() {
   return InputDecoration(
       hintStyle: const TextStyle(color: Colors.deepOrange),

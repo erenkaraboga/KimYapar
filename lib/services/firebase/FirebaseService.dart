@@ -7,12 +7,10 @@ class FirebaseService extends IFirebaseService {
   FirebaseService(super.auth, super.db);
 
   @override
-  Future<List<UserModel>> getAllUsers() async {
-    QuerySnapshot<Map<String, dynamic>> snapshot =
-        await super.db.collection("users").get();
-    return snapshot.docs
-        .map((docSnapshot) => UserModel.fromDocumentSnapshot(docSnapshot))
-        .toList();
+   Stream<QuerySnapshot<Map<String, dynamic>>>  getAllUsers()  {
+    var snapshot =
+         super.db.collection("users").snapshots();
+        return snapshot;
   }
 
   @override

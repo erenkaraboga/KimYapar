@@ -96,6 +96,7 @@ mapPanel(ScrollController sc, BuildContext context) {
                     child: _button("Çıkış Yap", Icons.logout, Colors.purple),
                     onTap: () {
                       loginController.signOut();
+                      Get.toNamed("/deneme");
                     },
                   ),
                 ],

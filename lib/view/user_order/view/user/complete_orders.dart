@@ -40,8 +40,9 @@ class _CompleteOrderState extends State<CompleteOrder> {
   @override
   Widget build(BuildContext context) {
     loginController.getCurrentUser();
-    appBar("Tamamlanan Siparişler");
+
     return Scaffold(
+      appBar: appBar("Tamamlanan Siparişler"),
       body: StreamBuilder<QuerySnapshot>(
         stream: orderController.getCompletedOrders(),
         builder: (context, snapshot) {

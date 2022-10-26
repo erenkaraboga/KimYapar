@@ -25,6 +25,7 @@ class LoginController extends GetxController {
   }
 
   _setInitialScreen(User? user) async {
+    await Future.delayed(const Duration(seconds: 2));
     if (user == null) {
       Get.offNamed("/signIn");
     } else {

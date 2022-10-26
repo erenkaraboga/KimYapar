@@ -9,6 +9,6 @@ abstract class IFirebaseService {
   //final FirebaseMessaging fcm;
   final FirebaseFirestore db;
   IFirebaseService(this.auth, this.db);
-  Future<List<UserModel>> getAllUsers();
+   Stream<QuerySnapshot<Map<String, dynamic>>>  getAllUsers();
   Future<UserModel> getCurrentUser(String id);
 }

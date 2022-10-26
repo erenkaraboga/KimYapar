@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:kimyapar/view/login/view/new/signIn.dart';
 import 'package:kimyapar/view/map/model/UserModel.dart';
 import 'package:kimyapar/view/map/service/IMapService.dart';
 
@@ -14,13 +15,14 @@ class MapService extends IMapService {
   }
   @override
   Future<List<UserModel>> filterGeo() async {
+    mapController.isLoading.value=true;
     List<UserModel> nearList = [];
     await super.service.getAllUsers().then((list) {
       nearList.addAll(list);
-  
       nearList.retainWhere((element) =>
           drawDistance(element.lat!, element.long, 40.599391, 33.610534) <
           2000000);
+           mapController.isLoading.value=false;
       //print("Yakındaki Aşçılar = " "${nearList.length}");
     });
     return nearList;

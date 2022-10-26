@@ -26,27 +26,32 @@ class MyAccount extends StatelessWidget {
             Card(
                 elevation: 4,
                 child: Column(
-                  children: const <Widget>[
-                    UserProfileActions(
+                  children: <Widget>[
+                    const UserProfileActions(
                       text: "İletişim",
                       icon: Icon(Icons.mail_outline, color: Color(0xFFF9893E)),
                     ),
-                    Divider(),
-                    UserProfileActions(
-                        text: "Ödeme Seçenekleri",
-                        icon: Icon(Icons.payment, color: Color(0xFFF9893E))),
-                    Divider(),
-                    UserProfileActions(
+                    const Divider(),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed("/credit");
+                      },
+                      child: const UserProfileActions(
+                          text: "Ödeme Seçenekleri",
+                          icon: Icon(Icons.payment, color: Color(0xFFF9893E))),
+                    ),
+                    const Divider(),
+                    const UserProfileActions(
                         text: "Yardım",
                         icon:
                             Icon(Icons.help_outline, color: Color(0xFFF9893E))),
-                    Divider(),
-                    UserProfileActions(
+                    const Divider(),
+                    const UserProfileActions(
                         text: "Hakkında",
                         icon:
                             Icon(Icons.info_outline, color: Color(0xFFF9893E))),
-                    Divider(),
-                    UserProfileActions(
+                    const Divider(),
+                    const UserProfileActions(
                         text: "Çıkış Yap",
                         icon: Icon(Icons.logout, color: Color(0xFFF9893E))),
                   ],

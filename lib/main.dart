@@ -30,7 +30,7 @@ import 'package:kimyapar/view/user_order/viewmodel/bindings/binding.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(KimYapar());
+  runApp(const KimYapar());
 }
 
 class KimYapar extends StatelessWidget {
@@ -42,7 +42,7 @@ class KimYapar extends StatelessWidget {
         theme: ThemeData(
           appBarTheme: AppBarTheme(backgroundColor: AppColors.appBarColor),
         ),
-        initialRoute: "/map",
+        initialRoute: "/loading",
         initialBinding: MapBinding(),
         getPages: appRoutes());
   }

@@ -5,6 +5,7 @@ import 'package:kimyapar/view/add_order/add_order.dart';
 import 'package:kimyapar/view/chats/view/chatdetails.dart';
 import 'package:kimyapar/view/chats/viewmodel/bindings/binding.dart';
 import 'package:kimyapar/view/deneme/deneme.dart';
+import 'package:kimyapar/view/loading/loading.dart';
 
 import 'package:kimyapar/view/login/view/SignIn.dart';
 import 'package:kimyapar/view/login/view/SignUp.dart';
@@ -24,10 +25,11 @@ import 'package:kimyapar/view/user_order/view/status/error.dart';
 import 'package:kimyapar/view/user_order/view/status/success.dart';
 import 'package:kimyapar/view/user_order/viewmodel/bindings/binding.dart';
 
+import '../../view/profile/view/credit_card.dart';
 import '../../view/user_order/view/chef/completedOrders.dart';
 
 appRoutes() => [
-      GetPage(name: "/deneme", page: () => const MyApp()),
+      GetPage(name: "/deneme", page: () => const ChefWidgets()),
       GetPage(
           name: "/map", page: () => const MapSelect(), binding: MapBinding()),
       GetPage(
@@ -49,6 +51,14 @@ appRoutes() => [
         page: () => const ChatDetail(),
         binding: ChatBinding(),
       ),
+      GetPage(
+          name: "/loading",
+          page: () => const Loading(),
+          transition: Transition.cupertino),
+      GetPage(
+          name: "/credit",
+          page: () => CreditCard(),
+          transition: Transition.cupertino),
       GetPage(
           name: "/order",
           page: () => const Orders(),

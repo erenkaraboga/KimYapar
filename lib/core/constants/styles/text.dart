@@ -56,6 +56,20 @@ ksmallTextStyleCancel() {
       fontSize: 9, color: const Color(0xFF8D8E98), fontStyle: FontStyle.italic);
 }
 
+ksmallTextStyleCredit() {
+  return GoogleFonts.aBeeZee(
+      fontSize: 14,
+      color: const Color(0xFF8D8E98),
+      fontStyle: FontStyle.italic);
+}
+
+creditCardFieldsStyle() {
+  return GoogleFonts.aBeeZee(
+      fontSize: 15,
+      color: const Color(0xFF8D8E98),
+      fontStyle: FontStyle.italic);
+}
+
 addOrder() {
   return GoogleFonts.aBeeZee(
     fontSize: 14,

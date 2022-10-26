@@ -15,7 +15,7 @@ cancelButtonOrder(OrderModel orderModel, String docId) {
             orderController.docId.value = docId;
             _dialog(orderModel);
           },
-          style: ElevatedButton.styleFrom(primary: Colors.red.shade400),
+          style: ElevatedButton.styleFrom(primary: const Color(0XFFA10035)),
           child: const Text("İptal et"),
         )
       : ElevatedButton(
