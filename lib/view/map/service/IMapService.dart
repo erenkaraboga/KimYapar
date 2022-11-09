@@ -8,5 +8,5 @@ abstract class IMapService {
   IMapService(this.service);
   Future<Position> determinePosition();
   double drawDistance(double lat, long, endLat, endLong);
-  Future<List<UserModel>> filterGeo();
+  Stream<List<DocumentSnapshot<Object?>>> filterGeo();
 }

@@ -11,6 +11,7 @@ import '../../../core/constants/styles/text.dart';
 import '../../../core/constants/styles/textfield.dart';
 import '../../../core/languages/tr.dart';
 import '../../../product/utilities/validate/validate.dart';
+import 'SignIn.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -28,6 +29,11 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController RpassController = TextEditingController();
   final loginController = Get.find<LoginController>();
   String password = "";
+  @override
+  void initState() {
+     mapController.getLocation();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var width2 = context.width * 0.85;

@@ -93,9 +93,9 @@ class _ChefOrderState extends State<ChefOrder> {
   }
 
   calculate(UserModel orderedModel) async {
-    var position = mapController.position.value;
+   /* var position = mapController.position.value;
     var distance = mapController.drawDistance(orderedModel.lat!,
-        orderedModel.long!, position.latitude, position.longitude);
+        orderedModel.long!, position.latitude, position.longitude);*/
     //print(distance);
   }
 

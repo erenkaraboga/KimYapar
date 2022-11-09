@@ -75,6 +75,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
       onPanelSlide: (double pos) => setState(() {
         _customInfoWindowController.hideInfoWindow!();
         _fabHeight =
+        
             pos * (_panelHeightOpen - _panelHeightClosed) + _initFabHeight;
       }),
     );
@@ -118,9 +119,11 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
       offset: 50,
     );
   }
+  listen(){
 
+  }
   Set<Marker> getMarkers(List<UserModel> list) {
-    for (var element in list) {
+    /*for (var element in list) {
       markers.add(Marker(
           markerId: MarkerId(element.id!.toString()),
           position: LatLng(element.lat!, element.long!),
@@ -130,7 +133,7 @@ class _MapSelectState extends State<MapSelect> with TickerProviderStateMixin {
                 LatLng(element.lat!, element.long!));
           },
           icon: BitmapDescriptor.defaultMarkerWithHue(45)));
-    }
+    }*/
     return markers;
   }
 }

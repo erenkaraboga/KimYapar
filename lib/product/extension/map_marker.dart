@@ -8,7 +8,7 @@ CustomInfoWindowController _customInfoWindowController =
     CustomInfoWindowController();
 
 extension MapMarkersExtension on List<UserModel> {
-  Set<Marker> toMarkers() {
+  /*Set<Marker> toMarkers() {
     return Set.of(map((e) => Marker(
           onTap: () {
             _customInfoWindowController.addInfoWindow!(
@@ -17,5 +17,5 @@ extension MapMarkersExtension on List<UserModel> {
           markerId: MarkerId(e.id.toString()),
           position: LatLng(e.lat!, e.long!),
         )));
-  }
+  }*/
 }

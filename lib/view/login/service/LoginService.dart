@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:kimyapar/view/login/service/ILoginService.dart';
@@ -9,7 +10,7 @@ import '../../map/viewmodel/controllers/mapController.dart';
 class LoginService extends ILoginService {
   LoginService(super.service);
   final mapController = Get.find<MapController>();
-
+  final geo = Geoflutterfire();
   @override
   Future<User?> login(String email, String password) async {
     var response = await super
@@ -27,13 +28,13 @@ class LoginService extends ILoginService {
           .service
           .auth
           .createUserWithEmailAndPassword(email: email, password: password);
+      GeoFirePoint myLocation = geo.point(latitude: mapController.position.value.latitude, longitude:mapController.position.value.longitude);
       String id = user.user!.uid;
       service.db.collection('users').doc(id).set({
         'id': id,
         'name': email,
-        'lat': mapController.position.value.latitude,
-        'long': mapController.position.value.longitude,
         'email': email,
+        'position':myLocation.data,
         'imageUrl':
             "https://res.cloudinary.com/dinqa9wqr/image/upload/v1663226962/indir_oj3zv3.png"
       });

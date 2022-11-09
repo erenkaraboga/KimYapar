@@ -14,18 +14,8 @@ class MapService extends IMapService {
     return Geolocator.distanceBetween(lat, long, endLat, endLong);
   }
   @override
-  Future<List<UserModel>> filterGeo() async {
-    mapController.isLoading.value=true;
-    List<UserModel> nearList = [];
-    await super.service.getAllUsers().then((list) {
-      nearList.addAll(list);
-      nearList.retainWhere((element) =>
-          drawDistance(element.lat!, element.long, 40.599391, 33.610534) <
-          2000000);
-           mapController.isLoading.value=false;
-      //print("Yakındaki Aşçılar = " "${nearList.length}");
-    });
-    return nearList;
+   Stream<List<DocumentSnapshot>> filterGeo()  {
+    return service.getAllUsers();
   }
   @override
   Future<Position> determinePosition() async {

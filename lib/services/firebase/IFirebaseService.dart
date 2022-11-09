@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 import '../../view/map/model/UserModel.dart';
 
 abstract class IFirebaseService {
@@ -9,6 +8,6 @@ abstract class IFirebaseService {
   //final FirebaseMessaging fcm;
   final FirebaseFirestore db;
   IFirebaseService(this.auth, this.db);
-   Stream<QuerySnapshot<Map<String, dynamic>>>  getAllUsers();
+   Stream<List<DocumentSnapshot>> getAllUsers();
   Future<UserModel> getCurrentUser(String id);
 }

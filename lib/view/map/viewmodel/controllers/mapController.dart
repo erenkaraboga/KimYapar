@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:kimyapar/services/firebase/IFirebaseService.dart';
@@ -30,9 +33,9 @@ class MapController extends GetxController {
     return mapService.drawDistance(lat, long, endLat, endLong);
   }
   fetchFilteredUser() async {
-    final response = await mapService.filterGeo();
-    list.value = response;
-
+   mapService.service.getAllUsers().listen((List<DocumentSnapshot> documentList) {
+      inspect(documentList);
+    });
   }
   Future<Position> determinePosition()async{
    return await mapService.determinePosition();

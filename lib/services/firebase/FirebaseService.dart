@@ -1,16 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:get/get.dart';
 import 'package:kimyapar/services/firebase/IFirebaseService.dart';
 
 import '../../view/map/model/UserModel.dart';
+import '../../view/map/view/mapPage.dart';
+import '../../view/map/viewmodel/controllers/mapController.dart';
 
 class FirebaseService extends IFirebaseService {
   FirebaseService(super.auth, super.db);
+final geo = Geoflutterfire();
 
+double radius = 40;
+String field = 'position';
   @override
-   Stream<QuerySnapshot<Map<String, dynamic>>>  getAllUsers()  {
-    var snapshot =
-         super.db.collection("users").snapshots();
-        return snapshot;
+    Stream<List<DocumentSnapshot>> getAllUsers()  {
+    GeoFirePoint myLocation = geo.point(latitude: mapController.position.value.latitude, longitude:mapController.position.value.longitude);
+    return geo
+        .collection(collectionRef: super.db.collection("users"))
+        .within(center: myLocation, radius: radius, field: field);
   }
 
   @override
