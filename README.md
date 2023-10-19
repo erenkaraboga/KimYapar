@@ -15,5 +15,9 @@
     #  Getx State Management
     #  Lottie
     #  It is written as cleanly as possible.
+# Version v1.0.1 images.
+![Adsız tasarım (2)](https://user-images.githubusercontent.com/74095539/205924873-f2ed3ae5-bed7-4b57-ada8-2f0971acf2aa.png)
+
+# Version v1.0.0 images.
 ![Başlıksız-1](https://user-images.githubusercontent.com/74095539/187048833-8ae20c0e-ba3e-43f8-82d4-8554fcc2e954.jpg)
 
